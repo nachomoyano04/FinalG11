@@ -6,7 +6,6 @@ package controladoras;
 
 import entidades.Miembro;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -70,6 +69,33 @@ public class MiembroData {
         }
         return miembro;
     }
+    
+    public Miembro buscarMiembroPorDni(int dni) {
+        Miembro miembro = null;
+        String sql = "SELECT idMiembro, dni, apellido, nombre, fechaNacimiento, estado FROM alumno WHERE dni=?";
+        PreparedStatement ps = null;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1,dni );
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                miembro = new Miembro();
+                miembro.setIdMiembro(rs.getInt("id_alumno"));
+                miembro.setDni(rs.getInt("dni"));
+                miembro.setApellido(rs.getString("apellido"));
+                miembro.setNombre(rs.getString("nombre"));
+                miembro.setEstado(rs.getBoolean("estado"));
+                System.out.println("estado: "+rs.getBoolean("estado"));
+            } else {
+                JOptionPane.showMessageDialog(null, "No existe el miembro");
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Alumno "+ex.getMessage());
+        }
+        return miembro;
+    }
+    
     
     
 }
