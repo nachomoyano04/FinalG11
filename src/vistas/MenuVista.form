@@ -8,14 +8,14 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Proyecto"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmProyectoActionPerformed"/>
-          </Events>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jmiCrearProyecto">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Crear proyecto"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiCrearProyectoActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>

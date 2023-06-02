@@ -46,13 +46,13 @@ public class MenuVista extends javax.swing.JFrame {
         );
 
         jmProyecto.setText("Proyecto");
-        jmProyecto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmProyectoActionPerformed(evt);
-            }
-        });
 
         jmiCrearProyecto.setText("Crear proyecto");
+        jmiCrearProyecto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiCrearProyectoActionPerformed(evt);
+            }
+        });
         jmProyecto.add(jmiCrearProyecto);
 
         jMenuBar1.add(jmProyecto);
@@ -82,7 +82,7 @@ public class MenuVista extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jmProyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmProyectoActionPerformed
+    private void jmiCrearProyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCrearProyectoActionPerformed
         // TODO add your handling code here:
         escritorio.removeAll();
         escritorio.repaint();
@@ -90,7 +90,7 @@ public class MenuVista extends javax.swing.JFrame {
         vistaProyecto.setVisible(true);
         escritorio.add(vistaProyecto);
         escritorio.moveToFront(vistaProyecto);
-    }//GEN-LAST:event_jmProyectoActionPerformed
+    }//GEN-LAST:event_jmiCrearProyectoActionPerformed
 
     /**
      * @param args the command line arguments

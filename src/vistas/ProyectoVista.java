@@ -6,10 +6,7 @@ package vistas;
 
 import controladoras.ProyectoData;
 import entidades.Proyecto;
-import static java.lang.Integer.parseInt;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
 /**
  *
  * @author TECNOVENTAS
@@ -42,7 +39,7 @@ public class ProyectoVista extends javax.swing.JInternalFrame {
         jtfEstado = new javax.swing.JTextField();
         btnSalir = new javax.swing.JButton();
         btnCrear = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnActualizar = new javax.swing.JButton();
 
         jlTitulo.setFont(new java.awt.Font("Consolas", 1, 36)); // NOI18N
         jlTitulo.setText("Proyecto");
@@ -73,7 +70,12 @@ public class ProyectoVista extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton1.setText("ACTUALIZAR");
+        btnActualizar.setText("ACTUALIZAR");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -99,7 +101,7 @@ public class ProyectoVista extends javax.swing.JInternalFrame {
                             .addComponent(jtfEstado)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jButton1)
+                        .addComponent(btnActualizar)
                         .addGap(18, 18, 18)
                         .addComponent(btnCrear, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -131,7 +133,7 @@ public class ProyectoVista extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalir)
                     .addComponent(btnCrear)
-                    .addComponent(jButton1))
+                    .addComponent(btnActualizar))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
 
@@ -153,11 +155,23 @@ public class ProyectoVista extends javax.swing.JInternalFrame {
         pd.crearProyecto(proyecto);
     }//GEN-LAST:event_btnCrearActionPerformed
 
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        // TODO add your handling code here:
+        Proyecto proyecto = new Proyecto();
+        ProyectoData pd = new ProyectoData();
+         if (!jtfNombreProyecto.getText().equals("")){
+            proyecto.setNombre(jtfNombreProyecto.getText());
+            proyecto.setDescripcion(jtaDescripcion.getText());
+            proyecto.setFechaInicio(LocalDate.parse(jdcFechaInicio.getDateFormatString()));
+            pd.modificarDatosProyecto(proyecto);
+        }
+    }//GEN-LAST:event_btnActualizarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnCrear;
     private javax.swing.JButton btnSalir;
-    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private com.toedter.calendar.JDateChooser jdcFechaInicio;
     private javax.swing.JLabel jlDescripcion;
