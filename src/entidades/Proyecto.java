@@ -4,7 +4,7 @@
  */
 package entidades;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 /**
  *
@@ -15,20 +15,20 @@ public class Proyecto {
     private int idProyecto;
     private String nombre;
     private String descripcion;
-    private Date fechaInicio;
+    private LocalDate fechaInicio;
     private boolean estado;
 
     public Proyecto() {
     }
 
-    public Proyecto(String nombre, String descripcion, Date fechaInicio, boolean estado) {
+    public Proyecto(String nombre, String descripcion, LocalDate fechaInicio, boolean estado) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.fechaInicio = fechaInicio;
         this.estado = estado;
     }
 
-    public Proyecto(int idProyecto, String nombre, String descripcion, Date fechaInicio, boolean estado) {
+    public Proyecto(int idProyecto, String nombre, String descripcion, LocalDate fechaInicio, boolean estado) {
         this.idProyecto = idProyecto;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -60,11 +60,11 @@ public class Proyecto {
         this.descripcion = descripcion;
     }
 
-    public Date getFechaInicio() {
+    public LocalDate getFechaInicio() {
         return fechaInicio;
     }
 
-    public void setFechaInicio(Date fechaInicio) {
+    public void setFechaInicio(LocalDate fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 
