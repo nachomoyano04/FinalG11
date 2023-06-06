@@ -28,6 +28,7 @@ public class MenuVista extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jmProyecto = new javax.swing.JMenu();
         jmiCrearProyecto = new javax.swing.JMenuItem();
+        jmiModificarProyecto = new javax.swing.JMenuItem();
         jmTarea = new javax.swing.JMenu();
         jmEquipos = new javax.swing.JMenu();
         jmMiembro = new javax.swing.JMenu();
@@ -54,6 +55,14 @@ public class MenuVista extends javax.swing.JFrame {
             }
         });
         jmProyecto.add(jmiCrearProyecto);
+
+        jmiModificarProyecto.setText("Modificar Datos");
+        jmiModificarProyecto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiModificarProyectoActionPerformed(evt);
+            }
+        });
+        jmProyecto.add(jmiModificarProyecto);
 
         jMenuBar1.add(jmProyecto);
 
@@ -91,6 +100,16 @@ public class MenuVista extends javax.swing.JFrame {
         escritorio.add(vistaProyecto);
         escritorio.moveToFront(vistaProyecto);
     }//GEN-LAST:event_jmiCrearProyectoActionPerformed
+
+    private void jmiModificarProyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiModificarProyectoActionPerformed
+        // TODO add your handling code here:
+        escritorio.removeAll();
+        escritorio.repaint();
+        ModificarProyecto vistaProyecto = new ModificarProyecto();
+        vistaProyecto.setVisible(true);
+        escritorio.add(vistaProyecto);
+        escritorio.moveToFront(vistaProyecto);
+    }//GEN-LAST:event_jmiModificarProyectoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -135,5 +154,6 @@ public class MenuVista extends javax.swing.JFrame {
     private javax.swing.JMenu jmProyecto;
     private javax.swing.JMenu jmTarea;
     private javax.swing.JMenuItem jmiCrearProyecto;
+    private javax.swing.JMenuItem jmiModificarProyecto;
     // End of variables declaration//GEN-END:variables
 }

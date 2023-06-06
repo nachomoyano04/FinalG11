@@ -7,6 +7,8 @@ package vistas;
 import controladoras.ProyectoData;
 import entidades.Proyecto;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import javax.swing.JOptionPane;
 /**
  *
  * @author TECNOVENTAS
@@ -18,6 +20,8 @@ public class ProyectoVista extends javax.swing.JInternalFrame {
      */
     public ProyectoVista() {
         initComponents();
+        btngEstadoProyecto.add(jrbEstadoActivo);
+        btngEstadoProyecto.add(jrbEstadoInactivo);
     }
 
     /**
@@ -27,6 +31,7 @@ public class ProyectoVista extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btngEstadoProyecto = new javax.swing.ButtonGroup();
         jlTitulo = new javax.swing.JLabel();
         jlNombreProyecto = new javax.swing.JLabel();
         jtfNombreProyecto = new javax.swing.JTextField();
@@ -36,13 +41,18 @@ public class ProyectoVista extends javax.swing.JInternalFrame {
         jlFechaInicio = new javax.swing.JLabel();
         jdcFechaInicio = new com.toedter.calendar.JDateChooser();
         jlEstado = new javax.swing.JLabel();
-        jtfEstado = new javax.swing.JTextField();
         btnSalir = new javax.swing.JButton();
         btnCrear = new javax.swing.JButton();
-        btnActualizar = new javax.swing.JButton();
+        jrbEstadoActivo = new javax.swing.JRadioButton();
+        jrbEstadoInactivo = new javax.swing.JRadioButton();
+        btnNuevoProyecto = new javax.swing.JButton();
+        jlIdProyecto = new javax.swing.JLabel();
+        jlIdGenerada = new javax.swing.JLabel();
+
+        setBorder(new javax.swing.border.MatteBorder(null));
 
         jlTitulo.setFont(new java.awt.Font("Consolas", 1, 36)); // NOI18N
-        jlTitulo.setText("Proyecto");
+        jlTitulo.setText("Datos de Proyecto");
 
         jlNombreProyecto.setText("NOMBRE DEL PROYECTO:");
 
@@ -53,6 +63,8 @@ public class ProyectoVista extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(jtaDescripcion);
 
         jlFechaInicio.setText("FECHA DE INICIO:");
+
+        jdcFechaInicio.setDateFormatString("dd-MM-yyyy");
 
         jlEstado.setText("ESTADO:");
 
@@ -70,50 +82,69 @@ public class ProyectoVista extends javax.swing.JInternalFrame {
             }
         });
 
-        btnActualizar.setText("ACTUALIZAR");
-        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+        jrbEstadoActivo.setText("Proyecto Activo");
+
+        jrbEstadoInactivo.setText("Proyecto Inactivo");
+
+        btnNuevoProyecto.setText("NUEVO PROYECTO");
+        btnNuevoProyecto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnActualizarActionPerformed(evt);
+                btnNuevoProyectoActionPerformed(evt);
             }
         });
+
+        jlIdProyecto.setText("ID DE PROYECTO GENERADA");
+
+        jlIdGenerada.setFont(new java.awt.Font("Bahnschrift", 1, 36)); // NOI18N
+        jlIdGenerada.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jlTitulo)
+                .addGap(114, 114, 114))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(194, 194, 194)
-                        .addComponent(jlTitulo))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(49, 49, 49)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jlNombreProyecto)
-                            .addComponent(jlDescripcion)
-                            .addComponent(jlFechaInicio)
-                            .addComponent(jlEstado))
-                        .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(255, 255, 255)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jtfNombreProyecto)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE)
                             .addComponent(jdcFechaInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jtfEstado)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnActualizar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnCrear, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jrbEstadoActivo)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jrbEstadoInactivo))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGap(49, 49, 49)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jlNombreProyecto)
+                                    .addComponent(jlDescripcion)
+                                    .addComponent(jlFechaInicio)
+                                    .addComponent(jlEstado)
+                                    .addComponent(jlIdProyecto))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jlIdGenerada, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(228, 228, 228)
+                                .addComponent(btnNuevoProyecto)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnCrear, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(55, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
+                .addGap(34, 34, 34)
                 .addComponent(jlTitulo)
-                .addGap(27, 27, 27)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlNombreProyecto)
                     .addComponent(jtfNombreProyecto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -126,15 +157,21 @@ public class ProyectoVista extends javax.swing.JInternalFrame {
                     .addComponent(jlFechaInicio)
                     .addComponent(jdcFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jlEstado)
+                        .addComponent(jrbEstadoActivo))
+                    .addComponent(jrbEstadoInactivo))
+                .addGap(46, 46, 46)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jlEstado)
-                    .addComponent(jtfEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(63, 63, 63)
+                    .addComponent(jlIdProyecto)
+                    .addComponent(jlIdGenerada, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalir)
                     .addComponent(btnCrear)
-                    .addComponent(btnActualizar))
-                .addContainerGap(25, Short.MAX_VALUE))
+                    .addComponent(btnNuevoProyecto))
+                .addGap(32, 32, 32))
         );
 
         pack();
@@ -147,40 +184,63 @@ public class ProyectoVista extends javax.swing.JInternalFrame {
 
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
         // TODO add your handling code here:
+        java.util.Date fecha = jdcFechaInicio.getDate();
         Proyecto proyecto = new Proyecto();
         ProyectoData pd = new ProyectoData();
-        proyecto.setNombre(jtfNombreProyecto.getText());
-        proyecto.setFechaInicio(LocalDate.parse(jdcFechaInicio.getDateFormatString()));
-        proyecto.setEstado(true);
+        if (jtfNombreProyecto.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "El campo Nombre del Proyecto es obligatorio", "Error", JOptionPane.ERROR_MESSAGE);
+        }else{
+            proyecto.setNombre(jtfNombreProyecto.getText());
+        }
+        if (jtaDescripcion.getText().isEmpty()) {
+        JOptionPane.showMessageDialog(this, "El campo Descripción es obligatorio", "Error", JOptionPane.ERROR_MESSAGE);
+        }else{
+            proyecto.setDescripcion(jtaDescripcion.getText());
+        }
+        if (fecha == null) {
+        JOptionPane.showMessageDialog(this, "Debe seleccionar una fecha de inicio válida", "Error", JOptionPane.ERROR_MESSAGE);
+        }else{
+            LocalDate inicio = fecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            proyecto.setFechaInicio(inicio);
+        }
+        if (!jrbEstadoActivo.isSelected() && !jrbEstadoInactivo.isSelected()) {
+        JOptionPane.showMessageDialog(this, "Debe seleccionar un estado para el proyecto", "Error", JOptionPane.ERROR_MESSAGE);
+        }else if(jrbEstadoActivo.isSelected()){
+            proyecto.setEstado(true);        
+        }else{
+            proyecto.setEstado(false);
+        }
         pd.crearProyecto(proyecto);
+        jlIdGenerada.setText(String.valueOf(proyecto.getIdProyecto()));
     }//GEN-LAST:event_btnCrearActionPerformed
 
-    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+    private void btnNuevoProyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoProyectoActionPerformed
         // TODO add your handling code here:
-        Proyecto proyecto = new Proyecto();
-        ProyectoData pd = new ProyectoData();
-         if (!jtfNombreProyecto.getText().equals("")){
-            proyecto.setNombre(jtfNombreProyecto.getText());
-            proyecto.setDescripcion(jtaDescripcion.getText());
-            proyecto.setFechaInicio(LocalDate.parse(jdcFechaInicio.getDateFormatString()));
-            pd.modificarDatosProyecto(proyecto);
-        }
-    }//GEN-LAST:event_btnActualizarActionPerformed
+        jtfNombreProyecto.setText("");
+        jtaDescripcion.setText("");
+        jdcFechaInicio.setDate(null);
+        btngEstadoProyecto.clearSelection();
+        jlIdGenerada.setText("");
+    }//GEN-LAST:event_btnNuevoProyectoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnCrear;
+    private javax.swing.JButton btnNuevoProyecto;
     private javax.swing.JButton btnSalir;
+    private javax.swing.ButtonGroup btngEstadoProyecto;
     private javax.swing.JScrollPane jScrollPane1;
     private com.toedter.calendar.JDateChooser jdcFechaInicio;
     private javax.swing.JLabel jlDescripcion;
     private javax.swing.JLabel jlEstado;
     private javax.swing.JLabel jlFechaInicio;
+    private javax.swing.JLabel jlIdGenerada;
+    private javax.swing.JLabel jlIdProyecto;
     private javax.swing.JLabel jlNombreProyecto;
     private javax.swing.JLabel jlTitulo;
+    private javax.swing.JRadioButton jrbEstadoActivo;
+    private javax.swing.JRadioButton jrbEstadoInactivo;
     private javax.swing.JTextArea jtaDescripcion;
-    private javax.swing.JTextField jtfEstado;
     private javax.swing.JTextField jtfNombreProyecto;
     // End of variables declaration//GEN-END:variables
 }
