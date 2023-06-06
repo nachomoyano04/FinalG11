@@ -43,7 +43,7 @@ public class ProyectoData {
             } 
             ps.close();            
         } catch (SQLException ex) {
-           JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Proyecto"+ex.getMessage());
+           JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Proyecto");
         }
     }
     
@@ -68,24 +68,85 @@ public class ProyectoData {
         return proyectos;
     }
     
+    public Proyecto buscarProyecto(int id) {
+        Proyecto proyecto = null;
+        String sql = "SELECT nombre, descripcion, fechaInicio, estado FROM proyecto WHERE idProyecto=?";
+        PreparedStatement ps = null;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1,id );
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                proyecto = new Proyecto();
+                proyecto.setNombre(rs.getString("nombre"));
+                proyecto.setDescripcion(rs.getString("descripcion"));
+                proyecto.setFechaInicio(rs.getDate("fechaInicio").toLocalDate());
+                proyecto.setEstado(rs.getBoolean("estado"));
+            } else {
+                JOptionPane.showMessageDialog(null, "No existe el proyecto");
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla proyecto "+ex.getMessage());
+        }
+        return proyecto;
+    }
+    
     public void modificarDatosProyecto(Proyecto proyecto) {
 
-        String sql = "UPDATE proyecto SET nombre = ?, descricpion = ? WHERE  idProyecto = ?";
+        String sql = "UPDATE proyecto SET nombre = ?, descripcion = ?, fechaInicio = ? WHERE  idProyecto = ?";
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, proyecto.getNombre());
-            ps.setDate(2, Date.valueOf(proyecto.getFechaInicio()));            
-            ps.setInt(3, proyecto.getIdProyecto());
+            ps.setString(2,proyecto.getDescripcion());
+            ps.setDate(3, Date.valueOf(proyecto.getFechaInicio())); 
+            ps.setInt(4, proyecto.getIdProyecto());
             int modificar = ps.executeUpdate();
-            if (modificar == 1) {
+            if (modificar == 1){
                 JOptionPane.showMessageDialog(null, "Modificado Exitosamente.");
-            }else {
+            }else{
                 JOptionPane.showMessageDialog(null, "El proyecto no existe");
             }
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Proyecto "+ex.getMessage());
+        }
+    }
+    
+    public void inactivarProyecto(int id) {
+
+        try {
+            if(this.buscarProyecto(id).isEstado()){
+                String sql = "UPDATE proyecto SET estado = 0 WHERE idProyecto = ? ";
+                PreparedStatement ps = con.prepareStatement(sql);
+                ps.setInt(1, id);
+                int inactivar = ps.executeUpdate();          
+                if(inactivar == 1){
+                    JOptionPane.showMessageDialog(null, " Se inactivo el proyecto.");
+                }
+                ps.close();            
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, " Error al acceder a la tabla Proyecto");
+        }
+    }
+
+    public void activarProyecto(int id) {
+
+        try {
+            if(!this.buscarProyecto(id).isEstado()){
+                String sql = "UPDATE proyecto SET estado = 1 WHERE idProyecto = ? ";
+                PreparedStatement ps = con.prepareStatement(sql);
+                ps.setInt(1, id);
+                int activar = ps.executeUpdate();
+                if(activar == 1){
+                    JOptionPane.showMessageDialog(null, " Se activo el proyecto.");
+                }
+                ps.close();
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, " Error al acceder a la tabla Proyecto");
         }
     }
     
