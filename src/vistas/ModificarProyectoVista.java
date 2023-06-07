@@ -15,12 +15,12 @@ import javax.swing.JOptionPane;
  *
  * @author TECNOVENTAS
  */
-public class ModificarProyecto extends javax.swing.JInternalFrame {
+public class ModificarProyectoVista extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form ModificarProyecto
      */
-    public ModificarProyecto() {
+    public ModificarProyectoVista() {
         initComponents();
         btngEstadoProyecto.add(jrbEstadoActivo);
         btngEstadoProyecto.add(jrbEstadoInactivo);

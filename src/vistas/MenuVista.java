@@ -28,10 +28,12 @@ public class MenuVista extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jmProyecto = new javax.swing.JMenu();
         jmiCrearProyecto = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jmiModificarProyecto = new javax.swing.JMenuItem();
         jmTarea = new javax.swing.JMenu();
         jmEquipos = new javax.swing.JMenu();
         jmMiembro = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -55,6 +57,7 @@ public class MenuVista extends javax.swing.JFrame {
             }
         });
         jmProyecto.add(jmiCrearProyecto);
+        jmProyecto.add(jSeparator1);
 
         jmiModificarProyecto.setText("Modificar Datos");
         jmiModificarProyecto.addActionListener(new java.awt.event.ActionListener() {
@@ -73,6 +76,15 @@ public class MenuVista extends javax.swing.JFrame {
         jMenuBar1.add(jmEquipos);
 
         jmMiembro.setText("Miembro");
+        jmMiembro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmMiembroActionPerformed(evt);
+            }
+        });
+
+        jMenuItem1.setText("Ingresar Miembro");
+        jmMiembro.add(jMenuItem1);
+
         jMenuBar1.add(jmMiembro);
 
         setJMenuBar(jMenuBar1);
@@ -95,7 +107,7 @@ public class MenuVista extends javax.swing.JFrame {
         // TODO add your handling code here:
         escritorio.removeAll();
         escritorio.repaint();
-        ProyectoVista vistaProyecto = new ProyectoVista();
+        CrearProyectoVista vistaProyecto = new CrearProyectoVista();
         vistaProyecto.setVisible(true);
         escritorio.add(vistaProyecto);
         escritorio.moveToFront(vistaProyecto);
@@ -105,11 +117,21 @@ public class MenuVista extends javax.swing.JFrame {
         // TODO add your handling code here:
         escritorio.removeAll();
         escritorio.repaint();
-        ModificarProyecto vistaProyecto = new ModificarProyecto();
-        vistaProyecto.setVisible(true);
-        escritorio.add(vistaProyecto);
-        escritorio.moveToFront(vistaProyecto);
+        ModificarProyectoVista vistaModificarProyecto = new ModificarProyectoVista();
+        vistaModificarProyecto.setVisible(true);
+        escritorio.add(vistaModificarProyecto);
+        escritorio.moveToFront(vistaModificarProyecto);
     }//GEN-LAST:event_jmiModificarProyectoActionPerformed
+
+    private void jmMiembroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmMiembroActionPerformed
+        // TODO add your handling code here:
+        escritorio.removeAll();
+        escritorio.repaint();
+        IngresarMiembroVista vistaIngresarMiembro = new IngresarMiembroVista();
+        vistaIngresarMiembro.setVisible(true);
+        escritorio.add(vistaIngresarMiembro);
+        escritorio.moveToFront(vistaIngresarMiembro);
+    }//GEN-LAST:event_jmMiembroActionPerformed
 
     /**
      * @param args the command line arguments
@@ -149,6 +171,8 @@ public class MenuVista extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane escritorio;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JMenu jmEquipos;
     private javax.swing.JMenu jmMiembro;
     private javax.swing.JMenu jmProyecto;

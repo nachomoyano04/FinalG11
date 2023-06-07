@@ -13,12 +13,12 @@ import javax.swing.JOptionPane;
  *
  * @author TECNOVENTAS
  */
-public class ProyectoVista extends javax.swing.JInternalFrame {
+public class CrearProyectoVista extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form ProyectoVista
      */
-    public ProyectoVista() {
+    public CrearProyectoVista() {
         initComponents();
         btngEstadoProyecto.add(jrbEstadoActivo);
         btngEstadoProyecto.add(jrbEstadoInactivo);

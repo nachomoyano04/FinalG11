@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -96,6 +97,60 @@ public class MiembroData {
         return miembro;
     }
     
+    public ArrayList<Miembro> listarMiembros() {
+        ArrayList<Miembro> miembros = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM miembro WHERE estado = 1 ";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Miembro miembro = new Miembro();
+                miembro.setIdMiembro(rs.getInt("idMiembro"));
+                miembro.setDni(rs.getInt("dni"));
+                miembro.setApellido(rs.getString("apellido"));
+                miembro.setNombre(rs.getString("nombre"));
+                miembro.setEstado(rs.getBoolean("estado"));
+                miembros.add(miembro);
+            }
+            ps.close();           
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, " Error al acceder a la tabla Miembro "+ex.getMessage());
+        }
+        return miembros;
+    }
     
+    public void inactivarMiembro(int id) {
+        try {
+            if(this.buscarMiembroPorId(id).isEstado()){
+                String sql = "UPDATE miembro SET estado = 0 WHERE idMiembro = ? ";
+                PreparedStatement ps = con.prepareStatement(sql);
+                ps.setInt(1, id);
+                int inactivar = ps.executeUpdate();          
+                if(inactivar == 1){
+                    JOptionPane.showMessageDialog(null, " Miembro Inactivo.");
+                }
+                ps.close();            
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, " Error al acceder a la tabla Miembro");
+        }
+    }
+
+    public void activarMiembro(int id) {
+        try {
+            if(!this.buscarMiembroPorId(id).isEstado()){
+                String sql = "UPDATE miembro SET estado = 1 WHERE idMiembro = ? ";
+                PreparedStatement ps = con.prepareStatement(sql);
+                ps.setInt(1, id);
+                int activar = ps.executeUpdate();
+                if(activar == 1){
+                    JOptionPane.showMessageDialog(null, " Miembro Activo.");
+                }
+                ps.close();
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, " Error al acceder a la tabla Miembro");
+        }
+    }
     
 }
