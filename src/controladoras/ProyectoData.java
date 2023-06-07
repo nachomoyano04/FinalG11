@@ -115,7 +115,6 @@ public class ProyectoData {
     }
     
     public void inactivarProyecto(int id) {
-
         try {
             if(this.buscarProyecto(id).isEstado()){
                 String sql = "UPDATE proyecto SET estado = 0 WHERE idProyecto = ? ";
@@ -133,7 +132,6 @@ public class ProyectoData {
     }
 
     public void activarProyecto(int id) {
-
         try {
             if(!this.buscarProyecto(id).isEstado()){
                 String sql = "UPDATE proyecto SET estado = 1 WHERE idProyecto = ? ";

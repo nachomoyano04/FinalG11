@@ -4,6 +4,11 @@
  */
 package vistas;
 
+import controladoras.MiembroData;
+import entidades.Miembro;
+import static java.lang.Integer.parseInt;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author TECNOVENTAS
@@ -15,6 +20,8 @@ public class IngresarMiembroVista extends javax.swing.JInternalFrame {
      */
     public IngresarMiembroVista() {
         initComponents();
+        btngEstadoMiembro.add(jrbEstadoActivo);
+        btngEstadoMiembro.add(jrbEstadoInactivo);
     }
 
     /**
@@ -24,21 +31,197 @@ public class IngresarMiembroVista extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btngEstadoMiembro = new javax.swing.ButtonGroup();
+        jlTitulo = new javax.swing.JLabel();
+        jlNombreMiembro = new javax.swing.JLabel();
+        jtfNombreMiembro = new javax.swing.JTextField();
+        jlApellidoMiembro = new javax.swing.JLabel();
+        jtfApellidoMiembro = new javax.swing.JTextField();
+        jlDni = new javax.swing.JLabel();
+        jtfDniMiembro = new javax.swing.JTextField();
+        jlEstadoMiembro = new javax.swing.JLabel();
+        jrbEstadoActivo = new javax.swing.JRadioButton();
+        jrbEstadoInactivo = new javax.swing.JRadioButton();
+        jlIdMiembro = new javax.swing.JLabel();
+        jlIdGenerada = new javax.swing.JLabel();
+        jbtnSalir = new javax.swing.JButton();
+        jbtnGuardar = new javax.swing.JButton();
+        jbtnNuevo = new javax.swing.JButton();
+
+        jlTitulo.setFont(new java.awt.Font("Consolas", 1, 36)); // NOI18N
+        jlTitulo.setText("Ingresar Datos");
+
+        jlNombreMiembro.setText("NOMBRE:");
+
+        jlApellidoMiembro.setText("APELLIDO:");
+
+        jlDni.setText("DNI:");
+
+        jlEstadoMiembro.setText("ESTADO:");
+
+        jrbEstadoActivo.setText("Miembro Activo");
+
+        jrbEstadoInactivo.setText("Miembro Inactivo");
+
+        jlIdMiembro.setText("ID DE MIEMBRO GENERADA:");
+
+        jlIdGenerada.setFont(new java.awt.Font("Bahnschrift", 1, 36)); // NOI18N
+        jlIdGenerada.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+
+        jbtnSalir.setText("SALIR");
+        jbtnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnSalirActionPerformed(evt);
+            }
+        });
+
+        jbtnGuardar.setText("GUARDAR");
+        jbtnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnGuardarActionPerformed(evt);
+            }
+        });
+
+        jbtnNuevo.setText("NUEVO");
+        jbtnNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnNuevoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 606, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(58, 58, 58)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jlIdMiembro)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                            .addComponent(jlIdGenerada, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jlNombreMiembro)
+                                .addComponent(jlApellidoMiembro)
+                                .addComponent(jlDni)
+                                .addComponent(jlEstadoMiembro))
+                            .addGap(34, 34, 34)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jrbEstadoActivo)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 124, Short.MAX_VALUE)
+                                    .addComponent(jrbEstadoInactivo))
+                                .addComponent(jlTitulo)
+                                .addComponent(jtfNombreMiembro)
+                                .addComponent(jtfApellidoMiembro)
+                                .addComponent(jtfDniMiembro))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jbtnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jbtnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jbtnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(61, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 631, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(43, 43, 43)
+                .addComponent(jlTitulo)
+                .addGap(33, 33, 33)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlNombreMiembro)
+                    .addComponent(jtfNombreMiembro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlApellidoMiembro)
+                    .addComponent(jtfApellidoMiembro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlDni)
+                    .addComponent(jtfDniMiembro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlEstadoMiembro)
+                    .addComponent(jrbEstadoActivo)
+                    .addComponent(jrbEstadoInactivo))
+                .addGap(35, 35, 35)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlIdMiembro)
+                    .addComponent(jlIdGenerada, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbtnSalir)
+                    .addComponent(jbtnGuardar)
+                    .addComponent(jbtnNuevo))
+                .addGap(36, 36, 36))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jbtnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnSalirActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_jbtnSalirActionPerformed
+
+    private void jbtnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnGuardarActionPerformed
+        // TODO add your handling code here:
+        Miembro miembro = new Miembro();
+        MiembroData md = new MiembroData();
+        if (jtfNombreMiembro.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "El campo Nombre del miembro es obligatorio", "Error", JOptionPane.ERROR_MESSAGE);
+        }else{
+            miembro.setNombre(jtfNombreMiembro.getText());
+        }
+        if (jtfApellidoMiembro.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "El campo Apellido del miembro es obligatorio", "Error", JOptionPane.ERROR_MESSAGE);
+        }else{
+            miembro.setApellido(jtfApellidoMiembro.getText());
+        }
+        if (jtfDniMiembro.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this, "El campo DNI del miembro es obligatorio", "Error", JOptionPane.ERROR_MESSAGE);  
+        }else{
+            miembro.setDni(parseInt(jtfDniMiembro.getText()));
+        }
+        if (!jrbEstadoActivo.isSelected() && !jrbEstadoInactivo.isSelected()) {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un estado para el miembro", "Error", JOptionPane.ERROR_MESSAGE);
+        }else if(jrbEstadoActivo.isSelected()){
+            miembro.setEstado(true);        
+        }else{
+            miembro.setEstado(false);
+        }
+        md.ingresarMiembro(miembro);
+        jlIdGenerada.setText(String.valueOf(miembro.getIdMiembro()));
+    }//GEN-LAST:event_jbtnGuardarActionPerformed
+
+    private void jbtnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnNuevoActionPerformed
+        // TODO add your handling code here:
+        jtfNombreMiembro.setText("");
+        jtfApellidoMiembro.setText("");
+        btngEstadoMiembro.clearSelection();
+        jlIdGenerada.setText("");
+    }//GEN-LAST:event_jbtnNuevoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup btngEstadoMiembro;
+    private javax.swing.JButton jbtnGuardar;
+    private javax.swing.JButton jbtnNuevo;
+    private javax.swing.JButton jbtnSalir;
+    private javax.swing.JLabel jlApellidoMiembro;
+    private javax.swing.JLabel jlDni;
+    private javax.swing.JLabel jlEstadoMiembro;
+    private javax.swing.JLabel jlIdGenerada;
+    private javax.swing.JLabel jlIdMiembro;
+    private javax.swing.JLabel jlNombreMiembro;
+    private javax.swing.JLabel jlTitulo;
+    private javax.swing.JRadioButton jrbEstadoActivo;
+    private javax.swing.JRadioButton jrbEstadoInactivo;
+    private javax.swing.JTextField jtfApellidoMiembro;
+    private javax.swing.JTextField jtfDniMiembro;
+    private javax.swing.JTextField jtfNombreMiembro;
     // End of variables declaration//GEN-END:variables
 }

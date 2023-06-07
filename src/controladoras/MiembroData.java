@@ -5,7 +5,9 @@
 package controladoras;
 
 import entidades.Miembro;
+import entidades.Proyecto;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -33,7 +35,7 @@ public class MiembroData {
             ps.setString(1, miembro.getNombre());
             ps.setString(2, miembro.getApellido());
             ps.setInt(3, miembro.getDni());
-            ps.setBoolean(5, miembro.isEstado());
+            ps.setBoolean(4, miembro.isEstado());
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
@@ -73,7 +75,7 @@ public class MiembroData {
     
     public Miembro buscarMiembroPorDni(int dni) {
         Miembro miembro = null;
-        String sql = "SELECT idMiembro, dni, apellido, nombre, fechaNacimiento, estado FROM alumno WHERE dni=?";
+        String sql = "SELECT idMiembro, dni, apellido, nombre, estado FROM miembro WHERE dni=?";
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(sql);
@@ -81,20 +83,41 @@ public class MiembroData {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 miembro = new Miembro();
-                miembro.setIdMiembro(rs.getInt("id_alumno"));
+                miembro.setIdMiembro(rs.getInt("idMiembro"));
                 miembro.setDni(rs.getInt("dni"));
                 miembro.setApellido(rs.getString("apellido"));
                 miembro.setNombre(rs.getString("nombre"));
                 miembro.setEstado(rs.getBoolean("estado"));
-                System.out.println("estado: "+rs.getBoolean("estado"));
             } else {
                 JOptionPane.showMessageDialog(null, "No existe el miembro");
             }
             ps.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Alumno "+ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Miembro "+ex.getMessage());
         }
         return miembro;
+    }
+    
+    public void modificarDatosMiembro(Miembro miembro) {
+
+        String sql = "UPDATE miembro SET dni = ? , nombre = ?, apellido =? WHERE  idMiembro = ?";
+        PreparedStatement ps = null;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, miembro.getDni());
+            ps.setString(2, miembro.getNombre());
+            ps.setString(3,miembro.getApellido());
+            ps.setInt(4, miembro.getIdMiembro());
+            int modificar = ps.executeUpdate();
+            if (modificar == 1){
+                JOptionPane.showMessageDialog(null, "Modificado Exitosamente.");
+            }else{
+                JOptionPane.showMessageDialog(null, "El miembro no existe");
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Miembro"+ex.getMessage());
+        }
     }
     
     public ArrayList<Miembro> listarMiembros() {
