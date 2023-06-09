@@ -8,6 +8,7 @@ import controladoras.ProyectoData;
 import entidades.Proyecto;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 /**
  *
@@ -48,6 +49,7 @@ public class CrearProyectoVista extends javax.swing.JInternalFrame {
         btnNuevoProyecto = new javax.swing.JButton();
         jlIdProyecto = new javax.swing.JLabel();
         jlIdGenerada = new javax.swing.JLabel();
+        jbtnModificar = new javax.swing.JButton();
 
         setBorder(new javax.swing.border.MatteBorder(null));
 
@@ -86,7 +88,7 @@ public class CrearProyectoVista extends javax.swing.JInternalFrame {
 
         jrbEstadoInactivo.setText("Proyecto Inactivo");
 
-        btnNuevoProyecto.setText("NUEVO PROYECTO");
+        btnNuevoProyecto.setText("NUEVO");
         btnNuevoProyecto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNuevoProyectoActionPerformed(evt);
@@ -98,14 +100,17 @@ public class CrearProyectoVista extends javax.swing.JInternalFrame {
         jlIdGenerada.setFont(new java.awt.Font("Bahnschrift", 1, 36)); // NOI18N
         jlIdGenerada.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
 
+        jbtnModificar.setText("MODIFICAR");
+        jbtnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnModificarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jlTitulo)
-                .addGap(114, 114, 114))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
@@ -119,7 +124,7 @@ public class CrearProyectoVista extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jrbEstadoInactivo))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addGap(49, 49, 49)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -128,16 +133,22 @@ public class CrearProyectoVista extends javax.swing.JInternalFrame {
                                     .addComponent(jlFechaInicio)
                                     .addComponent(jlEstado)
                                     .addComponent(jlIdProyecto))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jlIdGenerada, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(228, 228, 228)
-                                .addComponent(btnNuevoProyecto)
+                                .addContainerGap()
+                                .addComponent(jbtnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnNuevoProyecto, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnCrear, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(72, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jlTitulo)
+                .addGap(129, 129, 129))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -170,7 +181,8 @@ public class CrearProyectoVista extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalir)
                     .addComponent(btnCrear)
-                    .addComponent(btnNuevoProyecto))
+                    .addComponent(btnNuevoProyecto)
+                    .addComponent(jbtnModificar))
                 .addGap(32, 32, 32))
         );
 
@@ -223,6 +235,14 @@ public class CrearProyectoVista extends javax.swing.JInternalFrame {
         jlIdGenerada.setText("");
     }//GEN-LAST:event_btnNuevoProyectoActionPerformed
 
+    private void jbtnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnModificarActionPerformed
+        // TODO add your handling code here:
+        ModificarProyectoVista vistaModificarProyecto = new ModificarProyectoVista();
+        JDesktopPane escritorio = getDesktopPane();
+        escritorio.add(vistaModificarProyecto);
+        vistaModificarProyecto.setVisible(true);
+    }//GEN-LAST:event_jbtnModificarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCrear;
@@ -230,6 +250,7 @@ public class CrearProyectoVista extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnSalir;
     private javax.swing.ButtonGroup btngEstadoProyecto;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton jbtnModificar;
     private com.toedter.calendar.JDateChooser jdcFechaInicio;
     private javax.swing.JLabel jlDescripcion;
     private javax.swing.JLabel jlEstado;
