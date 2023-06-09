@@ -44,11 +44,11 @@ public class TareaData {
             }
             ps.close();
         }catch(SQLException ex){
-            JOptionPane.showMessageDialog(null,"Erro al asignar tarea");
+            JOptionPane.showMessageDialog(null,"Error al asignar tarea: "+ex.getMessage());
         }
     }
     public void actualizarEstadoDeLasTareas(Tarea tarea, int estado){
-        String sql = "UPDATE estado = ? FROM tarea WHERE idTarea = ? ";
+        String sql = "UPDATE tarea SET estado = ? WHERE idTarea = ? ";
         PreparedStatement ps = null;
         try{
             ps = con.prepareStatement(sql);

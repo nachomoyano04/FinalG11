@@ -43,7 +43,7 @@ public class ProyectoData {
             } 
             ps.close();            
         } catch (SQLException ex) {
-           JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Proyecto");
+           JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Proyecto"+ ex.getMessage());
         }
     }
     
