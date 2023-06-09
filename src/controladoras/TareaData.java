@@ -15,6 +15,7 @@ import entidades.Proyecto;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class TareaData {
@@ -33,8 +34,8 @@ public class TareaData {
             ps = con.prepareStatement(sql);
             ps.setInt(1, tarea.getMiembroEq().getIdMiembroEq());
             ps.setString(2,tarea.getNombre());
-            ps.setDate(3, tarea.getFechaCreacion());
-            ps.setDate(4, tarea.getFechaCierre());
+            ps.setDate(3, Date.valueOf(tarea.getFechaCreacion()));
+            ps.setDate(4, Date.valueOf(tarea.getFechaCierre()));
             ps.setInt(5, tarea.getEstado());
             ps.executeUpdate();
             ResultSet res = ps.getGeneratedKeys();
@@ -79,8 +80,8 @@ public class TareaData {
                 MiembrosEquipo miembroEquipo = null;
 //              miembroEquipo = med.buscarMiembroPorId(idMiembroEq);  COMENTADO HASTA QUE SE CREE LA CLASE DATA
                 String nombre = res.getString("nombre");
-                Date fechaCreacion = res.getDate("fechaCreacion");
-                Date fechaCierre = res.getDate("fechaCierre");
+                LocalDate fechaCreacion = res.getDate("fechaCreacion").toLocalDate();
+                LocalDate fechaCierre = res.getDate("fechaCierre").toLocalDate();
                 int estado = res.getInt("estado");
                 Tarea tarea = new Tarea(idTarea, miembroEquipo, nombre, fechaCreacion, fechaCierre, estado);
                 tareas.add(tarea);
@@ -106,8 +107,8 @@ public class TareaData {
                 int idMiembroEq = res.getInt("idMiembroEq");
 //              miembroEquipo = med.buscarMiembroPorId(idMiembroEq);
                 String nombre = res.getString("nombre");
-                Date fechaCreacion = res.getDate("fechaCreacion");
-                Date fechaCierre = res.getDate("fechaCierre");
+                LocalDate fechaCreacion = res.getDate("fechaCreacion").toLocalDate();
+                LocalDate fechaCierre = res.getDate("fechaCierre").toLocalDate();
                 Tarea tarea = new Tarea(idTarea, miembroEquipo, nombre, fechaCreacion, fechaCierre, estado);
                 tareas.add(tarea);
             }
@@ -132,8 +133,8 @@ public class TareaData {
                 String nombre = res.getString("nombre");
                 MiembrosEquipo miembroEquipo = null;
 //              miembroEquipo = med.buscarMiembroPorId(idMiembroEq);
-                Date fechaCreacion  = res.getDate("fechaCreacion");
-                Date fechaCierre  = res.getDate("fechaCierre");
+                LocalDate fechaCreacion  = res.getDate("fechaCreacion").toLocalDate();
+                LocalDate fechaCierre  = res.getDate("fechaCierre").toLocalDate();
                 int estado = res.getInt("estado");
                 Tarea tarea = new Tarea(idTarea, miembroEquipo, nombre, fechaCreacion, fechaCierre, estado);
             }
@@ -143,5 +144,26 @@ public class TareaData {
         return tareas;
     }
     
+    public Tarea buscarTareaXiD(int idTarea){
+        Tarea tarea = new Tarea();
+        String sql = "SELECT * FROM tarea WHERE idTarea = ?";
+        PreparedStatement ps = null;
+        try{
+            ps = con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, idTarea);
+            ResultSet res = ps.executeQuery();
+            if(res.next()){
+                tarea.setNombre(res.getString("nombre"));
+//                tarea.setMiembroEq(med.buscarMiembroPorId(res.getInt("idMiembroEq")));
+                tarea.setEstado(res.getInt("estado"));
+                tarea.setFechaCreacion(res.getDate("fechaCreacion").toLocalDate());
+                tarea.setFechaCierre(res.getDate("fechaCierre").toLocalDate());
+                tarea.setIdTarea(idTarea);
+            }
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "Error al buscar tarea por id: "+ex.getMessage());
+        }
+        return tarea;
+    }
     
 }

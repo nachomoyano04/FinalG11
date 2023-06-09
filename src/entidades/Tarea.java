@@ -5,6 +5,7 @@
 package entidades;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 /**
  *
@@ -15,14 +16,14 @@ public class Tarea {
     private int idTarea;
     private MiembrosEquipo miembroEq;
     private String nombre;
-    private Date fechaCreacion;
-    private Date fechaCierre;
+    private LocalDate fechaCreacion;
+    private LocalDate fechaCierre;
     private int estado;
 
     public Tarea() {
     }
 
-    public Tarea(MiembrosEquipo miembroEq, String nombre, Date fechaCreacion, Date fechaCierre, int estado) {
+    public Tarea(MiembrosEquipo miembroEq, String nombre, LocalDate fechaCreacion, LocalDate fechaCierre, int estado) {
         this.miembroEq = miembroEq;
         this.nombre = nombre;
         this.fechaCreacion = fechaCreacion;
@@ -30,7 +31,7 @@ public class Tarea {
         this.estado = estado;
     }
 
-    public Tarea(int idTarea, MiembrosEquipo miembroEq, String nombre, Date fechaCreacion, Date fechaCierre, int estado) {
+    public Tarea(int idTarea, MiembrosEquipo miembroEq, String nombre, LocalDate fechaCreacion, LocalDate fechaCierre, int estado) {
         this.idTarea = idTarea;
         this.miembroEq = miembroEq;
         this.nombre = nombre;
@@ -63,19 +64,19 @@ public class Tarea {
         this.nombre = nombre;
     }
 
-    public Date getFechaCreacion() {
+    public LocalDate getFechaCreacion() {
         return fechaCreacion;
     }
 
-    public void setFechaCreacion(Date fechaCreacion) {
+    public void setFechaCreacion(LocalDate fechaCreacion) {
         this.fechaCreacion = fechaCreacion;
     }
 
-    public Date getFechaCierre() {
+    public LocalDate getFechaCierre() {
         return fechaCierre;
     }
 
-    public void setFechaCierre(Date fechaCierre) {
+    public void setFechaCierre(LocalDate fechaCierre) {
         this.fechaCierre = fechaCierre;
     }
 

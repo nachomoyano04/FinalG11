@@ -14,6 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -32,7 +33,7 @@ public class ComentariosData {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, comentarios.getTarea().getIdTarea());
             ps.setString(2, comentarios.getComentario());
-            ps.setDate(3, comentarios.getFechaAvance());
+            ps.setDate(3, Date.valueOf(comentarios.getFechaAvance()));
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
@@ -56,7 +57,7 @@ public class ComentariosData {
                 Comentarios coment=new Comentarios();
                 coment.setIdComentario(res.getInt("idComentario"));
                 coment.setComentario(res.getString("comentario"));
-                coment.setFechaAvance(res.getDate("fechaAvance")); 
+                coment.setFechaAvance(res.getDate("fechaAvance").toLocalDate()); 
                // coment.setTarea(buscarTareaXiD(res.getInt("idTarea"))); //falta buscarTareaXid()
                 listaComent.add(coment);
             }
@@ -75,7 +76,7 @@ public class ComentariosData {
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, comentarios.getComentario());
-            ps.setDate(2, comentarios.getFechaAvance());   
+            ps.setDate(2, Date.valueOf(comentarios.getFechaAvance()));   
             int exito = ps.executeUpdate();
             if (exito == 1) {
                 JOptionPane.showMessageDialog(null, "Modificado Exitosamente.");

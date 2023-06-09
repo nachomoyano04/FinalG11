@@ -7,10 +7,12 @@ package controladoras;
 
 import java.sql.Connection;
 import entidades.Equipo;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import javax.swing.JOptionPane;
 /**
  *
@@ -30,7 +32,7 @@ public class EquipoData {
             ps = con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1,equipo.getProyecto().getIdProyecto());
             ps.setString(2, equipo.getNombre());
-            ps.setDate(3, equipo.getFechaCreacion());
+            ps.setDate(3, Date.valueOf(equipo.getFechaCreacion()));
             ps.setBoolean(4,equipo.isEstado());
             int exito = ps.executeUpdate();
             ResultSet res = ps.getGeneratedKeys();
@@ -75,7 +77,7 @@ public class EquipoData {
                 team.setIdEquipo(equipo.getIdEquipo());
                 team.setProyecto(pd.buscarProyecto(res.getInt("idProyecto")));
                 team.setNombre(res.getString("nombre"));
-                team.setFechaCreacion(res.getDate("fechaCreacion"));
+                team.setFechaCreacion(res.getDate("fechaCreacion").toLocalDate());
                 team.setEstado(res.getBoolean("estado"));
             }
             ps.close();

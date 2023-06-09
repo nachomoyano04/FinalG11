@@ -5,6 +5,7 @@
 package entidades;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 /**
  *
@@ -15,18 +16,18 @@ public class MiembrosEquipo {
     private int idMiembroEq;
     private Miembro miembro;
     private Equipo equipo;
-    private Date fechaIncorporacion;
+    private LocalDate fechaIncorporacion;
 
     public MiembrosEquipo() {
     }
 
-    public MiembrosEquipo(Miembro miembro, Equipo equipo, Date fechaIncorporacion) {
+    public MiembrosEquipo(Miembro miembro, Equipo equipo, LocalDate fechaIncorporacion) {
         this.miembro = miembro;
         this.equipo = equipo;
         this.fechaIncorporacion = fechaIncorporacion;
     }
 
-    public MiembrosEquipo(int idMiembroEq, Miembro miembro, Equipo equipo, Date fechaIncorporacion) {
+    public MiembrosEquipo(int idMiembroEq, Miembro miembro, Equipo equipo, LocalDate fechaIncorporacion) {
         this.idMiembroEq = idMiembroEq;
         this.miembro = miembro;
         this.equipo = equipo;
@@ -57,11 +58,11 @@ public class MiembrosEquipo {
         this.equipo = equipo;
     }
 
-    public Date getFechaIncorporacion() {
+    public LocalDate getFechaIncorporacion() {
         return fechaIncorporacion;
     }
 
-    public void setFechaIncorporacion(Date fechaIncorporacion) {
+    public void setFechaIncorporacion(LocalDate fechaIncorporacion) {
         this.fechaIncorporacion = fechaIncorporacion;
     }
     

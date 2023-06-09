@@ -4,7 +4,7 @@
  */
 package entidades;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 /**
  *
@@ -15,18 +15,18 @@ public class Comentarios {
     private int idComentario;
     private Tarea tarea;
     private String comentario;
-    private Date fechaAvance;
+    private LocalDate fechaAvance;
 
     public Comentarios() {
     }
 
-    public Comentarios(Tarea tarea, String comentario, Date fechaAvance) {
+    public Comentarios(Tarea tarea, String comentario, LocalDate fechaAvance) {
         this.tarea = tarea;
         this.comentario = comentario;
         this.fechaAvance = fechaAvance;
     }
 
-    public Comentarios(int idComentario, Tarea tarea, String comentario, Date fechaAvance) {
+    public Comentarios(int idComentario, Tarea tarea, String comentario, LocalDate fechaAvance) {
         this.idComentario = idComentario;
         this.tarea = tarea;
         this.comentario = comentario;
@@ -57,11 +57,11 @@ public class Comentarios {
         this.comentario = comentario;
     }
 
-    public Date getFechaAvance() {
+    public LocalDate getFechaAvance() {
         return fechaAvance;
     }
 
-    public void setFechaAvance(Date fechaAvance) {
+    public void setFechaAvance(LocalDate fechaAvance) {
         this.fechaAvance = fechaAvance;
     }
     
