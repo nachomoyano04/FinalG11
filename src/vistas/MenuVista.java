@@ -31,6 +31,10 @@ public class MenuVista extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jmiModificarProyecto = new javax.swing.JMenuItem();
         jmTarea = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
         jmEquipos = new javax.swing.JMenu();
         jmMiembro = new javax.swing.JMenu();
         jmiIngresarMiembro = new javax.swing.JMenuItem();
@@ -72,6 +76,19 @@ public class MenuVista extends javax.swing.JFrame {
         jMenuBar1.add(jmProyecto);
 
         jmTarea.setText("Tarea");
+
+        jMenuItem1.setText("Añadir");
+        jmTarea.add(jMenuItem1);
+
+        jMenuItem2.setText("Modificar");
+        jmTarea.add(jMenuItem2);
+
+        jMenuItem3.setText("Consultas");
+        jmTarea.add(jMenuItem3);
+
+        jMenuItem4.setText("Ver Codigo");
+        jmTarea.add(jMenuItem4);
+
         jMenuBar1.add(jmTarea);
 
         jmEquipos.setText("Equipos");
@@ -192,6 +209,10 @@ public class MenuVista extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane escritorio;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JMenu jmEquipos;

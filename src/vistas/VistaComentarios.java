@@ -8,6 +8,7 @@ import controladoras.ComentariosData;
 import entidades.Comentarios;
 import entidades.Tarea;
 import java.sql.Date;
+import java.time.LocalDate;
 
 
 /**
@@ -164,7 +165,7 @@ public class VistaComentarios extends javax.swing.JInternalFrame {
         
         coment.setTarea(tar);
         coment.setComentario(tfComentario.getText());
-        coment.setFechaAvance((Date) jdcFechaAvance.getDate());
+        coment.setFechaAvance(jdcFechaAvance.getDate());
         cd.crearComentarios(coment);
         
     }//GEN-LAST:event_jbtnCrearActionPerformed

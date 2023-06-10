@@ -48,6 +48,7 @@ public class TareaData {
             JOptionPane.showMessageDialog(null,"Error al asignar tarea: "+ex.getMessage());
         }
     }
+    
     public void actualizarEstadoDeLasTareas(Tarea tarea, int estado){
         String sql = "UPDATE tarea SET estado = ? WHERE idTarea = ? ";
         PreparedStatement ps = null;
@@ -92,6 +93,7 @@ public class TareaData {
         }
         return tareas;
     }
+    
     public ArrayList<Tarea> tareasPorProyectosEstado(Proyecto proyecto, int estado){
         ArrayList<Tarea>tareas = new ArrayList();
         String sql = "SELECT tarea.* FROM tarea JOIN miembrosequipo ON tarea.idMiembroEq = miembrosequipo.idMiembroEq JOIN equipo ON miembrosequipo.idEquipo = equipo.idEquipo JOIN proyecto ON equipo.idProyecto = proyecto.idProyecto WHERE proyecto.idProyecto = ? AND tarea.estado = ?";
@@ -164,6 +166,27 @@ public class TareaData {
             JOptionPane.showMessageDialog(null, "Error al buscar tarea por id: "+ex.getMessage());
         }
         return tarea;
+    }
+
+    public void modificarTarea(Tarea tarea){
+        String sql = "UPDATE tarea SET idMiembroEq = ?, nombre = ?, fechaCreacion = ?, fechaCierre = ?, estado = ? WHERE idTarea = ?";
+        PreparedStatement ps = null;
+        try{
+            ps = con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1,tarea.getMiembroEq().getIdMiembroEq());
+            ps.setString(2, tarea.getNombre());
+            ps.setDate(3, Date.valueOf(tarea.getFechaCreacion()));
+            ps.setDate(4, Date.valueOf(tarea.getFechaCierre()));
+            ps.setInt(5, tarea.getEstado());
+            ps.setInt(6,tarea.getIdTarea());
+            int exito = ps.executeUpdate();
+            if(exito == 1){
+                JOptionPane.showMessageDialog(null, "Tarea modificada");
+            }
+            ps.close();
+        } catch(SQLException ex){
+            JOptionPane.showMessageDialog(null,"Error al modificar tarea"+ex.getMessage());
+        }
     }
     
 }
