@@ -31,7 +31,7 @@ public class MenuVista extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jmiModificarProyecto = new javax.swing.JMenuItem();
         jmTarea = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        jmiAñadirTarea = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
@@ -77,8 +77,13 @@ public class MenuVista extends javax.swing.JFrame {
 
         jmTarea.setText("Tarea");
 
-        jMenuItem1.setText("Añadir");
-        jmTarea.add(jMenuItem1);
+        jmiAñadirTarea.setText("Añadir");
+        jmiAñadirTarea.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiAñadirTareaActionPerformed(evt);
+            }
+        });
+        jmTarea.add(jmiAñadirTarea);
 
         jMenuItem2.setText("Modificar");
         jmTarea.add(jMenuItem2);
@@ -171,6 +176,16 @@ public class MenuVista extends javax.swing.JFrame {
         escritorio.moveToFront(vistaIngresarMiembro);
     }//GEN-LAST:event_jmiIngresarMiembroActionPerformed
 
+    private void jmiAñadirTareaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiAñadirTareaActionPerformed
+        // TODO add your handling code here:
+        escritorio.removeAll();
+        escritorio.repaint();
+        AñadirTareaVista atv = new AñadirTareaVista();
+        atv.setVisible(true);
+        escritorio.add(atv);
+        escritorio.moveToFront(atv);
+    }//GEN-LAST:event_jmiAñadirTareaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -209,7 +224,6 @@ public class MenuVista extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane escritorio;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
@@ -219,6 +233,7 @@ public class MenuVista extends javax.swing.JFrame {
     private javax.swing.JMenu jmMiembro;
     private javax.swing.JMenu jmProyecto;
     private javax.swing.JMenu jmTarea;
+    private javax.swing.JMenuItem jmiAñadirTarea;
     private javax.swing.JMenuItem jmiCrearProyecto;
     private javax.swing.JMenuItem jmiIngresarMiembro;
     private javax.swing.JMenuItem jmiModificarMiembro;

@@ -165,7 +165,7 @@ public class VistaComentarios extends javax.swing.JInternalFrame {
         
         coment.setTarea(tar);
         coment.setComentario(tfComentario.getText());
-        coment.setFechaAvance(jdcFechaAvance.getDate());
+//        coment.setFechaAvance(jdcFechaAvance.getDate());
         cd.crearComentarios(coment);
         
     }//GEN-LAST:event_jbtnCrearActionPerformed
@@ -179,7 +179,7 @@ public class VistaComentarios extends javax.swing.JInternalFrame {
         if (!tfComentario.getText().equals("")){
             coment.setTarea(tar);
             coment.setComentario(tfComentario.getText());
-            coment.setFechaAvance((Date) jdcFechaAvance.getDate());
+//            coment.setFechaAvance((Date) jdcFechaAvance.getDate());
             cd.crearComentarios(coment);
         }
     }//GEN-LAST:event_jbtnModificarActionPerformed

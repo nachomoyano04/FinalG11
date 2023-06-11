@@ -29,7 +29,7 @@ public class MiembrosEquipoData {
     }
 
     public void crearMiembrosEquipo(MiembrosEquipo miembrosEquipo) {
-        String sql = "INSERT INTO miembros_equipo (idMiembro, idEquipo, fechaIncorporacion) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO miembrosequipo (idMiembro, idEquipo, fechaIncorporacion) VALUES (?, ?, ?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, miembrosEquipo.getMiembro().getIdMiembro());
@@ -48,7 +48,7 @@ public class MiembrosEquipoData {
     }
 
     public MiembrosEquipo buscarMiembrosEquipoPorId(int idMiembroEq) {
-        String sql = "SELECT * FROM miembros_equipo WHERE idMiembroEq = ?";
+        String sql = "SELECT * FROM miembrosequipo WHERE idMiembroEq = ?";
         MiembrosEquipo miembrosEquipo = null;
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -77,7 +77,7 @@ public class MiembrosEquipoData {
         EquipoData equipoData = new EquipoData();
         Equipo equipo = new Equipo();
         equipo.setIdEquipo(idEquipo);
-        return equipoData.buscarEquipoPorId(equipo);
+        return equipoData.buscarEquipoPorId(idEquipo);
     }
 
 }

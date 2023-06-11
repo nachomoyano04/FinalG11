@@ -5,12 +5,22 @@
  */
 package vistas;
 
+import controladoras.MiembrosEquipoData;
+import controladoras.TareaData;
+import entidades.MiembrosEquipo;
+import entidades.Tarea;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author nacho
  */
 public class AñadirTareaVista extends javax.swing.JInternalFrame {
 
+    private TareaData td = new TareaData();
+    private MiembrosEquipoData med = new MiembrosEquipoData();
     /**
      * Creates new form CrearTareaVista
      */
@@ -33,16 +43,16 @@ public class AñadirTareaVista extends javax.swing.JInternalFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
-        jDateChooser2 = new com.toedter.calendar.JDateChooser();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jTextField2 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jtfNombre = new javax.swing.JTextField();
+        jdcFechaCierre = new com.toedter.calendar.JDateChooser();
+        jdcFechaCreacion = new com.toedter.calendar.JDateChooser();
+        jcboxEstado = new javax.swing.JComboBox<>();
+        jtfCodigo = new javax.swing.JTextField();
+        btnAñadirTarea = new javax.swing.JButton();
+        btnSalir = new javax.swing.JButton();
+        btnAveriguarCodigo = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
-        jButton4 = new javax.swing.JButton();
+        btnModificar = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel1.setText("TAREA");
@@ -57,17 +67,22 @@ public class AñadirTareaVista extends javax.swing.JInternalFrame {
 
         jLabel6.setText("Estado");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pendiente", "En progreso", "Inactiva", "Completada" }));
+        jcboxEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pendiente", "En progreso", "Inactiva", "Completada" }));
 
-        jButton1.setText("Añadir");
+        btnAñadirTarea.setText("Añadir");
+        btnAñadirTarea.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAñadirTareaActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Salir");
+        btnSalir.setText("Salir");
 
-        jButton3.setText("Averiguar");
+        btnAveriguarCodigo.setText("Averiguar");
 
         jLabel7.setText("¿No sabes tu codigo?");
 
-        jButton4.setText("Modificar");
+        btnModificar.setText("Modificar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -92,22 +107,22 @@ public class AñadirTareaVista extends javax.swing.JInternalFrame {
                                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(32, 32, 32)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jdcFechaCreacion, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jdcFechaCierre, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jtfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jtfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(80, 80, 80)
-                                        .addComponent(jButton3))
+                                        .addComponent(btnAveriguarCodigo))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jButton1)
+                                                .addComponent(btnAñadirTarea)
                                                 .addGap(33, 33, 33)
-                                                .addComponent(jButton2))
-                                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addComponent(btnSalir))
+                                            .addComponent(jcboxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGap(28, 28, 28)
-                                        .addComponent(jButton4))))))
+                                        .addComponent(btnModificar))))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(225, 225, 225)
                         .addComponent(jLabel1)))
@@ -123,47 +138,75 @@ public class AñadirTareaVista extends javax.swing.JInternalFrame {
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jtfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnAveriguarCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(134, 134, 134)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel4)
-                            .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jdcFechaCreacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(36, 36, 36)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jDateChooser1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jdcFechaCierre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addGap(50, 50, 50)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jcboxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(79, 79, 79)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jtfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton4))
+                    .addComponent(btnAñadirTarea)
+                    .addComponent(btnSalir)
+                    .addComponent(btnModificar))
                 .addGap(34, 34, 34))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnAñadirTareaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAñadirTareaActionPerformed
+        // TODO add your handling code here:
+        String codigo = jtfCodigo.getText();
+        if(isANumber(codigo)){
+            int estado = jcboxEstado.getSelectedIndex();
+            String nombre = jcboxEstado.getSelectedItem().toString();
+            MiembrosEquipo miembroEquipo = med.buscarMiembrosEquipoPorId(Integer.parseInt(codigo));
+            if(miembroEquipo == null){
+                JOptionPane.showMessageDialog(this,"MiembroEquipo está nulo");
+            }else{
+                LocalDate fechaCreacion = jdcFechaCreacion.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                LocalDate fechaCierre = jdcFechaCierre.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                Tarea tarea = new Tarea(miembroEquipo, nombre, fechaCreacion, fechaCierre, estado);
+                td.asignarTareas(tarea);
+            }
+        }else{
+            JOptionPane.showMessageDialog(this,"El codigo ingresado no es un número");
+            jtfCodigo.requestFocus();
+        }
+    }//GEN-LAST:event_btnAñadirTareaActionPerformed
+
+    public boolean isANumber(String numero){ //Implemento este metodo para comprobar si un campo es un número o no...
+        boolean es;
+        try{
+            Integer.parseInt(numero);
+            es = true;
+        }catch(NumberFormatException nfe){
+            es = false;
+        }
+        return es;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
-    private com.toedter.calendar.JDateChooser jDateChooser2;
+    private javax.swing.JButton btnAveriguarCodigo;
+    private javax.swing.JButton btnAñadirTarea;
+    private javax.swing.JButton btnModificar;
+    private javax.swing.JButton btnSalir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -171,7 +214,10 @@ public class AñadirTareaVista extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JComboBox<String> jcboxEstado;
+    private com.toedter.calendar.JDateChooser jdcFechaCierre;
+    private com.toedter.calendar.JDateChooser jdcFechaCreacion;
+    private javax.swing.JTextField jtfCodigo;
+    private javax.swing.JTextField jtfNombre;
     // End of variables declaration//GEN-END:variables
 }

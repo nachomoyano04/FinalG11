@@ -66,17 +66,17 @@ public class EquipoData {
         }
     }
 
-    public Equipo buscarEquipoPorId(Equipo equipo) {
-        String sql = "SELECT equipo.nombre, equipo.fechaCreacion, equipo.estado FROM equipo WHERE idEquipo = ?";
+    public Equipo buscarEquipoPorId(int idEquipo) {
+        String sql = "SELECT equipo.* FROM equipo WHERE idEquipo = ?";
         Equipo team = new Equipo();
         ProyectoData pd = new ProyectoData();
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, equipo.getIdEquipo());
+            ps.setInt(1, idEquipo);
             ResultSet res = ps.executeQuery();
             if (res.next()) {
-                team.setIdEquipo(equipo.getIdEquipo());
+                team.setIdEquipo(idEquipo);
                 team.setProyecto(pd.buscarProyecto(res.getInt("idProyecto")));
                 team.setNombre(res.getString("nombre"));
                 team.setFechaCreacion(res.getDate("fechaCreacion").toLocalDate());

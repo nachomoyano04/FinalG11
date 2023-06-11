@@ -5,6 +5,9 @@
  */
 package finalg11;
 
+import controladoras.EquipoData;
+import controladoras.MiembroData;
+import controladoras.MiembrosEquipoData;
 import controladoras.ProyectoData;
 import controladoras.TareaData;
 import entidades.Equipo;
@@ -14,6 +17,7 @@ import entidades.Proyecto;
 import entidades.Tarea;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.Month;
 
 /**
  *
@@ -25,21 +29,14 @@ public class FinalG11 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-//        // TODO code application logic here
-//        Proyecto p = new Proyecto(10, "Prueba", "Proyecto de prueba", LocalDate.now(), true);
-//        Equipo e = new Equipo(10, p, "equipoPrueba", Date.valueOf(LocalDate.now()), true);
-//        Miembro m = new Miembro(10, "Pepe", "Sanchez", 1111111, true);
-//        MiembrosEquipo me = new MiembrosEquipo(10, m, e, Date.valueOf(LocalDate.now()));
-//        Tarea t = new Tarea(10, me, "tareaDePrueba", Date.valueOf(LocalDate.now()), Date.valueOf(LocalDate.now()), 1);
-//        TareaData tarea = new TareaData();
+        //Creamos un proyecto
+//        Proyecto proyecto = new Proyecto(9,"Scaloneta", "Salir campeon mundial", LocalDate.now(), true);
 //        ProyectoData pd = new ProyectoData();
-//        pd.crearProyecto(p);
-////        tarea.asignarTareas(t);   <--- Para probar cuando este listo MiembrosEquipo
-////        for (Tarea arg : tarea.listaTareasPorProyectos(p)) {
-////            System.out.println(arg.getNombre());
-////        }   <-Otro metodo a asignar cuando este listo MiembrosEquipo
-//          
-        
+//        pd.crearProyecto(proyecto);
+        //Asignamos un miembro a un equipo
+          MiembrosEquipo me = new MiembrosEquipo(5, new MiembroData().buscarMiembroPorDni(44480378), new EquipoData().buscarEquipoPorId(1), LocalDate.now());
+          MiembrosEquipoData med = new MiembrosEquipoData();
+          med.crearMiembrosEquipo(me);
     }
     
 }

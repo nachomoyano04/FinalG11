@@ -21,7 +21,7 @@ import java.util.ArrayList;
 public class TareaData {
     private Connection con = null;
     private ProyectoData pd = new ProyectoData();
-//    private MiembrosEquiposData med = new MiembrosEquiposData(); // Para cuando este la clase lista... Para usar el metodo buscar miembro por id. implementado en linea 78 y 79, 132 y 133 
+    private MiembrosEquipoData med = new MiembrosEquipoData(); // Para cuando este la clase lista... Para usar el metodo buscar miembro por id. implementado en linea 78 y 79, 132 y 133 
 
     public TareaData() {
         con = Conexion.getConexion();
@@ -31,7 +31,7 @@ public class TareaData {
         String sql = "INSERT INTO tarea (idMiembroEq, nombre, fechaCreacion, fechaCierre, estado) VALUES (?,?,?,?,?)";
         PreparedStatement ps = null;
         try{
-            ps = con.prepareStatement(sql);
+            ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, tarea.getMiembroEq().getIdMiembroEq());
             ps.setString(2,tarea.getNombre());
             ps.setDate(3, Date.valueOf(tarea.getFechaCreacion()));
@@ -79,7 +79,7 @@ public class TareaData {
                 int idTarea = res.getInt("idTarea");
                 int idMiembroEq = res.getInt("idMiembroEq");
                 MiembrosEquipo miembroEquipo = null;
-//              miembroEquipo = med.buscarMiembroPorId(idMiembroEq);  COMENTADO HASTA QUE SE CREE LA CLASE DATA
+                miembroEquipo = med.buscarMiembrosEquipoPorId(idMiembroEq);  
                 String nombre = res.getString("nombre");
                 LocalDate fechaCreacion = res.getDate("fechaCreacion").toLocalDate();
                 LocalDate fechaCierre = res.getDate("fechaCierre").toLocalDate();
@@ -107,7 +107,7 @@ public class TareaData {
                 int idTarea = res.getInt("idTarea");
                 MiembrosEquipo miembroEquipo = null;                
                 int idMiembroEq = res.getInt("idMiembroEq");
-//              miembroEquipo = med.buscarMiembroPorId(idMiembroEq);
+                miembroEquipo = med.buscarMiembrosEquipoPorId(idMiembroEq);
                 String nombre = res.getString("nombre");
                 LocalDate fechaCreacion = res.getDate("fechaCreacion").toLocalDate();
                 LocalDate fechaCierre = res.getDate("fechaCierre").toLocalDate();
@@ -134,7 +134,7 @@ public class TareaData {
                 int idTarea = res.getInt("idTarea");
                 String nombre = res.getString("nombre");
                 MiembrosEquipo miembroEquipo = null;
-//              miembroEquipo = med.buscarMiembroPorId(idMiembroEq);
+                miembroEquipo = med.buscarMiembrosEquipoPorId(idMiembroEquipo);
                 LocalDate fechaCreacion  = res.getDate("fechaCreacion").toLocalDate();
                 LocalDate fechaCierre  = res.getDate("fechaCierre").toLocalDate();
                 int estado = res.getInt("estado");
@@ -156,7 +156,7 @@ public class TareaData {
             ResultSet res = ps.executeQuery();
             if(res.next()){
                 tarea.setNombre(res.getString("nombre"));
-//                tarea.setMiembroEq(med.buscarMiembroPorId(res.getInt("idMiembroEq")));
+                tarea.setMiembroEq(med.buscarMiembrosEquipoPorId(res.getInt("idMiembroEq")));
                 tarea.setEstado(res.getInt("estado"));
                 tarea.setFechaCreacion(res.getDate("fechaCreacion").toLocalDate());
                 tarea.setFechaCierre(res.getDate("fechaCierre").toLocalDate());
