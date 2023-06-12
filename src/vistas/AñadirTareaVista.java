@@ -175,7 +175,7 @@ public class AñadirTareaVista extends javax.swing.JInternalFrame {
         String codigo = jtfCodigo.getText();
         if(isANumber(codigo)){
             int estado = jcboxEstado.getSelectedIndex();
-            String nombre = jcboxEstado.getSelectedItem().toString();
+            String nombre = jtfNombre.getText();
             MiembrosEquipo miembroEquipo = med.buscarMiembrosEquipoPorId(Integer.parseInt(codigo));
             if(miembroEquipo == null){
                 JOptionPane.showMessageDialog(this,"MiembroEquipo está nulo");

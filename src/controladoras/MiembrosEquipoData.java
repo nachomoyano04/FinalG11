@@ -21,7 +21,9 @@ import javax.swing.JOptionPane;
  * @author Isma
  */
 public class MiembrosEquipoData {
-
+    
+    private MiembroData md = new MiembroData();
+    private EquipoData ed = new EquipoData();
     private Connection con = null;
 
     public MiembrosEquipoData() {
@@ -57,8 +59,8 @@ public class MiembrosEquipoData {
             if (res.next()) {
                 miembrosEquipo = new MiembrosEquipo();
                 miembrosEquipo.setIdMiembroEq(res.getInt("idMiembroEq"));
-                miembrosEquipo.setMiembro(buscarMiembroPorId(res.getInt("idMiembro")));
-                miembrosEquipo.setEquipo(buscarEquipoPorId(res.getInt("idEquipo")));
+                miembrosEquipo.setMiembro(md.buscarMiembroPorId(res.getInt("idMiembro")));
+                miembrosEquipo.setEquipo(ed.buscarEquipoPorId(res.getInt("idEquipo")));
                 miembrosEquipo.setFechaIncorporacion(res.getDate("fechaIncorporacion").toLocalDate());
             }
             ps.close();
@@ -67,17 +69,4 @@ public class MiembrosEquipoData {
         }
         return miembrosEquipo;
     }
-
-    private Miembro buscarMiembroPorId(int idMiembro) {
-        MiembroData miembroData = new MiembroData();
-        return miembroData.buscarMiembroPorId(idMiembro);
-    }
-
-    private Equipo buscarEquipoPorId(int idEquipo) {
-        EquipoData equipoData = new EquipoData();
-        Equipo equipo = new Equipo();
-        equipo.setIdEquipo(idEquipo);
-        return equipoData.buscarEquipoPorId(idEquipo);
-    }
-
 }

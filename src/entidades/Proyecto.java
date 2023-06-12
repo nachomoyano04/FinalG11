@@ -76,7 +76,10 @@ public class Proyecto {
         this.estado = estado;
     }
     
-    
+    @Override
+    public String toString(){
+        return nombre+"\n"+descripcion+"\n"+fechaInicio+"\n"+estado;
+    }
     
     
 }

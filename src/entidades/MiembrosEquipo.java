@@ -66,7 +66,7 @@ public class MiembrosEquipo {
         this.fechaIncorporacion = fechaIncorporacion;
     }
     
-    
-    
-    
+    public String toString(){
+        return miembro+"\n"+equipo+"\n"+fechaIncorporacion;
+    }
 }

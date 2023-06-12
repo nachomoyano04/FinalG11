@@ -48,7 +48,7 @@ public class ComentariosData {
 
     public ArrayList<Comentarios> listarComentarios(){
         ArrayList<Comentarios> listaComent =new ArrayList();
-        
+        TareaData td = new TareaData();
         try{
             String sql = "SELECT * FROM comentarios";
             PreparedStatement ps = con.prepareStatement(sql);
@@ -58,7 +58,7 @@ public class ComentariosData {
                 coment.setIdComentario(res.getInt("idComentario"));
                 coment.setComentario(res.getString("comentario"));
                 coment.setFechaAvance(res.getDate("fechaAvance").toLocalDate()); 
-               // coment.setTarea(buscarTareaXiD(res.getInt("idTarea"))); //falta buscarTareaXid()
+                coment.setTarea(td.buscarTareaXiD(res.getInt("idTarea"))); //falta buscarTareaXid()
                 listaComent.add(coment);
             }
             ps.close();

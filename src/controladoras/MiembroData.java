@@ -5,9 +5,7 @@
 package controladoras;
 
 import entidades.Miembro;
-import entidades.Proyecto;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -40,7 +38,7 @@ public class MiembroData {
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
                 miembro.setIdMiembro(rs.getInt("idMiembro"));
-                JOptionPane.showMessageDialog(null, "datos añadidos con exito.");
+                JOptionPane.showMessageDialog(null, "Miembro cargado con éxito.");
             } 
             ps.close();            
         } catch (SQLException ex) {

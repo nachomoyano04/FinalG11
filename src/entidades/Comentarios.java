@@ -65,6 +65,8 @@ public class Comentarios {
         this.fechaAvance = fechaAvance;
     }
     
-    
+    public String toString(){
+        return "--"+tarea+"\n--"+comentario+"\n--"+fechaAvance;
+    }
     
 }

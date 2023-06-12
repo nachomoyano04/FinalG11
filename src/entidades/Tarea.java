@@ -88,6 +88,8 @@ public class Tarea {
         this.estado = estado;
     }
     
-    
+    public String toString(){
+        return miembroEq+"\n\n"+nombre+"\n\n"+fechaCreacion+"\n\n"+fechaCierre+"\n\n"+estado;
+    }
     
 }

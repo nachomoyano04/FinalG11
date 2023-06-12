@@ -12,7 +12,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
 import javax.swing.JOptionPane;
 
 /**
@@ -50,15 +49,15 @@ public class EquipoData {
         }
     }
 
-    public void darDeBajaEquipo(Equipo equipo) {
+    public void darDeBajaEquipo(int idEquipo) {
         String sql = "UPDATE equipo SET estado = 0 WHERE idEquipo = ?";
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(sql);
-            ps.setInt(1, equipo.getIdEquipo());
+            ps.setInt(1, idEquipo);
             int exito = ps.executeUpdate();
             if (exito == 1) {
-                JOptionPane.showMessageDialog(null, equipo.getNombre() + " dado de baja.");
+                JOptionPane.showMessageDialog(null, "dado de baja con éxito.");
             }
             ps.close();
         } catch (SQLException ex) {

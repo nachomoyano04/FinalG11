@@ -57,6 +57,7 @@ public class ProyectoData {
                 Proyecto proyecto = new Proyecto();
                 proyecto.setIdProyecto(res.getInt("idProyecto"));
                 proyecto.setNombre(res.getString("nombre"));
+                proyecto.setFechaInicio(res.getDate("fechaInicio").toLocalDate());
                 proyecto.setDescripcion(res.getString("descripcion"));
                 proyecto.setEstado(true);
                 proyectos.add(proyecto);

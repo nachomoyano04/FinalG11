@@ -50,7 +50,7 @@ public class TareaData {
     }
     
     public void actualizarEstadoDeLasTareas(Tarea tarea, int estado){
-        String sql = "UPDATE tarea SET estado = ? WHERE idTarea = ? ";
+        String sql = "UPDATE tarea SET estado = ? WHERE idTarea = ?";
         PreparedStatement ps = null;
         try{
             ps = con.prepareStatement(sql);
@@ -59,6 +59,8 @@ public class TareaData {
             int exito = ps.executeUpdate();
             if(exito == 1){
                 JOptionPane.showMessageDialog(null,"Estado actualizado con éxito");
+            }else{
+                JOptionPane.showMessageDialog(null,"La tarea no existe");
             }
             ps.close();
         }catch(SQLException ex){
@@ -67,13 +69,15 @@ public class TareaData {
     }
 //    Consultar proyectos y tareas: Los usuarios podrán ver la lista de proyectos y sus respectivas tareas, así como filtrar las 
 //    tareas por estado y miembro del equipo.
-    public ArrayList<Tarea> listaTareasPorProyectos(Proyecto proyecto){
+//    public ArrayList<Tarea> listaTareasPorProyectos(Proyecto proyecto){
+    public ArrayList<Tarea> listaTareasPorIdProyectos(int idProyecto){
         ArrayList<Tarea>tareas = new ArrayList();
         String sql = "SELECT tarea.* FROM tarea JOIN miembrosequipo ON miembrosequipo.idMiembroEq = tarea.idMiembroEq JOIN equipo ON equipo.idEquipo = miembrosequipo.idEquipo JOIN proyecto ON proyecto.idProyecto = equipo.idEquipo WHERE proyecto.idProyecto = ?";
         PreparedStatement ps = null;
         try{
             ps = con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1,proyecto.getIdProyecto());
+//            ps.setInt(1,proyecto.getIdProyecto());
+            ps.setInt(1, idProyecto);
             ResultSet res = ps.executeQuery();
             while(res.next()){
                 int idTarea = res.getInt("idTarea");
@@ -94,13 +98,14 @@ public class TareaData {
         return tareas;
     }
     
-    public ArrayList<Tarea> tareasPorProyectosEstado(Proyecto proyecto, int estado){
+//    public ArrayList<Tarea> tareasPorProyectosEstado(Proyecto proyecto, int estado){
+    public ArrayList<Tarea> tareasPorProyectosEstado(int idProyecto, int estado){
         ArrayList<Tarea>tareas = new ArrayList();
         String sql = "SELECT tarea.* FROM tarea JOIN miembrosequipo ON tarea.idMiembroEq = miembrosequipo.idMiembroEq JOIN equipo ON miembrosequipo.idEquipo = equipo.idEquipo JOIN proyecto ON equipo.idProyecto = proyecto.idProyecto WHERE proyecto.idProyecto = ? AND tarea.estado = ?";
         PreparedStatement ps = null;
         try{
             ps = con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1,proyecto.getIdProyecto());
+            ps.setInt(1, idProyecto);
             ps.setInt(2,estado);
             ResultSet res = ps.executeQuery();
             while(res.next()){
@@ -121,13 +126,13 @@ public class TareaData {
         return tareas;
     }
    
-    public ArrayList<Tarea> tareasPorProyectosMiembro(Proyecto proyecto, int idMiembroEquipo){
+    public ArrayList<Tarea> tareasPorProyectosMiembro(int idProyecto, int idMiembroEquipo){
         ArrayList<Tarea>tareas = new ArrayList();
-        String sql = "SELECT tarea.* FROM tarea JOIN miembrosequipo ON miembrosequipo.idMiembroEq = tarea.idMiembroEq JOIN equipo ON miembrosequipo.idEquipo = equipo.idEquipo JOIN proyecto ON proyecto.idProyecto = equipo.idProyecto WHERE proyecto.idProyecto = ? AND miembrosEquipo.idMiembroEquipo = ?";
+        String sql = "SELECT tarea.* FROM tarea JOIN miembrosequipo ON miembrosequipo.idMiembroEq = tarea.idMiembroEq JOIN equipo ON miembrosequipo.idEquipo = equipo.idEquipo JOIN proyecto ON proyecto.idProyecto = equipo.idProyecto WHERE proyecto.idProyecto = ? AND miembrosequipo.idMiembroEq = ?";
         PreparedStatement ps = null;
         try{
             ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1,proyecto.getIdProyecto());
+            ps.setInt(1, idProyecto);
             ps.setInt(2,idMiembroEquipo);
             ResultSet res = ps.executeQuery();
             while(res.next()){
@@ -139,6 +144,7 @@ public class TareaData {
                 LocalDate fechaCierre  = res.getDate("fechaCierre").toLocalDate();
                 int estado = res.getInt("estado");
                 Tarea tarea = new Tarea(idTarea, miembroEquipo, nombre, fechaCreacion, fechaCierre, estado);
+                tareas.add(tarea);
             }
         }catch(SQLException ex){
             JOptionPane.showMessageDialog(null, "Error al listar tareas por idMiembro "+ex.getMessage());

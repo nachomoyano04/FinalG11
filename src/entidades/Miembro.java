@@ -74,6 +74,8 @@ public class Miembro {
         this.estado = estado;
     }
     
-    
+    public String toString(){
+        return nombre+"\n"+apellido+"\n"+dni+"\n"+estado;
+    }
     
 }
