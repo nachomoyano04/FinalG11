@@ -77,7 +77,7 @@ public class Equipo {
     }
     
     public String toString(){
-        return proyecto.getNombre()+"\n"+nombre+"\n"+fechaCreacion+"\n"+estado;
+        return nombre;
     }
     
 }

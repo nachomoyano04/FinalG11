@@ -40,7 +40,7 @@ public class ModificarTareaVista extends javax.swing.JInternalFrame {
         jComboBox1 = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        btnListadoDeTareas = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
 
         jLabel1.setText("CODIGO");
@@ -64,7 +64,12 @@ public class ModificarTareaVista extends javax.swing.JInternalFrame {
 
         jLabel7.setText("¿no sabes que tarea?");
 
-        jButton2.setText("listado de tareas");
+        btnListadoDeTareas.setText("listado de tareas");
+        btnListadoDeTareas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListadoDeTareasActionPerformed(evt);
+            }
+        });
 
         btnSalir.setText("SALIR");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -109,7 +114,7 @@ public class ModificarTareaVista extends javax.swing.JInternalFrame {
                                         .addGap(33, 33, 33)))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(btnSalir)
-                                    .addComponent(jButton2)))))
+                                    .addComponent(btnListadoDeTareas)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(206, 206, 206)
                         .addComponent(jLabel5)))
@@ -125,7 +130,7 @@ public class ModificarTareaVista extends javax.swing.JInternalFrame {
                     .addComponent(jLabel1)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7)
-                    .addComponent(jButton2))
+                    .addComponent(btnListadoDeTareas))
                 .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -157,11 +162,21 @@ public class ModificarTareaVista extends javax.swing.JInternalFrame {
         dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
 
+    private void btnListadoDeTareasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListadoDeTareasActionPerformed
+        // TODO add your handling code here:
+        MenuVista.escritorio.removeAll();
+        MenuVista.escritorio.repaint();
+        ListaDeTareasVista ldtv = new ListaDeTareasVista();
+        ldtv.setVisible(true);
+        MenuVista.escritorio.add(ldtv);
+        ldtv.moveToFront();
+    }//GEN-LAST:event_btnListadoDeTareasActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnListadoDeTareas;
     private javax.swing.JButton btnSalir;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<String> jComboBox1;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private com.toedter.calendar.JDateChooser jDateChooser2;

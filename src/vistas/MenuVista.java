@@ -31,11 +31,12 @@ public class MenuVista extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jmiModificarProyecto = new javax.swing.JMenuItem();
         jmTarea = new javax.swing.JMenu();
+        modificarTareaVista = new javax.swing.JMenuItem();
         jmiAñadirTarea = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
         jmEquipos = new javax.swing.JMenu();
+        jmiCrearEquipo = new javax.swing.JMenuItem();
+        jmiBuscarEquipo = new javax.swing.JMenuItem();
         jmMiembro = new javax.swing.JMenu();
         jmiIngresarMiembro = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
@@ -77,6 +78,14 @@ public class MenuVista extends javax.swing.JFrame {
 
         jmTarea.setText("Tarea");
 
+        modificarTareaVista.setText("Modificar");
+        modificarTareaVista.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                modificarTareaVistaActionPerformed(evt);
+            }
+        });
+        jmTarea.add(modificarTareaVista);
+
         jmiAñadirTarea.setText("Añadir");
         jmiAñadirTarea.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -85,18 +94,24 @@ public class MenuVista extends javax.swing.JFrame {
         });
         jmTarea.add(jmiAñadirTarea);
 
-        jMenuItem2.setText("Modificar");
-        jmTarea.add(jMenuItem2);
-
         jMenuItem3.setText("Consultas");
         jmTarea.add(jMenuItem3);
-
-        jMenuItem4.setText("Ver Codigo");
-        jmTarea.add(jMenuItem4);
 
         jMenuBar1.add(jmTarea);
 
         jmEquipos.setText("Equipos");
+
+        jmiCrearEquipo.setText("Crear Equipo");
+        jmiCrearEquipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiCrearEquipoActionPerformed(evt);
+            }
+        });
+        jmEquipos.add(jmiCrearEquipo);
+
+        jmiBuscarEquipo.setText("Buscar Equipo");
+        jmEquipos.add(jmiBuscarEquipo);
+
         jMenuBar1.add(jmEquipos);
 
         jmMiembro.setText("Miembro");
@@ -186,6 +201,26 @@ public class MenuVista extends javax.swing.JFrame {
         escritorio.moveToFront(atv);
     }//GEN-LAST:event_jmiAñadirTareaActionPerformed
 
+    private void jmiCrearEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCrearEquipoActionPerformed
+        // TODO add your handling code here:
+        escritorio.removeAll();
+        escritorio.repaint();
+        CrearEquipoVista cev = new CrearEquipoVista();
+        cev.setVisible(true);
+        escritorio.add(cev);
+        escritorio.moveToFront(cev);
+    }//GEN-LAST:event_jmiCrearEquipoActionPerformed
+
+    private void modificarTareaVistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarTareaVistaActionPerformed
+        // TODO add your handling code here:
+        escritorio.removeAll();
+        escritorio.repaint();
+        ModificarTareaVista mtv = new ModificarTareaVista();
+        mtv.setVisible(true);
+        escritorio.add(mtv);
+        mtv.moveToFront();
+    }//GEN-LAST:event_modificarTareaVistaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -222,21 +257,22 @@ public class MenuVista extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JDesktopPane escritorio;
+    public static javax.swing.JDesktopPane escritorio;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JMenu jmEquipos;
     private javax.swing.JMenu jmMiembro;
     private javax.swing.JMenu jmProyecto;
     private javax.swing.JMenu jmTarea;
-    private javax.swing.JMenuItem jmiAñadirTarea;
+    public javax.swing.JMenuItem jmiAñadirTarea;
+    private javax.swing.JMenuItem jmiBuscarEquipo;
+    private javax.swing.JMenuItem jmiCrearEquipo;
     private javax.swing.JMenuItem jmiCrearProyecto;
     private javax.swing.JMenuItem jmiIngresarMiembro;
     private javax.swing.JMenuItem jmiModificarMiembro;
     private javax.swing.JMenuItem jmiModificarProyecto;
+    private javax.swing.JMenuItem modificarTareaVista;
     // End of variables declaration//GEN-END:variables
 }

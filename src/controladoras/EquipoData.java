@@ -45,7 +45,7 @@ public class EquipoData {
             }
             ps.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al crear equipo" + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "ERROR: Proyecto ya asignado");
         }
     }
 

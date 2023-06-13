@@ -14,6 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -68,5 +69,43 @@ public class MiembrosEquipoData {
             JOptionPane.showMessageDialog(null, "Error al buscar MiembrosEquipo: " + ex.getMessage());
         }
         return miembrosEquipo;
+    }
+    
+    public ArrayList<Equipo> buscarEquipoConDni(int dni){
+        String sql = "SELECT miembrosequipo.idEquipo FROM miembrosequipo JOIN miembro ON miembrosequipo.idMiembro = miembro.idMiembro WHERE miembro.dni = ?";
+        EquipoData ed = new EquipoData();
+        ArrayList<Equipo>equipos = new ArrayList();
+        PreparedStatement ps = null;
+        try{
+            ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, dni);
+            ResultSet res = ps.executeQuery();
+            while(res.next()){
+                equipos.add(ed.buscarEquipoPorId(res.getInt("idEquipo")));
+            }
+            ps.close();
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "Error al buscar equio "+ex.getMessage());
+        }
+        return equipos;
+    }
+    
+    public int codigoGeneradoSegunEquipoYMiembro(int idEquipo, int idMiembro){
+        String sql = "SELECT miembrosequipo.idMiembroEq FROM miembrosequipo WHERE idEquipo = ? AND idMiembro = ?";
+        int codigo = 0;
+        PreparedStatement ps = null;
+        try{
+            ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, idEquipo);
+            ps.setInt(2, idMiembro);
+            ResultSet res = ps.executeQuery();
+            if(res.next()){
+                codigo = res.getInt("idMiembroEq");
+            }
+            ps.close();
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null,"Error al generar codigo miembro equipo: "+ex.getMessage());
+        }
+        return codigo;
     }
 }

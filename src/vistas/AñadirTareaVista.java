@@ -8,10 +8,12 @@ package vistas;
 import controladoras.MiembrosEquipoData;
 import controladoras.TareaData;
 import entidades.MiembrosEquipo;
+import javax.swing.JTextField;
 import entidades.Tarea;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import javax.swing.JOptionPane;
+import static vistas.MenuVista.escritorio;
 
 /**
  *
@@ -67,6 +69,12 @@ public class AñadirTareaVista extends javax.swing.JInternalFrame {
 
         jLabel6.setText("Estado");
 
+        JTextField texto1 = (JTextField) jdcFechaCierre.getComponent(1);
+        texto1.setEditable(false);
+
+        JTextField texto = (JTextField) jdcFechaCreacion.getComponent(1);
+        texto.setEditable(false);
+
         jcboxEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pendiente", "En progreso", "Inactiva", "Completada" }));
 
         btnAñadirTarea.setText("Añadir");
@@ -77,8 +85,18 @@ public class AñadirTareaVista extends javax.swing.JInternalFrame {
         });
 
         btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
 
         btnAveriguarCodigo.setText("Averiguar");
+        btnAveriguarCodigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAveriguarCodigoActionPerformed(evt);
+            }
+        });
 
         jLabel7.setText("¿No sabes tu codigo?");
 
@@ -176,20 +194,34 @@ public class AñadirTareaVista extends javax.swing.JInternalFrame {
         if(isANumber(codigo)){
             int estado = jcboxEstado.getSelectedIndex();
             String nombre = jtfNombre.getText();
-            MiembrosEquipo miembroEquipo = med.buscarMiembrosEquipoPorId(Integer.parseInt(codigo));
-            if(miembroEquipo == null){
-                JOptionPane.showMessageDialog(this,"MiembroEquipo está nulo");
-            }else{
-                LocalDate fechaCreacion = jdcFechaCreacion.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-                LocalDate fechaCierre = jdcFechaCierre.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-                Tarea tarea = new Tarea(miembroEquipo, nombre, fechaCreacion, fechaCierre, estado);
-                td.asignarTareas(tarea);
-            }
+//            MiembrosEquipo miembroEquipo = med.buscarMiembrosEquipoPorId(Integer.parseInt(codigo));
+//            if(miembroEquipo == null){
+//                JOptionPane.showMessageDialog(this,"MiembroEquipo está nulo");
+//            }else{
+            LocalDate fechaCreacion = jdcFechaCreacion.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            LocalDate fechaCierre = jdcFechaCierre.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            Tarea tarea = new Tarea(null, nombre, fechaCreacion, fechaCierre, estado);
+            td.asignarTareas(tarea);
         }else{
             JOptionPane.showMessageDialog(this,"El codigo ingresado no es un número");
             jtfCodigo.requestFocus();
         }
     }//GEN-LAST:event_btnAñadirTareaActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void btnAveriguarCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAveriguarCodigoActionPerformed
+        // TODO add your handling code here:
+        MenuVista.escritorio.removeAll();
+        MenuVista.escritorio.repaint();
+        BuscarCodigoMiembroEquipoVista bcmev = new BuscarCodigoMiembroEquipoVista();
+        MenuVista.escritorio.add(bcmev);
+        bcmev.setVisible(true);
+        MenuVista.escritorio.moveToFront(bcmev);
+    }//GEN-LAST:event_btnAveriguarCodigoActionPerformed
 
     public boolean isANumber(String numero){ //Implemento este metodo para comprobar si un campo es un número o no...
         boolean es;

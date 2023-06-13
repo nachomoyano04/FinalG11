@@ -79,6 +79,7 @@ public class ProyectoData {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 proyecto = new Proyecto();
+                proyecto.setIdProyecto(id); //FALTABA SETEAR ESTE DATO
                 proyecto.setNombre(rs.getString("nombre"));
                 proyecto.setDescripcion(rs.getString("descripcion"));
                 proyecto.setFechaInicio(rs.getDate("fechaInicio").toLocalDate());

@@ -5,17 +5,24 @@
  */
 package vistas;
 
+import controladoras.MiembroData;
+import controladoras.MiembrosEquipoData;
+import entidades.Equipo;
 /**
  *
  * @author nacho
  */
 public class BuscarCodigoMiembroEquipoVista extends javax.swing.JInternalFrame {
-
+    
+    MiembrosEquipoData med = new MiembrosEquipoData();
     /**
      * Creates new form BuscarCodigoMiembroEquipoVista
      */
     public BuscarCodigoMiembroEquipoVista() {
         initComponents();
+        jcboxEquipos.setEditable(false);
+        jtfCodigoGenerado.setEditable(false);
+        btnBuscarDeBuscarCodigo.setEnabled(false);
     }
 
     /**
@@ -30,12 +37,15 @@ public class BuscarCodigoMiembroEquipoVista extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jtfDNImiembro = new javax.swing.JTextField();
+        jcboxEquipos = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jtfCodigoGenerado = new javax.swing.JTextField();
+        btnBuscarDeBuscarCodigo = new javax.swing.JButton();
+        btnVolver = new javax.swing.JButton();
+        btnBuscarEquiposPorDNI = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        btnLimpiar = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel1.setText("Buscar codigo");
@@ -49,74 +59,157 @@ public class BuscarCodigoMiembroEquipoVista extends javax.swing.JInternalFrame {
         jLabel4.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel4.setText("CODIGO");
 
-        jButton1.setText("BUSCAR");
+        btnBuscarDeBuscarCodigo.setText("BUSCAR");
+        btnBuscarDeBuscarCodigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarDeBuscarCodigoActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("SALIR");
+        btnVolver.setText("VOLVER");
+        btnVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVolverActionPerformed(evt);
+            }
+        });
+
+        btnBuscarEquiposPorDNI.setText("Buscar");
+        btnBuscarEquiposPorDNI.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarEquiposPorDNIActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setText("Buscar Equipos Asociados");
+
+        btnLimpiar.setText("LIMPIAR");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(150, 150, 150)
-                        .addComponent(jLabel1))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
+                        .addGap(32, 32, 32)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField1)
-                            .addComponent(jComboBox1, 0, 96, Short.MAX_VALUE)
-                            .addComponent(jTextField2)
+                            .addComponent(jtfCodigoGenerado, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(9, 9, 9)
-                                .addComponent(jButton1)))))
-                .addGap(28, 28, 28)
-                .addComponent(jButton2)
-                .addContainerGap(34, Short.MAX_VALUE))
+                                .addGap(130, 130, 130)
+                                .addComponent(jLabel5))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jcboxEquipos, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jtfDNImiembro, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(64, 64, 64)
+                                    .addComponent(btnBuscarEquiposPorDNI)))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnBuscarDeBuscarCodigo)
+                                .addGap(31, 31, 31)
+                                .addComponent(btnLimpiar)
+                                .addGap(29, 29, 29)
+                                .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(43, 43, 43)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(45, 45, 45)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(24, 24, 24)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnBuscarEquiposPorDNI, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2)
+                        .addComponent(jtfDNImiembro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(33, 33, 33)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel3)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(46, 46, 46)
+                    .addComponent(jcboxEquipos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                    .addComponent(jtfCodigoGenerado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addGap(47, 47, 47)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(btnBuscarDeBuscarCodigo)
+                    .addComponent(btnVolver)
+                    .addComponent(btnLimpiar))
                 .addGap(27, 27, 27))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
+        // TODO add your handling code here:
+        MenuVista.escritorio.removeAll();
+        MenuVista.escritorio.repaint();
+        AñadirTareaVista atv = new AñadirTareaVista();
+        atv.setVisible(true);
+        MenuVista.escritorio.add(atv);
+        MenuVista.escritorio.moveToFront(atv);
+    }//GEN-LAST:event_btnVolverActionPerformed
+
+    private void btnBuscarEquiposPorDNIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarEquiposPorDNIActionPerformed
+        // TODO add your handling code here:
+        if(!jtfDNImiembro.getText().equals("")){
+            btnBuscarEquiposPorDNI.setEnabled(false);
+            btnBuscarDeBuscarCodigo.setEnabled(true);
+            int dni = Integer.parseInt(jtfDNImiembro.getText());
+            for (Equipo equipo : med.buscarEquipoConDni(dni)) {
+                jcboxEquipos.addItem(equipo);
+            }
+        }
+    }//GEN-LAST:event_btnBuscarEquiposPorDNIActionPerformed
+
+    private void btnBuscarDeBuscarCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarDeBuscarCodigoActionPerformed
+        // TODO add your handling code here:
+        MiembroData md = new MiembroData();
+        int idMiembro = md.buscarMiembroPorDni(Integer.parseInt(jtfDNImiembro.getText())).getIdMiembro();
+        Equipo equipo = (Equipo) jcboxEquipos.getSelectedItem();
+        int idEquipo = equipo.getIdEquipo();
+        int codigo = med.codigoGeneradoSegunEquipoYMiembro(idEquipo, idMiembro);
+        jtfCodigoGenerado.setText(codigo+"");
+    }//GEN-LAST:event_btnBuscarDeBuscarCodigoActionPerformed
+
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        // TODO add your handling code here:
+        jtfDNImiembro.setText("");
+        jcboxEquipos.removeAllItems();
+        jtfCodigoGenerado.setText("");
+        btnBuscarEquiposPorDNI.setEnabled(true);
+        btnBuscarDeBuscarCodigo.setEnabled(false);
+    }//GEN-LAST:event_btnLimpiarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JButton btnBuscarDeBuscarCodigo;
+    private javax.swing.JButton btnBuscarEquiposPorDNI;
+    private javax.swing.JButton btnLimpiar;
+    private javax.swing.JButton btnVolver;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JComboBox<Equipo> jcboxEquipos;
+    private javax.swing.JTextField jtfCodigoGenerado;
+    private javax.swing.JTextField jtfDNImiembro;
     // End of variables declaration//GEN-END:variables
 }

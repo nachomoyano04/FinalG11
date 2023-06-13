@@ -195,4 +195,28 @@ public class TareaData {
         }
     }
     
+    public ArrayList<Tarea> listarTareas(){
+        ArrayList<Tarea>tareas = new ArrayList();
+        String sql = "SELECT * FROM tarea";
+        PreparedStatement ps = null;
+        try{
+            ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ResultSet res = ps.executeQuery();
+            while(res.next()){
+                Tarea tarea = new Tarea();
+                tarea.setIdTarea(res.getInt("idTarea"));
+                tarea.setMiembroEq(new MiembrosEquipoData().buscarMiembrosEquipoPorId(res.getInt("idMiembroEq")));
+                tarea.setNombre(res.getString("nombre"));
+                tarea.setFechaCreacion(res.getDate("fechaCreacion").toLocalDate());
+                tarea.setFechaCierre(res.getDate("fechaCierre").toLocalDate());
+                tarea.setEstado(res.getInt("estado"));
+                tareas.add(tarea);
+            }
+            ps.close();
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null,"Error al listar tareas");
+        }
+        return tareas;
+    }
+    
 }
