@@ -46,9 +46,9 @@ public class ComentariosData {
         }
     }
 
-    public ArrayList<Comentarios> listarComentarios(){
+   /* public ArrayList<Comentarios> listarComentarios(){
         ArrayList<Comentarios> listaComent =new ArrayList();
-        TareaData td = new TareaData();
+        
         try{
             String sql = "SELECT * FROM comentarios";
             PreparedStatement ps = con.prepareStatement(sql);
@@ -58,7 +58,31 @@ public class ComentariosData {
                 coment.setIdComentario(res.getInt("idComentario"));
                 coment.setComentario(res.getString("comentario"));
                 coment.setFechaAvance(res.getDate("fechaAvance").toLocalDate()); 
-                coment.setTarea(td.buscarTareaXiD(res.getInt("idTarea"))); //falta buscarTareaXid()
+               // coment.setTarea(buscarTareaXiD(res.getInt("idTarea"))); //falta buscarTareaXid()
+                listaComent.add(coment);
+            }
+            ps.close();
+        }catch(SQLException ex){
+                JOptionPane.showMessageDialog(null, "Error al mostrar Comentarios");
+                }        
+        return listaComent;
+    }*/
+    
+    public ArrayList<Comentarios> listarComentariosXTarea(Tarea tarea){
+        TareaData td=new TareaData();
+        ArrayList<Comentarios> listaComent =new ArrayList();
+        PreparedStatement ps=null;
+        String sql = "SELECT comentario, fechaAvance FROM comentarios WHERE idTarea=?";
+        try{            
+            ps = con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, tarea.getIdTarea());
+            ResultSet res = ps.executeQuery();
+            while(res.next()){
+                Comentarios coment=new Comentarios();
+                coment.setIdComentario(res.getInt("idComentario"));
+                coment.setComentario(res.getString("comentario"));
+                coment.setFechaAvance(res.getDate("fechaAvance").toLocalDate()); 
+                coment.setTarea(td.buscarTareaXiD(res.getInt("idTarea"))); 
                 listaComent.add(coment);
             }
             ps.close();
@@ -70,13 +94,15 @@ public class ComentariosData {
     
     public void modificarComentarios(Comentarios comentarios){
         
-        String sql="UPDATE comentarios SET comentario=?, fechaAvance=?";
+        String sql="UPDATE comentarios SET comentario=?, fechaAvance=?, idTarea? WHERE idComentario=? ";
         
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, comentarios.getComentario());
-            ps.setDate(2, Date.valueOf(comentarios.getFechaAvance()));   
+            ps.setDate(2, Date.valueOf(comentarios.getFechaAvance()));  
+            ps.setInt(3, comentarios.getTarea().getIdTarea());
+            ps.setInt(4, comentarios.getIdComentario());
             int exito = ps.executeUpdate();
             if (exito == 1) {
                 JOptionPane.showMessageDialog(null, "Modificado Exitosamente.");
