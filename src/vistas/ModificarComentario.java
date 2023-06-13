@@ -4,24 +4,34 @@
  */
 package vistas;
 
+import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
 import controladoras.ComentariosData;
 import entidades.Comentarios;
 import entidades.Tarea;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.ZoneId;
 
 
 /**
  *
  * @author Marcel
  */
-public class VistaComentarios extends javax.swing.JInternalFrame {
-
+public class ModificarComentario extends javax.swing.JInternalFrame {
+        Comentarios comentario;
     /**
      * Creates new form VistaComentarios
      */
-    public VistaComentarios() {
+    public ModificarComentario(Comentarios coment){
+       this.comentario=coment;
         initComponents();
+        if (comentario.getComentario().equals("")){
+            jbtnGuardar.setEnabled(false);
+        }
+        else {
+            escribirComentario();
+            jbtnModificar.setEnabled(false);
+        }
     }
 
     /**
@@ -34,29 +44,19 @@ public class VistaComentarios extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jCBoxTareas = new javax.swing.JComboBox<>();
-        jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tfComentario = new javax.swing.JTextArea();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jdcFechaAvance = new com.toedter.calendar.JDateChooser();
-        jbtnCrear = new javax.swing.JButton();
-        jbtnModificar = new javax.swing.JButton();
+        jbtnGuardar = new javax.swing.JButton();
         jbtnSalir = new javax.swing.JButton();
+        jbtnModificar = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Consolas", 1, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("COMENTARIOS");
+        jLabel1.setText("COMENTARIO");
         jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-
-        jCBoxTareas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCBoxTareasActionPerformed(evt);
-            }
-        });
-
-        jLabel2.setText("Tareas");
 
         tfComentario.setColumns(20);
         tfComentario.setRows(5);
@@ -66,17 +66,10 @@ public class VistaComentarios extends javax.swing.JInternalFrame {
 
         jLabel4.setText("Fecha de avance ");
 
-        jbtnCrear.setText("Crear");
-        jbtnCrear.addActionListener(new java.awt.event.ActionListener() {
+        jbtnGuardar.setText("Guardar");
+        jbtnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtnCrearActionPerformed(evt);
-            }
-        });
-
-        jbtnModificar.setText("Modificar");
-        jbtnModificar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtnModificarActionPerformed(evt);
+                jbtnGuardarActionPerformed(evt);
             }
         });
 
@@ -84,6 +77,13 @@ public class VistaComentarios extends javax.swing.JInternalFrame {
         jbtnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnSalirActionPerformed(evt);
+            }
+        });
+
+        jbtnModificar.setText("Modificar");
+        jbtnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnModificarActionPerformed(evt);
             }
         });
 
@@ -99,21 +99,17 @@ public class VistaComentarios extends javax.swing.JInternalFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(28, 28, 28)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
                             .addComponent(jLabel3)
                             .addComponent(jLabel4))
                         .addGap(22, 22, 22)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jCBoxTareas, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addComponent(jbtnCrear, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jbtnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jbtnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jbtnModificar))
                                     .addComponent(jdcFechaAvance, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
                                 .addComponent(jbtnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))))
@@ -123,81 +119,76 @@ public class VistaComentarios extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCBoxTareas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addGap(18, 18, 18)
+                .addGap(52, 52, 52)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
                         .addGap(140, 140, 140))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jdcFechaAvance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jbtnCrear)
-                            .addComponent(jbtnModificar)
-                            .addComponent(jbtnSalir))
+                            .addComponent(jbtnGuardar)
+                            .addComponent(jbtnSalir)
+                            .addComponent(jbtnModificar))
                         .addGap(36, 36, 36))))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jCBoxTareasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBoxTareasActionPerformed
-        // TODO add your handling code here:
-        
-        
-    }//GEN-LAST:event_jCBoxTareasActionPerformed
-
-    private void jbtnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCrearActionPerformed
-        // TODO add your handling code here:
-        Comentarios coment = new Comentarios();
+    private void jbtnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnGuardarActionPerformed
+        //Comentarios coment = new Comentarios();
         ComentariosData cd=new ComentariosData();
+        Tarea tar=new Tarea(); //Tarea viene del otro formulario
         
-        Tarea tar=new Tarea();
-        tar= (Tarea)jCBoxTareas.getSelectedItem();
-        
-        coment.setTarea(tar);
-        coment.setComentario(tfComentario.getText());
-//        coment.setFechaAvance(jdcFechaAvance.getDate());
-        cd.crearComentarios(coment);
-        
-    }//GEN-LAST:event_jbtnCrearActionPerformed
-
-    private void jbtnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnModificarActionPerformed
-        // TODO add your handling code here:
-        ComentariosData cd=new ComentariosData();
-        Comentarios coment = new Comentarios();
-        Tarea tar= new Tarea();
-        
+       
         if (!tfComentario.getText().equals("")){
-            coment.setTarea(tar);
-            coment.setComentario(tfComentario.getText());
-//            coment.setFechaAvance((Date) jdcFechaAvance.getDate());
-            cd.crearComentarios(coment);
+            //comentario.setTarea(tar);
+            comentario.setComentario(tfComentario.getText());
+            java.util.Date date = jdcFechaAvance.getDate();
+            LocalDate fecha = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            comentario.setFechaAvance(fecha);
+            cd.crearComentarios(comentario);
         }
-    }//GEN-LAST:event_jbtnModificarActionPerformed
-
+    }//GEN-LAST:event_jbtnGuardarActionPerformed
+    
+    private void escribirComentario(){
+        if(comentario!=null){
+          tfComentario.setText(comentario.getComentario());
+          jdcFechaAvance.setDate(Date.valueOf(comentario.getFechaAvance()));
+        }
+        
+    }
     private void jbtnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnSalirActionPerformed
         // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_jbtnSalirActionPerformed
 
+    private void jbtnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnModificarActionPerformed
+        ComentariosData cd=new ComentariosData();
+        if (!tfComentario.getText().equals("")){
+            //comentario.setTarea(tar);
+            comentario.setComentario(tfComentario.getText());
+            java.util.Date date = jdcFechaAvance.getDate();
+            LocalDate fecha = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            comentario.setFechaAvance(fecha);
+            cd.modificarComentarios(comentario);
+        }
+        
+    }//GEN-LAST:event_jbtnModificarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<Tarea> jCBoxTareas;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JButton jbtnCrear;
+    private javax.swing.JButton jbtnGuardar;
     private javax.swing.JButton jbtnModificar;
     private javax.swing.JButton jbtnSalir;
     private com.toedter.calendar.JDateChooser jdcFechaAvance;
