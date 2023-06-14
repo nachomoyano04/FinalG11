@@ -5,17 +5,16 @@
  */
 package vistas;
 
-import controladoras.MiembrosEquipoData;
-import controladoras.TareaData;
-import entidades.MiembrosEquipo;
-import javax.swing.JTextField;
-import entidades.Tarea;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import javax.swing.JOptionPane;
-import static vistas.MenuVista.escritorio;
+    import controladoras.MiembrosEquipoData;
+    import controladoras.TareaData;
+    import javax.swing.JTextField;
+    import entidades.Tarea;
+    import entidades.MiembrosEquipo;
+    import java.time.LocalDate;
+    import java.time.ZoneId;
+    import javax.swing.JOptionPane;
 
-/**
+ /*
  *
  * @author nacho
  */
@@ -54,7 +53,6 @@ public class AñadirTareaVista extends javax.swing.JInternalFrame {
         btnSalir = new javax.swing.JButton();
         btnAveriguarCodigo = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
-        btnModificar = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel1.setText("TAREA");
@@ -100,51 +98,43 @@ public class AñadirTareaVista extends javax.swing.JInternalFrame {
 
         jLabel7.setText("¿No sabes tu codigo?");
 
-        btnModificar.setText("Modificar");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(68, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(66, 66, 66)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(262, 262, 262)
-                                .addComponent(jLabel7)
-                                .addGap(19, 19, 19))
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(32, 32, 32)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jdcFechaCreacion, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jdcFechaCierre, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jtfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel4)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING))
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(32, 32, 32)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jdcFechaCreacion, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jdcFechaCierre, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jtfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jtfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(80, 80, 80)
-                                        .addComponent(btnAveriguarCodigo))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(btnAñadirTarea)
-                                                .addGap(33, 33, 33)
-                                                .addComponent(btnSalir))
-                                            .addComponent(jcboxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(28, 28, 28)
-                                        .addComponent(btnModificar))))))
+                                .addComponent(jtfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(80, 80, 80)
+                                .addComponent(btnAveriguarCodigo))
+                            .addComponent(jcboxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(225, 225, 225)
+                        .addGap(228, 228, 228)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnAñadirTarea)
+                                .addGap(33, 33, 33)
+                                .addComponent(btnSalir))
+                            .addComponent(jLabel7)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(159, 159, 159)
                         .addComponent(jLabel1)))
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addGap(53, 53, 53))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -177,12 +167,11 @@ public class AñadirTareaVista extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jtfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAñadirTarea)
-                    .addComponent(btnSalir)
-                    .addComponent(btnModificar))
-                .addGap(34, 34, 34))
+                    .addComponent(btnSalir))
+                .addGap(28, 28, 28))
         );
 
         pack();
@@ -194,14 +183,15 @@ public class AñadirTareaVista extends javax.swing.JInternalFrame {
         if(isANumber(codigo)){
             int estado = jcboxEstado.getSelectedIndex();
             String nombre = jtfNombre.getText();
-//            MiembrosEquipo miembroEquipo = med.buscarMiembrosEquipoPorId(Integer.parseInt(codigo));
-//            if(miembroEquipo == null){
-//                JOptionPane.showMessageDialog(this,"MiembroEquipo está nulo");
-//            }else{
+            MiembrosEquipo miembroEquipo = med.buscarMiembrosEquipoPorId(Integer.parseInt(codigo));
+            if(miembroEquipo == null){
+                JOptionPane.showMessageDialog(this,"Codigo está nulo o no existe");
+            }else{
             LocalDate fechaCreacion = jdcFechaCreacion.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             LocalDate fechaCierre = jdcFechaCierre.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            Tarea tarea = new Tarea(null, nombre, fechaCreacion, fechaCierre, estado);
+            Tarea tarea = new Tarea(miembroEquipo, nombre, fechaCreacion, fechaCierre, estado);
             td.asignarTareas(tarea);
+            }
         }else{
             JOptionPane.showMessageDialog(this,"El codigo ingresado no es un número");
             jtfCodigo.requestFocus();
@@ -237,7 +227,6 @@ public class AñadirTareaVista extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAveriguarCodigo;
     private javax.swing.JButton btnAñadirTarea;
-    private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnSalir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

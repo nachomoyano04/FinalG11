@@ -72,7 +72,16 @@ public class FinalG11 {
 //        System.out.println(med.buscarMiembrosEquipoPorId(20));
 //        System.out.println("------TAREA DATA TEST------");
         Tarea tarea = new Tarea(39,miembrosEquipo, "Festejar la champions nero", LocalDate.of(2022, 10, 8), LocalDate.of(2023,10,6), 1);
-//        TareaData td = new TareaData();
+        TareaData td = new TareaData();
+        for (Tarea tarea1 : td.tareasPorEstado(1)) {
+            System.out.println("ID tarea: "+tarea1.getIdTarea());
+            System.out.println("ID miembro equipo: "+tarea1.getMiembroEq().getIdMiembroEq());
+            System.out.println("Nombre: "+tarea1.getNombre());
+            System.out.println("Fecha creacion: "+tarea1.getFechaCreacion());
+            System.out.println("Fecha cierre: "+tarea1.getFechaCierre());
+            System.out.println("Estado: "+tarea1.getEstado());
+            System.out.println("-.-.-.-.-.-.-.-.-.-.-.-.-.--.-.-.-");
+        }
 //        td.asignarTareas(tarea);
 //        for (Tarea tareas : td.listaTareasPorIdProyectos(4)) {
 //            System.out.println(tareas);

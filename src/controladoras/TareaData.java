@@ -32,6 +32,7 @@ public class TareaData {
         PreparedStatement ps = null;
         try{
             ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            System.out.println(tarea.getMiembroEq().getIdMiembroEq());
             ps.setInt(1, tarea.getMiembroEq().getIdMiembroEq());
             ps.setString(2,tarea.getNombre());
             ps.setDate(3, Date.valueOf(tarea.getFechaCreacion()));
@@ -98,7 +99,7 @@ public class TareaData {
         return tareas;
     }
     
-//    public ArrayList<Tarea> tareasPorProyectosEstado(Proyecto proyecto, int estado){
+    // NO SE SI ES NECESARIO ESTE METODO O LA DE LISTAR TAREAS POR ESTADO SOLO
     public ArrayList<Tarea> tareasPorProyectosEstado(int idProyecto, int estado){
         ArrayList<Tarea>tareas = new ArrayList();
         String sql = "SELECT tarea.* FROM tarea JOIN miembrosequipo ON tarea.idMiembroEq = miembrosequipo.idMiembroEq JOIN equipo ON miembrosequipo.idEquipo = equipo.idEquipo JOIN proyecto ON equipo.idProyecto = proyecto.idProyecto WHERE proyecto.idProyecto = ? AND tarea.estado = ?";
@@ -125,7 +126,31 @@ public class TareaData {
         }
         return tareas;
     }
-   
+    public ArrayList<Tarea> tareasPorEstado(int estado){
+        ArrayList<Tarea>tareas = new ArrayList();
+        String sql = "SELECT * FROM tarea WHERE estado = ?";
+        PreparedStatement ps = null;
+        try{
+            ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, estado);
+            ResultSet res = ps.executeQuery();
+            while(res.next()){
+                Tarea tarea = new Tarea();
+                tarea.setIdTarea(res.getInt("idTarea"));
+                tarea.setMiembroEq(med.buscarMiembrosEquipoPorId(res.getInt("idMiembroEq")));
+                tarea.setNombre(res.getString("nombre"));
+                tarea.setFechaCreacion(res.getDate("fechaCreacion").toLocalDate());
+                tarea.setFechaCierre(res.getDate("fechaCierre").toLocalDate());
+                tarea.setEstado(estado);
+                tareas.add(tarea);
+            }
+            ps.close();
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null,"Error al listar tareas por estado "+ex.getMessage());
+        }
+        return tareas;
+    }
+   //NO SE SI ESTE ES METODO ES EL QUE PIDE O EL DE LISTAR TAREAS POR IDMIEMBROEQUIPO, SIN TENER EN CUENTA EL ID PROYECTO
     public ArrayList<Tarea> tareasPorProyectosMiembro(int idProyecto, int idMiembroEquipo){
         ArrayList<Tarea>tareas = new ArrayList();
         String sql = "SELECT tarea.* FROM tarea JOIN miembrosequipo ON miembrosequipo.idMiembroEq = tarea.idMiembroEq JOIN equipo ON miembrosequipo.idEquipo = equipo.idEquipo JOIN proyecto ON proyecto.idProyecto = equipo.idProyecto WHERE proyecto.idProyecto = ? AND miembrosequipo.idMiembroEq = ?";
@@ -146,13 +171,37 @@ public class TareaData {
                 Tarea tarea = new Tarea(idTarea, miembroEquipo, nombre, fechaCreacion, fechaCierre, estado);
                 tareas.add(tarea);
             }
+            ps.close();
         }catch(SQLException ex){
             JOptionPane.showMessageDialog(null, "Error al listar tareas por idMiembro "+ex.getMessage());
         }
         return tareas;
     }
-    
-    public Tarea buscarTareaXiD(int idTarea){
+    public ArrayList<Tarea> listarTareasPorIdMiembroEquipo(int idMiembroEquipo){
+        ArrayList<Tarea>tareas = new ArrayList();
+        String sql = "SELECT * FROM tarea WHERE idMiembroEq = ?";
+        PreparedStatement ps = null;
+        try{
+            ps = con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, idMiembroEquipo);
+            ResultSet res = ps.executeQuery();
+            while(res.next()){
+                Tarea tarea = new Tarea();
+                tarea.setIdTarea(res.getInt("idTarea"));
+                tarea.setMiembroEq(med.buscarMiembrosEquipoPorId(idMiembroEquipo));
+                tarea.setNombre(res.getString("nombre"));
+                tarea.setFechaCreacion(res.getDate("fechaCreacion").toLocalDate());
+                tarea.setFechaCierre(res.getDate("fechaCierre").toLocalDate());
+                tarea.setEstado(res.getInt("estado"));
+                tareas.add(tarea);
+            }
+            ps.close();
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null,"Error al listar tareas: "+ex.getMessage());
+        }
+        return tareas;
+    }
+    public Tarea buscarTareaXiD(int idTarea){ // exlusivamente para marcel
         Tarea tarea = new Tarea();
         String sql = "SELECT * FROM tarea WHERE idTarea = ?";
         PreparedStatement ps = null;
@@ -168,6 +217,7 @@ public class TareaData {
                 tarea.setFechaCierre(res.getDate("fechaCierre").toLocalDate());
                 tarea.setIdTarea(idTarea);
             }
+            ps.close();
         }catch(SQLException ex){
             JOptionPane.showMessageDialog(null, "Error al buscar tarea por id: "+ex.getMessage());
         }

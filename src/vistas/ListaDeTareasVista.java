@@ -45,6 +45,7 @@ public class ListaDeTareasVista extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tableListaDeTareas = new javax.swing.JTable();
         btnVolverListaDeTareas = new javax.swing.JButton();
+        btnSalir = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel1.setText("---------------------------------------------------------- Lista de Tareas --------------------------------------------------------------");
@@ -82,6 +83,13 @@ public class ListaDeTareasVista extends javax.swing.JInternalFrame {
             }
         });
 
+        btnSalir.setText("SALIR");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -89,7 +97,10 @@ public class ListaDeTareasVista extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(49, 49, 49)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnVolverListaDeTareas, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnSalir)
+                        .addGap(56, 56, 56)
+                        .addComponent(btnVolverListaDeTareas, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jScrollPane1)))
@@ -102,7 +113,9 @@ public class ListaDeTareasVista extends javax.swing.JInternalFrame {
                 .addGap(37, 37, 37)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnVolverListaDeTareas)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnVolverListaDeTareas)
+                    .addComponent(btnSalir))
                 .addGap(0, 52, Short.MAX_VALUE))
         );
 
@@ -119,9 +132,14 @@ public class ListaDeTareasVista extends javax.swing.JInternalFrame {
         mtv.moveToFront();
     }//GEN-LAST:event_btnVolverListaDeTareasActionPerformed
 
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnSalirActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnVolverListaDeTareas;
+    private javax.swing.JButton btnSalir;
+    public static javax.swing.JButton btnVolverListaDeTareas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tableListaDeTareas;

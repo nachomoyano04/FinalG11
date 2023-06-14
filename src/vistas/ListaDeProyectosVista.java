@@ -38,6 +38,7 @@ public class ListaDeProyectosVista extends javax.swing.JInternalFrame {
         tableDeProyectos = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         btnVolver = new javax.swing.JButton();
+        btnSalir = new javax.swing.JButton();
 
         tableDeProyectos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -74,6 +75,13 @@ public class ListaDeProyectosVista extends javax.swing.JInternalFrame {
             }
         });
 
+        btnSalir.setText("SALIR");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -86,7 +94,10 @@ public class ListaDeProyectosVista extends javax.swing.JInternalFrame {
                         .addGap(44, 44, 44))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnVolver)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnVolver)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnSalir))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 683, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(55, 55, 55))))
         );
@@ -97,7 +108,9 @@ public class ListaDeProyectosVista extends javax.swing.JInternalFrame {
                 .addGap(24, 24, 24)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnVolver)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnVolver)
+                    .addComponent(btnSalir))
                 .addContainerGap(26, Short.MAX_VALUE))
         );
 
@@ -114,9 +127,15 @@ public class ListaDeProyectosVista extends javax.swing.JInternalFrame {
         cev.moveToFront();
     }//GEN-LAST:event_btnVolverActionPerformed
 
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_btnSalirActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnVolver;
+    private javax.swing.JButton btnSalir;
+    public static javax.swing.JButton btnVolver;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tableDeProyectos;

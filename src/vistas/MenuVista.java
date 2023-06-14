@@ -4,6 +4,8 @@
  */
 package vistas;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author TECNOVENTAS
@@ -15,6 +17,7 @@ public class MenuVista extends javax.swing.JFrame {
      */
     public MenuVista() {
         initComponents();
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
     /**
@@ -33,7 +36,8 @@ public class MenuVista extends javax.swing.JFrame {
         jmTarea = new javax.swing.JMenu();
         modificarTareaVista = new javax.swing.JMenuItem();
         jmiAñadirTarea = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        jmiConsultasTareas = new javax.swing.JMenuItem();
+        jmiActualizarEstado = new javax.swing.JMenuItem();
         jmEquipos = new javax.swing.JMenu();
         jmiCrearEquipo = new javax.swing.JMenuItem();
         jmiBuscarEquipo = new javax.swing.JMenuItem();
@@ -94,8 +98,21 @@ public class MenuVista extends javax.swing.JFrame {
         });
         jmTarea.add(jmiAñadirTarea);
 
-        jMenuItem3.setText("Consultas");
-        jmTarea.add(jMenuItem3);
+        jmiConsultasTareas.setText("Consultas");
+        jmiConsultasTareas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiConsultasTareasActionPerformed(evt);
+            }
+        });
+        jmTarea.add(jmiConsultasTareas);
+
+        jmiActualizarEstado.setText("ActualizarEstado");
+        jmiActualizarEstado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiActualizarEstadoActionPerformed(evt);
+            }
+        });
+        jmTarea.add(jmiActualizarEstado);
 
         jMenuBar1.add(jmTarea);
 
@@ -110,6 +127,11 @@ public class MenuVista extends javax.swing.JFrame {
         jmEquipos.add(jmiCrearEquipo);
 
         jmiBuscarEquipo.setText("Buscar Equipo");
+        jmiBuscarEquipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiBuscarEquipoActionPerformed(evt);
+            }
+        });
         jmEquipos.add(jmiBuscarEquipo);
 
         jMenuBar1.add(jmEquipos);
@@ -221,6 +243,36 @@ public class MenuVista extends javax.swing.JFrame {
         mtv.moveToFront();
     }//GEN-LAST:event_modificarTareaVistaActionPerformed
 
+    private void jmiActualizarEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiActualizarEstadoActionPerformed
+        // TODO add your handling code here:
+        escritorio.removeAll();
+        escritorio.repaint();
+        ActualizarEstadoTareaVista aetv = new ActualizarEstadoTareaVista();
+        aetv.setVisible(true);
+        escritorio.add(aetv);
+        aetv.moveToFront();
+    }//GEN-LAST:event_jmiActualizarEstadoActionPerformed
+
+    private void jmiConsultasTareasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiConsultasTareasActionPerformed
+        // TODO add your handling code here:
+        escritorio.removeAll();
+        escritorio.repaint();
+        ConsultasDeTareas cdt = new ConsultasDeTareas();
+        cdt.setVisible(true);
+        escritorio.add(cdt);
+        cdt.moveToFront();
+    }//GEN-LAST:event_jmiConsultasTareasActionPerformed
+
+    private void jmiBuscarEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiBuscarEquipoActionPerformed
+        // TODO add your handling code here:
+        escritorio.removeAll();
+        escritorio.repaint();
+        BuscarEquipoVista bev = new BuscarEquipoVista();
+        bev.setVisible(true);
+        escritorio.add(bev);
+        bev.moveToFront();
+    }//GEN-LAST:event_jmiBuscarEquipoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -259,15 +311,16 @@ public class MenuVista extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JDesktopPane escritorio;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JMenu jmEquipos;
     private javax.swing.JMenu jmMiembro;
     private javax.swing.JMenu jmProyecto;
     private javax.swing.JMenu jmTarea;
+    private javax.swing.JMenuItem jmiActualizarEstado;
     public javax.swing.JMenuItem jmiAñadirTarea;
     private javax.swing.JMenuItem jmiBuscarEquipo;
+    private javax.swing.JMenuItem jmiConsultasTareas;
     private javax.swing.JMenuItem jmiCrearEquipo;
     private javax.swing.JMenuItem jmiCrearProyecto;
     private javax.swing.JMenuItem jmiIngresarMiembro;

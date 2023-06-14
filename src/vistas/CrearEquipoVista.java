@@ -214,10 +214,12 @@ public class CrearEquipoVista extends javax.swing.JInternalFrame {
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
         // TODO add your handling code here:
-        btnCrear.setEnabled(false);
-        jtfIdProyecto.setText("");
-        jtfNombre.setText("");
-        jdcFechaCreacion.removeAll();
+        if((!jtfIdProyecto.getText().equals("")) && (!jtfNombre.getText().equals("")) && (jdcFechaCreacion.getDate()!=null)){
+            btnCrear.setEnabled(false);
+            jtfIdProyecto.setText("");
+            jtfNombre.setText("");
+            jdcFechaCreacion.removeAll();
+        }
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
         public boolean isANumber(String numero){ //Implemento este metodo para comprobar si un campo es un número o no...
