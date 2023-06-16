@@ -126,7 +126,7 @@ public class ListaDeTareasVista extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         MenuVista.escritorio.removeAll();
         MenuVista.escritorio.repaint();
-        ModificarTareaVista mtv = new ModificarTareaVista();
+        TareasListasVista mtv = new TareasListasVista();
         mtv.setVisible(true);
         MenuVista.escritorio.add(mtv);
         mtv.moveToFront();

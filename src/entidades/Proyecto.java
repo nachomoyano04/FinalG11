@@ -78,7 +78,7 @@ public class Proyecto {
     
     @Override
     public String toString(){
-        return nombre+"\n"+descripcion+"\n"+fechaInicio+"\n"+estado;
+        return nombre;
     }
     
     

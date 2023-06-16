@@ -5,14 +5,19 @@
  */
 package vistas;
 
+    import controladoras.EquipoData;
     import controladoras.MiembrosEquipoData;
     import controladoras.TareaData;
+    import entidades.Equipo;
     import javax.swing.JTextField;
     import entidades.Tarea;
     import entidades.MiembrosEquipo;
     import java.time.LocalDate;
     import java.time.ZoneId;
     import javax.swing.JOptionPane;
+    import javax.swing.ListSelectionModel;
+    import javax.swing.border.LineBorder;
+    import javax.swing.table.DefaultTableModel;
 
  /*
  *
@@ -20,13 +25,17 @@ package vistas;
  */
 public class AñadirTareaVista extends javax.swing.JInternalFrame {
 
+    private DefaultTableModel table;
     private TareaData td = new TareaData();
     private MiembrosEquipoData med = new MiembrosEquipoData();
+    private LineBorder borde = new LineBorder(java.awt.Color.GRAY);
+
     /**
      * Creates new form CrearTareaVista
      */
     public AñadirTareaVista() {
         initComponents();
+        initComboBoxEquipo();
     }
 
     /**
@@ -38,8 +47,6 @@ public class AñadirTareaVista extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -48,16 +55,14 @@ public class AñadirTareaVista extends javax.swing.JInternalFrame {
         jdcFechaCierre = new com.toedter.calendar.JDateChooser();
         jdcFechaCreacion = new com.toedter.calendar.JDateChooser();
         jcboxEstado = new javax.swing.JComboBox<>();
-        jtfCodigo = new javax.swing.JTextField();
         btnAñadirTarea = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
-        btnAveriguarCodigo = new javax.swing.JButton();
-        jLabel7 = new javax.swing.JLabel();
-
-        jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel1.setText("TAREA");
-
-        jLabel2.setText("CODIGO");
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tableMiembrosEquipos = new javax.swing.JTable();
+        jLabel8 = new javax.swing.JLabel();
+        jcboxEquipos = new javax.swing.JComboBox<>();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
 
         jLabel3.setText("NOMBRE");
 
@@ -89,68 +94,120 @@ public class AñadirTareaVista extends javax.swing.JInternalFrame {
             }
         });
 
-        btnAveriguarCodigo.setText("Averiguar");
-        btnAveriguarCodigo.addActionListener(new java.awt.event.ActionListener() {
+        tableMiembrosEquipos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "id", "Empleado", "Equipo", "Fecha Incorporacion"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tableMiembrosEquipos.setSelectionBackground(new java.awt.Color(51, 255, 51));
+        tableMiembrosEquipos.setSelectionForeground(new java.awt.Color(0, 0, 0));
+        jScrollPane1.setViewportView(tableMiembrosEquipos);
+        if (tableMiembrosEquipos.getColumnModel().getColumnCount() > 0) {
+            tableMiembrosEquipos.getColumnModel().getColumn(0).setResizable(false);
+            tableMiembrosEquipos.getColumnModel().getColumn(1).setResizable(false);
+            tableMiembrosEquipos.getColumnModel().getColumn(2).setResizable(false);
+            tableMiembrosEquipos.getColumnModel().getColumn(3).setResizable(false);
+        }
+
+        jLabel8.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel8.setText("Elegir miembro de algún equipo");
+
+        jcboxEquipos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAveriguarCodigoActionPerformed(evt);
+                jcboxEquiposActionPerformed(evt);
             }
         });
 
-        jLabel7.setText("¿No sabes tu codigo?");
+        jPanel1.setBackground(new java.awt.Color(51, 255, 51));
+
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel1.setText("AÑADIR TAREAS");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(444, 444, 444))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap(68, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnAñadirTarea)
+                        .addGap(33, 33, 33)
+                        .addComponent(btnSalir))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
                             .addComponent(jLabel4)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING))
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel3))
                         .addGap(32, 32, 32)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jdcFechaCreacion, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jdcFechaCierre, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jtfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jtfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(80, 80, 80)
-                                .addComponent(btnAveriguarCodigo))
-                            .addComponent(jcboxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(228, 228, 228)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnAñadirTarea)
-                                .addGap(33, 33, 33)
-                                .addComponent(btnSalir))
-                            .addComponent(jLabel7)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(159, 159, 159)
-                        .addComponent(jLabel1)))
-                .addGap(53, 53, 53))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jdcFechaCierre, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jdcFechaCreacion, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jcboxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(46, 46, 46))))
+                        .addGap(56, 56, 56)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addGap(77, 77, 77)
+                        .addComponent(jcboxEquipos, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel1)
-                .addGap(29, 29, 29)
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jtfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnAveriguarCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(134, 134, 134)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jcboxEquipos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(7, 73, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jtfNombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(32, 32, 32)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel4)
                             .addComponent(jdcFechaCreacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -161,40 +218,42 @@ public class AñadirTareaVista extends javax.swing.JInternalFrame {
                         .addGap(50, 50, 50)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
-                            .addComponent(jcboxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(79, 79, 79)
+                            .addComponent(jcboxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jtfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAñadirTarea)
-                    .addComponent(btnSalir))
-                .addGap(28, 28, 28))
+                            .addComponent(btnAñadirTarea)
+                            .addComponent(btnSalir))))
+                .addGap(34, 34, 34))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAñadirTareaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAñadirTareaActionPerformed
-        // TODO add your handling code here:
-        String codigo = jtfCodigo.getText();
-        if(isANumber(codigo)){
+        jtfNombre.setBorder(borde);
+        int filaSeleccionada = tableMiembrosEquipos.getSelectedRow();
+        if(filaSeleccionada >= 0){
+            String codigo = table.getValueAt(tableMiembrosEquipos.getSelectedRow(), 0)+"";
             int estado = jcboxEstado.getSelectedIndex();
             String nombre = jtfNombre.getText();
             MiembrosEquipo miembroEquipo = med.buscarMiembrosEquipoPorId(Integer.parseInt(codigo));
-            if(miembroEquipo == null){
-                JOptionPane.showMessageDialog(this,"Codigo está nulo o no existe");
+            if(nombre.equals("")){
+                JOptionPane.showMessageDialog(this, "Campo nombre obligatorio");
+                LineBorder borde1 = new LineBorder(java.awt.Color.RED);
+                jtfNombre.setBorder(borde1);
             }else{
-            LocalDate fechaCreacion = jdcFechaCreacion.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            LocalDate fechaCierre = jdcFechaCierre.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            Tarea tarea = new Tarea(miembroEquipo, nombre, fechaCreacion, fechaCierre, estado);
-            td.asignarTareas(tarea);
+                if(jdcFechaCreacion.getDate() != null && jdcFechaCierre.getDate() != null){
+                    LocalDate fechaCreacion = jdcFechaCreacion.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                    LocalDate fechaCierre = jdcFechaCierre.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                    Tarea tarea = new Tarea(miembroEquipo, nombre, fechaCreacion, fechaCierre, estado);
+                    td.asignarTareas(tarea);
+                    limpiar();
+                }else{
+                    JOptionPane.showMessageDialog(this,"Seleccione fechas");
+                }
             }
         }else{
-            JOptionPane.showMessageDialog(this,"El codigo ingresado no es un número");
-            jtfCodigo.requestFocus();
+            JOptionPane.showMessageDialog(this,"Seleccione una fila de la tabla...");
         }
     }//GEN-LAST:event_btnAñadirTareaActionPerformed
 
@@ -203,15 +262,16 @@ public class AñadirTareaVista extends javax.swing.JInternalFrame {
         dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
 
-    private void btnAveriguarCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAveriguarCodigoActionPerformed
+    private void jcboxEquiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcboxEquiposActionPerformed
         // TODO add your handling code here:
-        MenuVista.escritorio.removeAll();
-        MenuVista.escritorio.repaint();
-        BuscarCodigoMiembroEquipoVista bcmev = new BuscarCodigoMiembroEquipoVista();
-        MenuVista.escritorio.add(bcmev);
-        bcmev.setVisible(true);
-        MenuVista.escritorio.moveToFront(bcmev);
-    }//GEN-LAST:event_btnAveriguarCodigoActionPerformed
+        tableMiembrosEquipos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        table = (DefaultTableModel) tableMiembrosEquipos.getModel();
+        table.setRowCount(0);
+        int idEquipo = ((Equipo) jcboxEquipos.getSelectedItem()).getIdEquipo();
+        for (MiembrosEquipo me : med.listarMiembrosEquipos(idEquipo)) {
+            table.addRow(new Object[]{me.getIdMiembroEq(),me.getMiembro().getNombre(),me.getEquipo().getNombre(),me.getFechaIncorporacion()});
+        }
+    }//GEN-LAST:event_jcboxEquiposActionPerformed
 
     public boolean isANumber(String numero){ //Implemento este metodo para comprobar si un campo es un número o no...
         boolean es;
@@ -225,20 +285,35 @@ public class AñadirTareaVista extends javax.swing.JInternalFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAveriguarCodigo;
     private javax.swing.JButton btnAñadirTarea;
     private javax.swing.JButton btnSalir;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JComboBox<Equipo> jcboxEquipos;
     private javax.swing.JComboBox<String> jcboxEstado;
     private com.toedter.calendar.JDateChooser jdcFechaCierre;
     private com.toedter.calendar.JDateChooser jdcFechaCreacion;
-    private javax.swing.JTextField jtfCodigo;
     private javax.swing.JTextField jtfNombre;
+    private javax.swing.JTable tableMiembrosEquipos;
     // End of variables declaration//GEN-END:variables
+
+    private void initComboBoxEquipo(){
+        EquipoData ed = new EquipoData();
+        for (Equipo team : ed.listarEquipos()) {
+            jcboxEquipos.addItem(team);
+        }
+        jtfNombre.setBorder(borde);
+    }
+    private void limpiar(){
+        table.setRowCount(0);
+        jtfNombre.setText("");
+        jdcFechaCreacion.setDate(null);
+        jdcFechaCierre.setDate(null);
+    }
 }

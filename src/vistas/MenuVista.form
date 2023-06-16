@@ -36,7 +36,7 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="modificarTareaVista">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Modificar"/>
+                <Property name="text" type="java.lang.String" value="Listas/Modificaciones"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="modificarTareaVistaActionPerformed"/>
@@ -53,22 +53,6 @@
                 <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="MenuVista_jmiA&#xf1;adirTarea"/>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
               </AuxValues>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jmiConsultasTareas">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Consultas"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiConsultasTareasActionPerformed"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jmiActualizarEstado">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="ActualizarEstado"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiActualizarEstadoActionPerformed"/>
-              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>

@@ -50,13 +50,13 @@ public class TareaData {
         }
     }
     
-    public void actualizarEstadoDeLasTareas(Tarea tarea, int estado){
+    public void actualizarEstadoDeLasTareas(int idTarea, int estado){
         String sql = "UPDATE tarea SET estado = ? WHERE idTarea = ?";
         PreparedStatement ps = null;
         try{
             ps = con.prepareStatement(sql);
-            ps.setInt(1,estado);
-            ps.setInt(2,tarea.getIdTarea());
+            ps.setInt(1, estado);
+            ps.setInt(2, idTarea);
             int exito = ps.executeUpdate();
             if(exito == 1){
                 JOptionPane.showMessageDialog(null,"Estado actualizado con éxito");
@@ -70,7 +70,6 @@ public class TareaData {
     }
 //    Consultar proyectos y tareas: Los usuarios podrán ver la lista de proyectos y sus respectivas tareas, así como filtrar las 
 //    tareas por estado y miembro del equipo.
-//    public ArrayList<Tarea> listaTareasPorProyectos(Proyecto proyecto){
     public ArrayList<Tarea> listaTareasPorIdProyectos(int idProyecto){
         ArrayList<Tarea>tareas = new ArrayList();
         String sql = "SELECT tarea.* FROM tarea JOIN miembrosequipo ON miembrosequipo.idMiembroEq = tarea.idMiembroEq JOIN equipo ON equipo.idEquipo = miembrosequipo.idEquipo JOIN proyecto ON proyecto.idProyecto = equipo.idEquipo WHERE proyecto.idProyecto = ?";

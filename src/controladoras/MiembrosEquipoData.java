@@ -108,4 +108,49 @@ public class MiembrosEquipoData {
         }
         return codigo;
     }
+    
+    public ArrayList<MiembrosEquipo> listarMiembrosEquipos(int idEquipo){
+        String sql = "SELECT * FROM miembrosequipo WHERE idEquipo = ?";
+        ArrayList<MiembrosEquipo>miembrosEquipos = new ArrayList();
+        PreparedStatement ps = null;
+        try{
+            ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, idEquipo);
+            ResultSet res = ps.executeQuery();
+            while(res.next()){
+                MiembrosEquipo me = new MiembrosEquipo();
+                me.setIdMiembroEq(res.getInt("idMiembroEq"));
+                me.setEquipo(ed.buscarEquipoPorId(res.getInt("idEquipo")));
+                me.setMiembro(md.buscarMiembroPorId(res.getInt("idMiembro")));
+                me.setFechaIncorporacion(res.getDate("fechaIncorporacion").toLocalDate());
+                miembrosEquipos.add(me);
+            }
+            ps.close();
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null,"Error al cargar miembrosEquipo");
+        }
+        return miembrosEquipos;
+    }
+    
+    public ArrayList<MiembrosEquipo> listarTodosMiembrosEquipos(){
+        String sql = "SELECT * FROM miembrosequipo";
+        ArrayList<MiembrosEquipo>miembrosEquipos = new ArrayList();
+        PreparedStatement ps = null;
+        try{
+            ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ResultSet res = ps.executeQuery();
+            while(res.next()){
+                MiembrosEquipo me = new MiembrosEquipo();
+                me.setIdMiembroEq(res.getInt("idMiembroEq"));
+                me.setEquipo(ed.buscarEquipoPorId(res.getInt("idEquipo")));
+                me.setMiembro(md.buscarMiembroPorId(res.getInt("idMiembro")));
+                me.setFechaIncorporacion(res.getDate("fechaIncorporacion").toLocalDate());
+                miembrosEquipos.add(me);
+            }
+            ps.close();
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null,"Error al cargar miembrosEquipo");
+        }
+        return miembrosEquipos;
+    }
 }

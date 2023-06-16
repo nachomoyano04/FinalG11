@@ -77,7 +77,7 @@ public class Equipo {
     }
     
     public String toString(){
-        return "Nombre: "+nombre+"\nFechaCreacion: "+fechaCreacion+"\nEstado: "+estado+"\nProyecto: "+proyecto;
+        return idEquipo+"_ "+nombre;
     }
     
 }

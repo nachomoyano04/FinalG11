@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -87,4 +88,29 @@ public class EquipoData {
         }
         return team;
     }
+    
+    public ArrayList<Equipo> listarEquipos(){
+        ArrayList<Equipo>equipos = new ArrayList();
+        ProyectoData pd = new ProyectoData();
+        String sql = "SELECT * FROM equipo";
+        PreparedStatement ps = null;
+        try{
+            ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ResultSet res = ps.executeQuery();
+            while(res.next()){
+                Equipo equipo = new Equipo();
+                equipo.setIdEquipo(res.getInt("idEquipo"));
+                equipo.setProyecto(pd.buscarProyecto(res.getInt("idProyecto")));
+                equipo.setNombre(res.getString("nombre"));
+                equipo.setFechaCreacion(res.getDate("fechaCreacion").toLocalDate());
+                equipo.setEstado(res.getBoolean("estado"));
+                equipos.add(equipo);
+            }
+            ps.close();
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null,"Error al listar equipos");
+        }
+        return equipos;
+    }
+    
 }
