@@ -9,6 +9,7 @@ import entidades.Proyecto;
 import static java.lang.Integer.parseInt;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -16,6 +17,7 @@ import javax.swing.JOptionPane;
  * @author TECNOVENTAS
  */
 public class ModificarProyectoVista extends javax.swing.JInternalFrame {
+    int idProyectoSeleccionado=-1;
 
     /**
      * Creates new form ModificarProyecto
@@ -24,6 +26,9 @@ public class ModificarProyectoVista extends javax.swing.JInternalFrame {
         initComponents();
         btngEstadoProyecto.add(jrbEstadoActivo);
         btngEstadoProyecto.add(jrbEstadoInactivo);
+        btnBuscar.setEnabled(false);
+        btnActualizar.setEnabled(false);
+        armarCombo();
     }
 
     /**
@@ -51,11 +56,22 @@ public class ModificarProyectoVista extends javax.swing.JInternalFrame {
         btnSalir = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
         btnNuevo = new javax.swing.JButton();
+        jComboProy = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
 
         jlTitulo.setFont(new java.awt.Font("Consolas", 1, 36)); // NOI18N
         jlTitulo.setText("Modificar datos del Proyecto");
 
         jlIdProyecto.setText("ID DE PROYECTO:");
+
+        jtfIdProyecto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtfIdProyectoKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtfIdProyectoKeyTyped(evt);
+            }
+        });
 
         btnBuscar.setText("BUSCAR");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -101,6 +117,19 @@ public class ModificarProyectoVista extends javax.swing.JInternalFrame {
             }
         });
 
+        jComboProy.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jComboProyMouseClicked(evt);
+            }
+        });
+        jComboProy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboProyActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("PROYECTO");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -109,21 +138,6 @@ public class ModificarProyectoVista extends javax.swing.JInternalFrame {
                 .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jlTitulo)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jlIdProyecto)
-                            .addComponent(jlNombreProyecto)
-                            .addComponent(jlDescripcion)
-                            .addComponent(jlFechaInicio))
-                        .addGap(27, 27, 27)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jtfIdProyecto, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jtfNombreProyecto)
-                            .addComponent(jScrollPane1)
-                            .addComponent(jdcFechaInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jlEstadoProyecto)
                         .addGap(96, 96, 96)
@@ -137,7 +151,26 @@ public class ModificarProyectoVista extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jrbEstadoActivo)
                                 .addGap(75, 75, 75)
-                                .addComponent(jrbEstadoInactivo)))))
+                                .addComponent(jrbEstadoInactivo))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jlIdProyecto)
+                            .addComponent(jlNombreProyecto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jlDescripcion)
+                            .addComponent(jlFechaInicio)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(27, 27, 27)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jComboProy, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jtfIdProyecto, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jtfNombreProyecto)
+                            .addComponent(jScrollPane1)
+                            .addComponent(jdcFechaInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(52, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -145,7 +178,11 @@ public class ModificarProyectoVista extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addComponent(jlTitulo)
-                .addGap(44, 44, 44)
+                .addGap(12, 12, 12)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboProy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlIdProyecto)
                     .addComponent(jtfIdProyecto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -178,6 +215,155 @@ public class ModificarProyectoVista extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    private void armarCombo(){
+        ProyectoData pd = new ProyectoData();
+        ArrayList<Proyecto> listaProy = new ArrayList();
+        
+        listaProy= pd.listarProyectos();
+        if (!listaProy.isEmpty()){
+            for(Proyecto unProyecto:listaProy ){
+                //jComboProy.addItem(unProyecto.getIdProyecto()+" - "+unProyecto.getNombre());
+                jComboProy.addItem(unProyecto);
+            }            
+        }                
+    }
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {                                          
+        // TODO add your handling code here:
+        Proyecto proyecto = new Proyecto();
+        ProyectoData pd = new ProyectoData();
+        proyecto = pd.buscarProyecto(parseInt(jtfIdProyecto.getText()));       
+        
+        //LocalDate lc = proyecto.getFechaInicio();
+        //java.util.Date date = java.util.Date.from(lc.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        
+        if(proyecto != null){
+            LocalDate lc = proyecto.getFechaInicio();
+            java.util.Date date = java.util.Date.from(lc.atStartOfDay(ZoneId.systemDefault()).toInstant());
+            jtfNombreProyecto.setText(proyecto.getNombre());
+            jtaDescripcion.setText(proyecto.getDescripcion());
+            jdcFechaInicio.setDate(date);
+            jrbEstadoActivo.setEnabled(true);
+            jrbEstadoInactivo.setEnabled(true);
+            if (proyecto.isEstado()){      
+                jrbEstadoActivo.setSelected(true);
+            }else{      
+                jrbEstadoInactivo.setSelected(true);
+            }        
+            btnActualizar.setEnabled(true);
+        } //else{
+           // JOptionPane.showMessageDialog(null, "Proyecto no encontrado");
+       // } 
+    }                                         
+    private void jComboProyMouseClicked(java.awt.event.MouseEvent evt) {
+        Proyecto proyecto = new Proyecto();
+        ProyectoData pd = new ProyectoData();
+        proyecto= (Proyecto) jComboProy.getSelectedItem();
+        proyecto = pd.buscarProyecto(proyecto.getIdProyecto());       
+        
+        //LocalDate lc = proyecto.getFechaInicio();
+        //java.util.Date date = java.util.Date.from(lc.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        
+        if(proyecto != null){
+            LocalDate lc = proyecto.getFechaInicio();
+            java.util.Date date = java.util.Date.from(lc.atStartOfDay(ZoneId.systemDefault()).toInstant());
+            jtfNombreProyecto.setText(proyecto.getNombre());
+            jtaDescripcion.setText(proyecto.getDescripcion());
+            jdcFechaInicio.setDate(date);
+            jrbEstadoActivo.setEnabled(true);
+            jrbEstadoInactivo.setEnabled(true);
+            if (proyecto.isEstado()){      
+                jrbEstadoActivo.setSelected(true);
+            }else{      
+                jrbEstadoInactivo.setSelected(true);
+            }        
+            btnActualizar.setEnabled(true);
+        }
+
+    } 
+    
+    
+    
+    
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {                                              
+        // TODO add your handling code here:
+        java.util.Date fecha = jdcFechaInicio.getDate();
+        LocalDate inicio = fecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        Proyecto proyecto = new Proyecto();
+        ProyectoData pd = new ProyectoData();
+        if(!jtfIdProyecto.getText().equals("")){
+            if (!jtfIdProyecto.getText().isEmpty()){
+                proyecto.setIdProyecto(parseInt(jtfIdProyecto.getText()));
+            }else{
+                JOptionPane.showMessageDialog(this, "El campo Id del Proyecto es obligatorio", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            if (!jtfNombreProyecto.getText().isEmpty()) {
+                proyecto.setNombre(jtfNombreProyecto.getText());
+            }else{            
+                JOptionPane.showMessageDialog(this, "El campo Nombre del Proyecto es obligatorio", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            if (!jtaDescripcion.getText().isEmpty()) {
+                proyecto.setDescripcion(jtaDescripcion.getText());        
+            }else{
+                JOptionPane.showMessageDialog(this, "El campo Descripción es obligatorio", "Error", JOptionPane.ERROR_MESSAGE); 
+            }
+            if (fecha != null) {
+                proyecto.setFechaInicio(inicio);
+            }else{
+                JOptionPane.showMessageDialog(this, "Debe seleccionar una fecha de inicio válida", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            if (!jrbEstadoActivo.isSelected() && !jrbEstadoInactivo.isSelected()) {
+                JOptionPane.showMessageDialog(this, "Debe seleccionar un estado para el proyecto", "Error", JOptionPane.ERROR_MESSAGE);
+            }else if(jrbEstadoActivo.isSelected()){
+                pd.activarProyecto(parseInt(jtfIdProyecto.getText()));        
+            }else{
+                pd.inactivarProyecto(parseInt(jtfIdProyecto.getText())); 
+            }
+            pd.modificarDatosProyecto(proyecto);
+        }else{
+            JOptionPane.showMessageDialog(this, "Error", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }                                             
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        // TODO add your handling code here:
+        dispose();
+    }                                        
+
+    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        // TODO add your handling code here:
+        jtfNombreProyecto.setText("");
+        jtaDescripcion.setText("");
+        jdcFechaInicio.setDate(null);
+        btngEstadoProyecto.clearSelection();
+        jtfIdProyecto.setText("");
+        btnActualizar.setEnabled(false);
+        btnBuscar.setEnabled(false);
+    }                                        
+
+    private void jtfIdProyectoKeyReleased(java.awt.event.KeyEvent evt) {                                          
+        // TODO add your handling code here:
+        habilitarBotonBuscar();
+    }                                         
+
+    private void jtfIdProyectoKeyTyped(java.awt.event.KeyEvent evt) {                                       
+        // TODO add your handling code here:
+        int key = evt.getKeyChar();
+
+         boolean numeros = key >= 48 && key <= 57;
+        
+        if (!numeros)
+              {
+                 evt.consume();
+                     } 
+    }                                      
+    
+    public void habilitarBotonBuscar(){
+        if (!jtfIdProyecto.getText().isEmpty()){
+            btnBuscar.setEnabled(true);
+        }
+    }
+    /*
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
         Proyecto proyecto = new Proyecto();
@@ -257,6 +443,22 @@ public class ModificarProyectoVista extends javax.swing.JInternalFrame {
         jtfIdProyecto.setText("");
     }//GEN-LAST:event_btnNuevoActionPerformed
 
+    private void jtfIdProyectoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfIdProyectoKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtfIdProyectoKeyReleased
+
+    private void jtfIdProyectoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfIdProyectoKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtfIdProyectoKeyTyped
+
+    private void jComboProyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboProyMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboProyMouseClicked
+
+    private void jComboProyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboProyActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboProyActionPerformed
+*/
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
@@ -264,6 +466,8 @@ public class ModificarProyectoVista extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnNuevo;
     private javax.swing.JButton btnSalir;
     private javax.swing.ButtonGroup btngEstadoProyecto;
+    private javax.swing.JComboBox<Proyecto> jComboProy;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private com.toedter.calendar.JDateChooser jdcFechaInicio;
     private javax.swing.JLabel jlDescripcion;
