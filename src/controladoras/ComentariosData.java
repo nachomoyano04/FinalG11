@@ -72,7 +72,7 @@ public class ComentariosData {
         TareaData td=new TareaData();
         ArrayList<Comentarios> listaComent =new ArrayList();
         PreparedStatement ps=null;
-        String sql = "SELECT comentario, fechaAvance FROM comentarios WHERE idTarea=?";
+        String sql = "SELECT * FROM comentarios WHERE idTarea=?";
         try{            
             ps = con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, tarea.getIdTarea());
@@ -94,7 +94,7 @@ public class ComentariosData {
     
     public void modificarComentarios(Comentarios comentarios){
         
-        String sql="UPDATE comentarios SET comentario=?, fechaAvance=?, idTarea? WHERE idComentario=? ";
+        String sql="UPDATE comentarios SET comentario=?, fechaAvance=?, idTarea=? WHERE idComentario=? ";
         
         PreparedStatement ps = null;
         try {

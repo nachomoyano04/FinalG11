@@ -27,10 +27,10 @@ public class ComentariosVista extends javax.swing.JInternalFrame {
         return false;
     }
         
-    public ComentariosVista(){//(Tarea tarea) {
-        //this.tareaProyecto= tarea;
+    public ComentariosVista(Tarea tarea){
         initComponents();
-        //armarTabla();
+        tareaProyecto= tarea;
+        armarTabla();
         jbtnModifComent.setEnabled(false);
     }
 
@@ -58,9 +58,7 @@ public class ComentariosVista extends javax.swing.JInternalFrame {
 
         jTablaComents.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Num Coment", "Miembro", "Fecha", "Comentario"
@@ -126,16 +124,16 @@ public class ComentariosVista extends javax.swing.JInternalFrame {
                 .addGap(120, 120, 120))
             .addGroup(layout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 587, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 599, Short.MAX_VALUE)
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(36, 36, 36)
                 .addComponent(jbtnNuevoComent)
-                .addGap(79, 79, 79)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jbtnModifComent)
-                .addGap(109, 109, 109)
-                .addComponent(jbtnSalir)
-                .addGap(93, 93, 93))
+                .addGap(81, 81, 81)
+                .addComponent(jbtnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(67, 67, 67))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -143,8 +141,8 @@ public class ComentariosVista extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(107, 107, 107)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbtnSalir)
                     .addComponent(jbtnModifComent)
@@ -184,10 +182,12 @@ public class ComentariosVista extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jbtnModifComentActionPerformed
 
-    public void armarTabla(){        
-        ComentariosData cd= new ComentariosData();
-        MiembroData md= new MiembroData();
-        Miembro miembro = new Miembro();
+    public void armarTabla(){
+        modelo = (DefaultTableModel) jTablaComents.getModel();
+        modelo.setRowCount(0);
+        ComentariosData cd = new ComentariosData();
+        MiembroData md = new MiembroData();
+        Miembro miembro;
               
         for (Comentarios comentList: cd.listarComentariosXTarea(tareaProyecto)) {
                 miembro= md.buscarMiembroPorId(tareaProyecto.getMiembroEq().getMiembro().getIdMiembro());

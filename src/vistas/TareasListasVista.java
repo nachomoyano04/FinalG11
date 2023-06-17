@@ -5,22 +5,22 @@
  */
 package vistas;
 
-import com.toedter.calendar.JDateChooser;
+import com.toedter.calendar.JTextFieldDateEditor;
+import controladoras.ComentariosData;
 import controladoras.MiembrosEquipoData;
 import controladoras.ProyectoData;
 import controladoras.TareaData;
 import entidades.MiembrosEquipo;
 import entidades.Proyecto;
+import entidades.Comentarios;
 import entidades.Tarea;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import javafx.scene.paint.Color;
+import java.util.ArrayList;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
-import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -30,6 +30,7 @@ import javax.swing.table.DefaultTableModel;
 public class TareasListasVista extends javax.swing.JInternalFrame {
 
     private DefaultTableModel table;
+    private DefaultTableModel tableComentarios;
     /**
      * Creates new form ModificarTareaVista
      */
@@ -50,7 +51,14 @@ public class TareasListasVista extends javax.swing.JInternalFrame {
         btnGuardarCambioDeEstado.setEnabled(false);
         jdcFechaCreacion.getCalendarButton().setEnabled(false);
         jdcFechaCierre.getCalendarButton().setEnabled(false);
-}
+        btnVerComentariosTareaSeleccionada.setEnabled(false);
+        txtAreaComentario.setEditable(false);
+        jdcFechaAvanceComentarios.getCalendarButton().setEnabled(true);
+        btnModificarComentario.setEnabled(false);
+        JTextFieldDateEditor textFieldFechaAvance = (JTextFieldDateEditor) jdcFechaAvanceComentarios.getDateEditor();
+        textFieldFechaAvance.setEditable(false);
+        btnAgregarComentario.setEnabled(false);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -85,6 +93,17 @@ public class TareasListasVista extends javax.swing.JInternalFrame {
         btnGuardarModificaciones = new javax.swing.JButton();
         btnGuardarCambioDeEstado = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        btnVerComentariosTareaSeleccionada = new javax.swing.JButton();
+        btnAgregarComentario = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtAreaComentario = new javax.swing.JTextArea();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tableComentariosSobreTareas = new javax.swing.JTable();
+        jdcFechaAvanceComentarios = new com.toedter.calendar.JDateChooser();
+        jLabel7 = new javax.swing.JLabel();
+        btnModificarComentario = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         jLabel2.setText("NOMBRE");
 
@@ -117,7 +136,7 @@ public class TareasListasVista extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "id tarea", "id Miembro/Equipo", "nombre", "fecha creacion", "fecha cierre", "estado"
+                "tarea", "empleado", "nombre", "fecha creacion", "fecha cierre", "estado"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -135,12 +154,17 @@ public class TareasListasVista extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(tableListaDeTareas);
         if (tableListaDeTareas.getColumnModel().getColumnCount() > 0) {
-            tableListaDeTareas.getColumnModel().getColumn(0).setResizable(false);
-            tableListaDeTareas.getColumnModel().getColumn(1).setResizable(false);
+            tableListaDeTareas.getColumnModel().getColumn(0).setMinWidth(70);
+            tableListaDeTareas.getColumnModel().getColumn(0).setMaxWidth(70);
+            tableListaDeTareas.getColumnModel().getColumn(1).setMinWidth(70);
+            tableListaDeTareas.getColumnModel().getColumn(1).setMaxWidth(70);
             tableListaDeTareas.getColumnModel().getColumn(2).setResizable(false);
-            tableListaDeTareas.getColumnModel().getColumn(3).setResizable(false);
-            tableListaDeTareas.getColumnModel().getColumn(4).setResizable(false);
-            tableListaDeTareas.getColumnModel().getColumn(5).setResizable(false);
+            tableListaDeTareas.getColumnModel().getColumn(3).setMinWidth(100);
+            tableListaDeTareas.getColumnModel().getColumn(3).setMaxWidth(100);
+            tableListaDeTareas.getColumnModel().getColumn(4).setMinWidth(100);
+            tableListaDeTareas.getColumnModel().getColumn(4).setMaxWidth(100);
+            tableListaDeTareas.getColumnModel().getColumn(5).setMinWidth(100);
+            tableListaDeTareas.getColumnModel().getColumn(5).setMaxWidth(100);
         }
 
         jPanel1.setBackground(new java.awt.Color(51, 255, 51));
@@ -163,8 +187,7 @@ public class TareasListasVista extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jcboxPorEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pendiente", "En progreso", "Inactiva", "Completada" }));
@@ -216,6 +239,65 @@ public class TareasListasVista extends javax.swing.JInternalFrame {
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         jLabel1.setText("Seleccione una fila de la tabla para modificar");
 
+        btnVerComentariosTareaSeleccionada.setText("Ver comentarios");
+        btnVerComentariosTareaSeleccionada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerComentariosTareaSeleccionadaActionPerformed(evt);
+            }
+        });
+
+        btnAgregarComentario.setText("Agregar comentario");
+        btnAgregarComentario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarComentarioActionPerformed(evt);
+            }
+        });
+
+        txtAreaComentario.setColumns(20);
+        txtAreaComentario.setRows(5);
+        jScrollPane2.setViewportView(txtAreaComentario);
+
+        tableComentariosSobreTareas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "numero", "tarea", "comentario", "fechaAvance"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane3.setViewportView(tableComentariosSobreTareas);
+        if (tableComentariosSobreTareas.getColumnModel().getColumnCount() > 0) {
+            tableComentariosSobreTareas.getColumnModel().getColumn(0).setMinWidth(60);
+            tableComentariosSobreTareas.getColumnModel().getColumn(0).setMaxWidth(60);
+            tableComentariosSobreTareas.getColumnModel().getColumn(1).setMinWidth(60);
+            tableComentariosSobreTareas.getColumnModel().getColumn(1).setMaxWidth(60);
+            tableComentariosSobreTareas.getColumnModel().getColumn(2).setResizable(false);
+            tableComentariosSobreTareas.getColumnModel().getColumn(3).setMinWidth(100);
+            tableComentariosSobreTareas.getColumnModel().getColumn(3).setMaxWidth(100);
+        }
+
+        jLabel7.setText("Fecha avance");
+
+        btnModificarComentario.setText("Modificar");
+        btnModificarComentario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarComentarioActionPerformed(evt);
+            }
+        });
+
+        jLabel8.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        jLabel8.setText("seleccione un comentario a modificar");
+
+        jButton1.setText("Guardar");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -225,88 +307,139 @@ public class TareasListasVista extends javax.swing.JInternalFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(30, 30, 30)
+                .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 134, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jcboxPorEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(94, 94, 94)
-                                .addComponent(jcboxPorEquipos, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(22, 22, 22)
-                                .addComponent(jLabel9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel10)
-                                .addGap(60, 60, 60)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(29, 29, 29)
+                            .addComponent(jLabel1))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(btnModificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnGuardarModificaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(18, 18, 18)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(btnCambiarEstado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnGuardarCambioDeEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(28, 28, 28)
+                            .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(96, 96, 96)
-                                .addComponent(jcboxPorProyectos, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(158, 158, 158))
+                            .addComponent(jtfNombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel11)
-                                .addGap(209, 209, 209))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jdcFechaCierre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jcboxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jdcFechaCreacion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(32, 32, 32)))))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnVerComentariosTareaSeleccionada)
+                        .addGap(161, 161, 161))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jLabel3)
-                                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jdcFechaCreacion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jtfNombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addGap(0, 0, Short.MAX_VALUE)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(jdcFechaCierre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jcboxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addGap(64, 64, 64))
+                                        .addGap(150, 150, 150)
+                                        .addComponent(jLabel9)
+                                        .addGap(184, 184, 184)
+                                        .addComponent(jLabel10))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(128, 128, 128)
+                                        .addComponent(jcboxPorEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(89, 89, 89)
+                                        .addComponent(jcboxPorEquipos, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(5, 5, 5)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(153, 153, 153)
+                                        .addComponent(jLabel11))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(96, 96, 96)
+                                        .addComponent(jcboxPorProyectos, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGap(111, 111, 111)
+                                .addComponent(btnAgregarComentario)))
+                        .addGap(69, 69, 69))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(196, 196, 196)
+                        .addComponent(btnModificarComentario, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(57, 57, 57)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 693, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(btnModificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnGuardarModificaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jLabel7)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(jdcFechaAvanceComentarios, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(btnCambiarEstado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnGuardarCambioDeEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(28, 28, 28)
-                                .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 858, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(31, 31, 31))))
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 558, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(22, 22, 22))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel11)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jcboxPorProyectos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jcboxPorEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jcboxPorEquipos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jcboxPorEquipos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(46, 46, 46)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel11)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jcboxPorProyectos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btnVerComentariosTareaSeleccionada)
+                                .addGap(39, 39, 39)
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(40, 40, 40)
+                                .addComponent(btnAgregarComentario)
+                                .addGap(18, 18, 18)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jdcFechaAvanceComentarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel8)
+                            .addComponent(btnModificarComentario)
+                            .addComponent(jButton1)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(9, 9, 9)
+                        .addGap(22, 22, 22)
                         .addComponent(jLabel1)
                         .addGap(27, 27, 27)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -329,11 +462,11 @@ public class TareasListasVista extends javax.swing.JInternalFrame {
                             .addComponent(btnModificar)
                             .addComponent(btnCambiarEstado)
                             .addComponent(btnSalir))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnGuardarCambioDeEstado)
                             .addComponent(btnGuardarModificaciones))))
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -420,6 +553,7 @@ public class TareasListasVista extends javax.swing.JInternalFrame {
         }else{
             indice = 3;
         }
+        btnVerComentariosTareaSeleccionada.setEnabled(true);
         jcboxEstado.setSelectedIndex(indice);
         jdcFechaCreacion.getCalendarButton().setEnabled(false);
         jdcFechaCierre.getCalendarButton().setEnabled(false);
@@ -429,6 +563,10 @@ public class TareasListasVista extends javax.swing.JInternalFrame {
         btnGuardarCambioDeEstado.setEnabled(false);
         btnGuardarModificaciones.setEnabled(false);
         jtfNombre.setEditable(false);
+        txtAreaComentario.setEditable(false);
+//        jdcFechaAvanceComentarios.getCalendarButton().setEnabled(true);
+        btnModificarComentario.setEnabled(false);
+        btnAgregarComentario.setEnabled(true);
     }//GEN-LAST:event_tableListaDeTareasMouseClicked
 
     private void btnGuardarModificacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarModificacionesActionPerformed
@@ -489,6 +627,49 @@ public class TareasListasVista extends javax.swing.JInternalFrame {
         btnGuardarCambioDeEstado.setEnabled(false);
     }//GEN-LAST:event_btnGuardarCambioDeEstadoActionPerformed
 
+    private void btnVerComentariosTareaSeleccionadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerComentariosTareaSeleccionadaActionPerformed
+        // TODO add your handling code here:
+        tableComentarios = (DefaultTableModel) tableComentariosSobreTareas.getModel();
+        tableComentarios.setRowCount(0);
+        TareaData td = new TareaData();
+        ComentariosData cd = new ComentariosData();
+        int fila = tableListaDeTareas.getSelectedRow();
+        int id = Integer.parseInt(table.getValueAt(fila, 0)+"");
+        Tarea tarea = td.buscarTareaXiD(id);
+        ArrayList<Comentarios>comentarios= cd.listarComentariosXTarea(tarea);
+        if(comentarios.isEmpty()){
+            JOptionPane.showMessageDialog(this, "La tarea no contiene comentarios aún...");
+        }else{
+            for(Comentarios com : comentarios){
+                tableComentarios.addRow(new Object[]{com.getIdComentario(), com.getTarea().getIdTarea(), com.getComentario(), com.getFechaAvance()});
+            }
+        }
+    }//GEN-LAST:event_btnVerComentariosTareaSeleccionadaActionPerformed
+
+    private void btnAgregarComentarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarComentarioActionPerformed
+        txtAreaComentario.setEditable(true);
+        txtAreaComentario.requestFocus();
+        jdcFechaAvanceComentarios.getCalendarButton().setEnabled(true);
+        btnModificarComentario.setEnabled(true);
+    }//GEN-LAST:event_btnAgregarComentarioActionPerformed
+
+    private void btnModificarComentarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarComentarioActionPerformed
+        // TODO add your handling code here:
+        ComentariosData cd = new ComentariosData();
+        int fila = tableListaDeTareas.getSelectedRow();
+        int idTarea = Integer.parseInt(table.getValueAt(fila, 0)+"");
+        String comentario = txtAreaComentario.getText();
+        LocalDate fechaAvance = jdcFechaAvanceComentarios.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        Comentarios comen = new Comentarios(new TareaData().buscarTareaXiD(idTarea), comentario, fechaAvance);
+        cd.crearComentarios(comen);
+        btnModificarComentario.setEnabled(false);
+        txtAreaComentario.setText("");
+        txtAreaComentario.setEditable(false);
+        jdcFechaAvanceComentarios.setDate(null);
+        jdcFechaAvanceComentarios.setEnabled(true);
+        btnModificarComentario.setEnabled(true);
+    }//GEN-LAST:event_btnModificarComentarioActionPerformed
+
     public boolean isANumber(String numero){ //Implemento este metodo para comprobar si un campo es un número o no...
         boolean es;
         try{
@@ -501,11 +682,15 @@ public class TareasListasVista extends javax.swing.JInternalFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregarComentario;
     private javax.swing.JButton btnCambiarEstado;
     private javax.swing.JButton btnGuardarCambioDeEstado;
     private javax.swing.JButton btnGuardarModificaciones;
     private javax.swing.JButton btnModificar;
+    private javax.swing.JButton btnModificarComentario;
     private javax.swing.JButton btnSalir;
+    private javax.swing.JButton btnVerComentariosTareaSeleccionada;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -514,17 +699,24 @@ public class TareasListasVista extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JComboBox<String> jcboxEstado;
     private javax.swing.JComboBox<MiembrosEquipo> jcboxPorEquipos;
     private javax.swing.JComboBox<String> jcboxPorEstado;
     private javax.swing.JComboBox<Proyecto> jcboxPorProyectos;
+    private com.toedter.calendar.JDateChooser jdcFechaAvanceComentarios;
     private com.toedter.calendar.JDateChooser jdcFechaCierre;
     private com.toedter.calendar.JDateChooser jdcFechaCreacion;
     private javax.swing.JTextField jtfNombre;
+    private javax.swing.JTable tableComentariosSobreTareas;
     private javax.swing.JTable tableListaDeTareas;
+    private javax.swing.JTextArea txtAreaComentario;
     // End of variables declaration//GEN-END:variables
 
     private void initTable() {
