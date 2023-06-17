@@ -108,7 +108,7 @@ public class MenuVista extends javax.swing.JFrame {
         });
         jmEquipos.add(jmiCrearEquipo);
 
-        jmiBuscarEquipo.setText("Buscar Equipo");
+        jmiBuscarEquipo.setText("Listas/Modificaciones");
         jmiBuscarEquipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmiBuscarEquipoActionPerformed(evt);
@@ -229,7 +229,7 @@ public class MenuVista extends javax.swing.JFrame {
         // TODO add your handling code here:
         escritorio.removeAll();
         escritorio.repaint();
-        BuscarEquipoVista bev = new BuscarEquipoVista();
+        EquiposListasVista bev = new EquiposListasVista();
         bev.setVisible(true);
         escritorio.add(bev);
         bev.moveToFront();

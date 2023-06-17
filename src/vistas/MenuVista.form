@@ -71,7 +71,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jmiBuscarEquipo">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Buscar Equipo"/>
+                <Property name="text" type="java.lang.String" value="Listas/Modificaciones"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiBuscarEquipoActionPerformed"/>

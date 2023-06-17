@@ -122,11 +122,6 @@ public class ModificarProyectoVista extends javax.swing.JInternalFrame {
                 jComboProyMouseClicked(evt);
             }
         });
-        jComboProy.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboProyActionPerformed(evt);
-            }
-        });
 
         jLabel1.setText("PROYECTO");
 
@@ -454,10 +449,6 @@ public class ModificarProyectoVista extends javax.swing.JInternalFrame {
     private void jComboProyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboProyMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboProyMouseClicked
-
-    private void jComboProyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboProyActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboProyActionPerformed
 */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
