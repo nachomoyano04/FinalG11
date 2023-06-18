@@ -40,24 +40,26 @@ public class TareasListasVista extends javax.swing.JInternalFrame {
         initComboEquipos();
         initComboProyectos();
         tableListaDeTareas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        tableListaDeTareas.setRowSelectionInterval(0, 0);
         JFormattedTextField textFCreacion = (JFormattedTextField) jdcFechaCreacion.getDateEditor().getUiComponent();
         textFCreacion.setEditable(false);
         JFormattedTextField textFCierre = (JFormattedTextField) jdcFechaCierre.getDateEditor().getUiComponent();
         textFCierre.setEditable(false);
         jcboxEstado.setEnabled(false);
         btnModificar.setEnabled(false);
-        btnCambiarEstado.setEnabled(false);
-        btnGuardarModificaciones.setEnabled(false);
-        btnGuardarCambioDeEstado.setEnabled(false);
+        btnGuardarModificaciones.setVisible(false);
         jdcFechaCreacion.getCalendarButton().setEnabled(false);
         jdcFechaCierre.getCalendarButton().setEnabled(false);
-        btnVerComentariosTareaSeleccionada.setEnabled(false);
+        jdcFechaAvanceComentarios.getCalendarButton().setEnabled(false);
         txtAreaComentario.setEditable(false);
         jdcFechaAvanceComentarios.getCalendarButton().setEnabled(true);
         btnModificarComentario.setEnabled(false);
         JTextFieldDateEditor textFieldFechaAvance = (JTextFieldDateEditor) jdcFechaAvanceComentarios.getDateEditor();
         textFieldFechaAvance.setEditable(false);
         btnAgregarComentario.setEnabled(false);
+        btnGuardarNuevoComentario.setEnabled(false);
+        btnGuardarNuevoComentario.setVisible(false);
+        btnGuardarModificacionDeComentario.setVisible(false);
     }
 
     /**
@@ -69,16 +71,6 @@ public class TareasListasVista extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jtfNombre = new javax.swing.JTextField();
-        jdcFechaCreacion = new com.toedter.calendar.JDateChooser();
-        jdcFechaCierre = new com.toedter.calendar.JDateChooser();
-        jLabel6 = new javax.swing.JLabel();
-        jcboxEstado = new javax.swing.JComboBox<>();
-        btnModificar = new javax.swing.JButton();
-        btnSalir = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableListaDeTareas = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
@@ -89,11 +81,7 @@ public class TareasListasVista extends javax.swing.JInternalFrame {
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        btnCambiarEstado = new javax.swing.JButton();
-        btnGuardarModificaciones = new javax.swing.JButton();
-        btnGuardarCambioDeEstado = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        btnVerComentariosTareaSeleccionada = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
         btnAgregarComentario = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtAreaComentario = new javax.swing.JTextArea();
@@ -102,34 +90,23 @@ public class TareasListasVista extends javax.swing.JInternalFrame {
         jdcFechaAvanceComentarios = new com.toedter.calendar.JDateChooser();
         jLabel7 = new javax.swing.JLabel();
         btnModificarComentario = new javax.swing.JButton();
-        jLabel8 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-
-        jLabel2.setText("NOMBRE");
-
-        jLabel3.setText("FECHA CREACION");
-
-        jLabel4.setText("FECHA CIERRE");
-
-        jtfNombre.setEditable(false);
-
-        jLabel6.setText("ESTADO");
-
-        jcboxEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pendiente", "En progreso", "Inactiva", "Completada" }));
-
-        btnModificar.setText("MODIFICAR");
-        btnModificar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnModificarActionPerformed(evt);
-            }
-        });
-
-        btnSalir.setText("SALIR");
-        btnSalir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalirActionPerformed(evt);
-            }
-        });
+        btnGuardarNuevoComentario = new javax.swing.JButton();
+        btnGuardarModificacionDeComentario = new javax.swing.JButton();
+        jLabel12 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jtfNombre = new javax.swing.JTextField();
+        jdcFechaCreacion = new com.toedter.calendar.JDateChooser();
+        jdcFechaCierre = new com.toedter.calendar.JDateChooser();
+        jLabel6 = new javax.swing.JLabel();
+        jcboxEstado = new javax.swing.JComboBox<>();
+        btnModificar = new javax.swing.JButton();
+        btnGuardarModificaciones = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        btnSalir = new javax.swing.JButton();
 
         tableListaDeTareas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -147,6 +124,8 @@ public class TareasListasVista extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        tableListaDeTareas.setSelectionBackground(new java.awt.Color(0, 204, 204));
+        tableListaDeTareas.setSelectionForeground(new java.awt.Color(0, 0, 0));
         tableListaDeTareas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tableListaDeTareasMouseClicked(evt);
@@ -167,7 +146,7 @@ public class TareasListasVista extends javax.swing.JInternalFrame {
             tableListaDeTareas.getColumnModel().getColumn(5).setMaxWidth(100);
         }
 
-        jPanel1.setBackground(new java.awt.Color(51, 255, 51));
+        jPanel1.setBackground(new java.awt.Color(0, 204, 204));
         jPanel1.setForeground(new java.awt.Color(0, 0, 0));
 
         jLabel5.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -215,36 +194,7 @@ public class TareasListasVista extends javax.swing.JInternalFrame {
 
         jLabel11.setText("Por proyectos");
 
-        btnCambiarEstado.setText("Cambiar Estado");
-        btnCambiarEstado.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCambiarEstadoActionPerformed(evt);
-            }
-        });
-
-        btnGuardarModificaciones.setText("Guardar");
-        btnGuardarModificaciones.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarModificacionesActionPerformed(evt);
-            }
-        });
-
-        btnGuardarCambioDeEstado.setText("Guardar");
-        btnGuardarCambioDeEstado.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarCambioDeEstadoActionPerformed(evt);
-            }
-        });
-
-        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        jLabel1.setText("Seleccione una fila de la tabla para modificar");
-
-        btnVerComentariosTareaSeleccionada.setText("Ver comentarios");
-        btnVerComentariosTareaSeleccionada.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVerComentariosTareaSeleccionadaActionPerformed(evt);
-            }
-        });
+        jPanel2.setBackground(new java.awt.Color(0, 204, 204));
 
         btnAgregarComentario.setText("Agregar comentario");
         btnAgregarComentario.addActionListener(new java.awt.event.ActionListener() {
@@ -286,17 +236,190 @@ public class TareasListasVista extends javax.swing.JInternalFrame {
 
         jLabel7.setText("Fecha avance");
 
-        btnModificarComentario.setText("Modificar");
+        btnModificarComentario.setText("Modificar Comentario");
         btnModificarComentario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnModificarComentarioActionPerformed(evt);
             }
         });
 
-        jLabel8.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        jLabel8.setText("seleccione un comentario a modificar");
+        btnGuardarNuevoComentario.setText("Guardar");
+        btnGuardarNuevoComentario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarNuevoComentarioActionPerformed(evt);
+            }
+        });
 
-        jButton1.setText("Guardar");
+        btnGuardarModificacionDeComentario.setText("Guardar");
+        btnGuardarModificacionDeComentario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarModificacionDeComentarioActionPerformed(evt);
+            }
+        });
+
+        jLabel12.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel12.setText("SECCIÓN DE COMENTARIOS");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(46, 46, 46)
+                        .addComponent(btnAgregarComentario)
+                        .addGap(156, 156, 156)
+                        .addComponent(jLabel12))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jdcFechaAvanceComentarios, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 558, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(65, 65, 65)
+                        .addComponent(btnGuardarNuevoComentario, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnModificarComentario)
+                        .addGap(187, 187, 187)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnGuardarModificacionDeComentario)
+                .addGap(229, 229, 229))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(13, 13, 13)
+                        .addComponent(btnAgregarComentario)
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jdcFechaAvanceComentarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel12)
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnGuardarNuevoComentario)
+                    .addComponent(btnModificarComentario))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnGuardarModificacionDeComentario, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(17, Short.MAX_VALUE))
+        );
+
+        jPanel3.setBackground(new java.awt.Color(0, 204, 204));
+
+        jtfNombre.setEditable(false);
+
+        jLabel6.setText("ESTADO");
+
+        jcboxEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pendiente", "En progreso", "Inactiva", "Completada" }));
+
+        btnModificar.setText("Modificar Tarea");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
+
+        btnGuardarModificaciones.setText("Guardar");
+        btnGuardarModificaciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarModificacionesActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("NOMBRE");
+
+        jLabel3.setText("FECHA CREACION");
+
+        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel1.setText("MODIFICACIONES DE TAREAS");
+
+        jLabel4.setText("FECHA CIERRE");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGap(94, 94, 94)
+                .addComponent(jLabel1)
+                .addGap(111, 111, 111))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING))
+                .addGap(126, 126, 126)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jdcFechaCierre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jcboxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jdcFechaCreacion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(38, 38, 38))
+                    .addComponent(jtfNombre)))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnGuardarModificaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(75, 75, 75))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addGap(27, 27, 27)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jtfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jdcFechaCreacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jdcFechaCierre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(jcboxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(35, 35, 35)
+                .addComponent(btnModificar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnGuardarModificaciones)
+                .addContainerGap(28, Short.MAX_VALUE))
+        );
+
+        jLabel13.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        jLabel13.setText("doble click en las filas para habilitar acciones");
+
+        btnSalir.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btnSalir.setText("SALIR");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -306,166 +429,75 @@ public class TareasListasVista extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(37, 37, 37)
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(29, 29, 29)
-                            .addComponent(jLabel1))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(btnModificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnGuardarModificaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(18, 18, 18)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(btnCambiarEstado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnGuardarCambioDeEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(28, 28, 28)
-                            .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(119, 119, 119)
+                        .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jtfNombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(jdcFechaCierre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jcboxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jdcFechaCreacion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(32, 32, 32)))))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnVerComentariosTareaSeleccionada)
-                        .addGap(161, 161, 161))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGap(150, 150, 150)
+                                        .addGap(22, 22, 22)
                                         .addComponent(jLabel9)
                                         .addGap(184, 184, 184)
                                         .addComponent(jLabel10))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGap(128, 128, 128)
                                         .addComponent(jcboxPorEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(89, 89, 89)
                                         .addComponent(jcboxPorEquipos, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(5, 5, 5)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGap(153, 153, 153)
+                                        .addGap(158, 158, 158)
                                         .addComponent(jLabel11))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGap(96, 96, 96)
+                                        .addGap(80, 80, 80)
                                         .addComponent(jcboxPorProyectos, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGap(111, 111, 111)
-                                .addComponent(btnAgregarComentario)))
-                        .addGap(69, 69, 69))))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 759, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(74, 74, 74))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(196, 196, 196)
-                        .addComponent(btnModificarComentario, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(57, 57, 57)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 693, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(jLabel7)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(jdcFechaAvanceComentarios, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addGap(18, 18, 18)
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 558, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(22, 22, 22))
+                .addComponent(jLabel13)
+                .addGap(359, 359, 359))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel11)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jcboxPorProyectos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jcboxPorEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jcboxPorEquipos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(46, 46, 46)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnVerComentariosTareaSeleccionada)
-                                .addGap(39, 39, 39)
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(40, 40, 40)
-                                .addComponent(btnAgregarComentario)
-                                .addGap(18, 18, 18)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jdcFechaAvanceComentarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel8)
-                            .addComponent(btnModificarComentario)
-                            .addComponent(jButton1)))
+                        .addComponent(jLabel11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jcboxPorProyectos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(jLabel1)
-                        .addGap(27, 27, 27)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(jtfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(32, 32, 32)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jdcFechaCreacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(30, 30, 30)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jdcFechaCierre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(28, 28, 28)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(jcboxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(35, 35, 35)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnModificar)
-                            .addComponent(btnCambiarEstado)
-                            .addComponent(btnSalir))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnGuardarCambioDeEstado)
-                            .addComponent(btnGuardarModificaciones))))
+                            .addComponent(jcboxPorEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jcboxPorEquipos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel13)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(40, 40, 40)
+                        .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -478,12 +510,17 @@ public class TareasListasVista extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        jtfNombre.setEditable(true);
-        jdcFechaCreacion.getCalendarButton().setEnabled(true);
-        jdcFechaCierre.getCalendarButton().setEnabled(true);
-        btnGuardarModificaciones.setEnabled(true);
-        btnModificar.setEnabled(false);
-        btnCambiarEstado.setEnabled(false);
+        int fila = tableListaDeTareas.getSelectedRow();
+        if(fila == -1){
+            JOptionPane.showMessageDialog(this,"Seleccione una fila a modificar");
+        }else{
+            jtfNombre.setEditable(true);
+            jdcFechaCreacion.getCalendarButton().setEnabled(true);
+            jdcFechaCierre.getCalendarButton().setEnabled(true);
+            jcboxEstado.setEnabled(true);
+            btnGuardarModificaciones.setVisible(true);
+            btnModificar.setEnabled(false);
+        }
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void jcboxPorEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcboxPorEstadoActionPerformed
@@ -501,6 +538,11 @@ public class TareasListasVista extends javax.swing.JInternalFrame {
             }
             table.addRow(new Object[]{tar.getIdTarea(), tar.getMiembroEq().getIdMiembroEq(), tar.getNombre(), tar.getFechaCreacion(), tar.getFechaCierre(), estado1});
         }
+        jtfNombre.setText("");
+        jdcFechaCreacion.setDate(null);
+        jdcFechaCreacion.getCalendarButton().setEnabled(false);
+        jdcFechaCierre.setDate(null);
+        jdcFechaCierre.getCalendarButton().setEnabled(false);
     }//GEN-LAST:event_jcboxPorEstadoActionPerformed
 
     private void jcboxPorEquiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcboxPorEquiposActionPerformed
@@ -518,6 +560,11 @@ public class TareasListasVista extends javax.swing.JInternalFrame {
             }
             table.addRow(new Object[]{tar.getIdTarea(), tar.getMiembroEq().getIdMiembroEq(), tar.getNombre(), tar.getFechaCreacion(), tar.getFechaCierre(),estado});
         }
+        jtfNombre.setText("");
+        jdcFechaCreacion.setDate(null);
+        jdcFechaCreacion.getCalendarButton().setEnabled(false);
+        jdcFechaCierre.setDate(null);
+        jdcFechaCierre.getCalendarButton().setEnabled(false);
     }//GEN-LAST:event_jcboxPorEquiposActionPerformed
 
     private void jcboxPorProyectosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcboxPorProyectosActionPerformed
@@ -535,6 +582,11 @@ public class TareasListasVista extends javax.swing.JInternalFrame {
             }
             table.addRow(new Object[]{tar.getIdTarea(), tar.getMiembroEq().getIdMiembroEq(), tar.getNombre(), tar.getFechaCreacion(), tar.getFechaCierre(), estado});
         }
+        jtfNombre.setText("");
+        jdcFechaCreacion.setDate(null);
+        jdcFechaCreacion.getCalendarButton().setEnabled(false);
+        jdcFechaCierre.setDate(null);
+        jdcFechaCierre.getCalendarButton().setEnabled(false);
     }//GEN-LAST:event_jcboxPorProyectosActionPerformed
 
     private void tableListaDeTareasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableListaDeTareasMouseClicked
@@ -553,20 +605,20 @@ public class TareasListasVista extends javax.swing.JInternalFrame {
         }else{
             indice = 3;
         }
-        btnVerComentariosTareaSeleccionada.setEnabled(true);
         jcboxEstado.setSelectedIndex(indice);
         jdcFechaCreacion.getCalendarButton().setEnabled(false);
         jdcFechaCierre.getCalendarButton().setEnabled(false);
+        jdcFechaAvanceComentarios.getCalendarButton().setEnabled(false);
         btnModificar.setEnabled(true);
         jcboxEstado.setEnabled(false);
-        btnCambiarEstado.setEnabled(true);
-        btnGuardarCambioDeEstado.setEnabled(false);
-        btnGuardarModificaciones.setEnabled(false);
+        btnGuardarModificaciones.setVisible(false);
         jtfNombre.setEditable(false);
         txtAreaComentario.setEditable(false);
-//        jdcFechaAvanceComentarios.getCalendarButton().setEnabled(true);
         btnModificarComentario.setEnabled(false);
         btnAgregarComentario.setEnabled(true);
+        btnGuardarNuevoComentario.setVisible(false);
+        btnGuardarModificacionDeComentario.setVisible(false);
+        llenarTablaComentarios();
     }//GEN-LAST:event_tableListaDeTareasMouseClicked
 
     private void btnGuardarModificacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarModificacionesActionPerformed
@@ -595,80 +647,98 @@ public class TareasListasVista extends javax.swing.JInternalFrame {
             }else{
                 Tarea tarea = new Tarea(Integer.parseInt(idTarea), miembroequipo, nombre, fechaCreacion, fechaCierre, estado);
                 td.modificarTarea(tarea);
+                String estau = null;
+                switch(estado){
+                    case 0: estau = "Pendiente";break;
+                    case 1: estau = "En Progreso";break;
+                    case 2: estau = "Inactiva";break;
+                    case 3: estau = "Completada";break;
+                }
                 table.setValueAt(nombre, fila, 2);
                 table.setValueAt(fechaCreacion, fila, 3);
                 table.setValueAt(fechaCierre, fila, 4);
-                btnGuardarModificaciones.setEnabled(false);
+                table.setValueAt(estau, fila, 5);
+                btnGuardarModificaciones.setVisible(false);
             }
         }
     }//GEN-LAST:event_btnGuardarModificacionesActionPerformed
-
-    private void btnCambiarEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambiarEstadoActionPerformed
-        btnGuardarCambioDeEstado.setEnabled(true);
-        jcboxEstado.setEnabled(true);
-        btnCambiarEstado.setEnabled(false);
-        btnModificar.setEnabled(false);
-    }//GEN-LAST:event_btnCambiarEstadoActionPerformed
-
-    private void btnGuardarCambioDeEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarCambioDeEstadoActionPerformed
-        TareaData td = new TareaData();
-        int fila = tableListaDeTareas.getSelectedRow();
-        int idTarea = Integer.parseInt(table.getValueAt(fila, 0)+"");
-        int estado = jcboxEstado.getSelectedIndex();
-        td.actualizarEstadoDeLasTareas(idTarea, estado);
-        String estado2 = null;
-        switch(estado){
-            case 0: estado2 = "Pendiente";break;
-            case 1: estado2 = "En Progreso";break;
-            case 2: estado2 = "Inactiva";break;
-            case 3: estado2 = "Completada";break;
-        }
-        table.setValueAt(estado2, fila, 5);
-        btnGuardarCambioDeEstado.setEnabled(false);
-    }//GEN-LAST:event_btnGuardarCambioDeEstadoActionPerformed
-
-    private void btnVerComentariosTareaSeleccionadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerComentariosTareaSeleccionadaActionPerformed
-        // TODO add your handling code here:
-        tableComentarios = (DefaultTableModel) tableComentariosSobreTareas.getModel();
-        tableComentarios.setRowCount(0);
-        TareaData td = new TareaData();
-        ComentariosData cd = new ComentariosData();
-        int fila = tableListaDeTareas.getSelectedRow();
-        int id = Integer.parseInt(table.getValueAt(fila, 0)+"");
-        Tarea tarea = td.buscarTareaXiD(id);
-        ArrayList<Comentarios>comentarios= cd.listarComentariosXTarea(tarea);
-        if(comentarios.isEmpty()){
-            JOptionPane.showMessageDialog(this, "La tarea no contiene comentarios aún...");
-        }else{
-            for(Comentarios com : comentarios){
-                tableComentarios.addRow(new Object[]{com.getIdComentario(), com.getTarea().getIdTarea(), com.getComentario(), com.getFechaAvance()});
-            }
-        }
-    }//GEN-LAST:event_btnVerComentariosTareaSeleccionadaActionPerformed
 
     private void btnAgregarComentarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarComentarioActionPerformed
         txtAreaComentario.setEditable(true);
         txtAreaComentario.requestFocus();
         jdcFechaAvanceComentarios.getCalendarButton().setEnabled(true);
         btnModificarComentario.setEnabled(true);
+        btnGuardarNuevoComentario.setEnabled(true);
+        btnGuardarNuevoComentario.setVisible(true);
     }//GEN-LAST:event_btnAgregarComentarioActionPerformed
 
     private void btnModificarComentarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarComentarioActionPerformed
+        // TODO add your handling code here:
+        btnGuardarModificacionDeComentario.setVisible(true);
+        txtAreaComentario.setEditable(true);
+        txtAreaComentario.requestFocus();
+        jdcFechaAvanceComentarios.getCalendarButton().setEnabled(true);
+        btnModificarComentario.setEnabled(false);
+        btnAgregarComentario.setEnabled(false);
+        btnGuardarNuevoComentario.setEnabled(false);
+        btnGuardarNuevoComentario.setVisible(false);
+    }//GEN-LAST:event_btnModificarComentarioActionPerformed
+
+    private void btnGuardarNuevoComentarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarNuevoComentarioActionPerformed
         // TODO add your handling code here:
         ComentariosData cd = new ComentariosData();
         int fila = tableListaDeTareas.getSelectedRow();
         int idTarea = Integer.parseInt(table.getValueAt(fila, 0)+"");
         String comentario = txtAreaComentario.getText();
-        LocalDate fechaAvance = jdcFechaAvanceComentarios.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        Comentarios comen = new Comentarios(new TareaData().buscarTareaXiD(idTarea), comentario, fechaAvance);
-        cd.crearComentarios(comen);
-        btnModificarComentario.setEnabled(false);
-        txtAreaComentario.setText("");
-        txtAreaComentario.setEditable(false);
-        jdcFechaAvanceComentarios.setDate(null);
-        jdcFechaAvanceComentarios.setEnabled(true);
-        btnModificarComentario.setEnabled(true);
-    }//GEN-LAST:event_btnModificarComentarioActionPerformed
+        if(comentario.equalsIgnoreCase("")){
+            JOptionPane.showMessageDialog(this, "Tiene que ingresar un comentario...");
+        }else{
+            if(jdcFechaAvanceComentarios.getDate() == null){
+                JOptionPane.showMessageDialog(this, "Debe elegir una fecha de avance...");
+            }else{
+                LocalDate fechaAvance = jdcFechaAvanceComentarios.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                Comentarios comen = new Comentarios(new TareaData().buscarTareaXiD(idTarea), comentario, fechaAvance);
+                cd.crearComentarios(comen);
+                btnModificarComentario.setEnabled(false);
+                txtAreaComentario.setText("");
+                txtAreaComentario.setEditable(false);
+                jdcFechaAvanceComentarios.setDate(null);
+                jdcFechaAvanceComentarios.setEnabled(true);
+                btnModificarComentario.setEnabled(true);
+                btnGuardarNuevoComentario.setVisible(false);
+                tableComentarios.addRow(new Object[]{comen.getIdComentario(), comen.getTarea().getIdTarea(), comen.getComentario(), comen.getFechaAvance()});
+            }
+        }
+    }//GEN-LAST:event_btnGuardarNuevoComentarioActionPerformed
+
+    private void btnGuardarModificacionDeComentarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarModificacionDeComentarioActionPerformed
+        // TODO add your handling code here:
+        int fila = tableComentariosSobreTareas.getSelectedRow();
+        if(fila == -1){
+            JOptionPane.showMessageDialog(this,"Seleccione un comentario a modificar");
+        }else{
+            ComentariosData cd = new ComentariosData();
+            Comentarios comentario = new Comentarios();
+            comentario.setIdComentario(Integer.parseInt(tableComentarios.getValueAt(fila, 0)+""));
+            comentario.setTarea(new TareaData().buscarTareaXiD(Integer.parseInt(tableComentarios.getValueAt(fila, 1)+"")));
+            if(txtAreaComentario.getText().equalsIgnoreCase("")){
+                JOptionPane.showMessageDialog(this,"Ingrese un comentario");
+            }else{
+                comentario.setComentario(txtAreaComentario.getText());
+                if(jdcFechaAvanceComentarios.getDate() == null){
+                    JOptionPane.showMessageDialog(this,"Ingrese una fecha de avance...");
+                }else{
+                    comentario.setFechaAvance(jdcFechaAvanceComentarios.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+                    cd.modificarComentarios(comentario);
+                    tableComentarios.setValueAt(comentario.getComentario(), fila, 2);
+                    tableComentarios.setValueAt(comentario.getFechaAvance(), fila, 3);
+                    btnGuardarModificacionDeComentario.setVisible(false);
+                    txtAreaComentario.setText("");
+                    jdcFechaAvanceComentarios.setDate(null);
+                }
+            }
+        }
+    }//GEN-LAST:event_btnGuardarModificacionDeComentarioActionPerformed
 
     public boolean isANumber(String numero){ //Implemento este metodo para comprobar si un campo es un número o no...
         boolean es;
@@ -683,26 +753,27 @@ public class TareasListasVista extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarComentario;
-    private javax.swing.JButton btnCambiarEstado;
-    private javax.swing.JButton btnGuardarCambioDeEstado;
+    private javax.swing.JButton btnGuardarModificacionDeComentario;
     private javax.swing.JButton btnGuardarModificaciones;
+    private javax.swing.JButton btnGuardarNuevoComentario;
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnModificarComentario;
     private javax.swing.JButton btnSalir;
-    private javax.swing.JButton btnVerComentariosTareaSeleccionada;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -746,5 +817,20 @@ public class TareasListasVista extends javax.swing.JInternalFrame {
         for (Proyecto proyect : pd.listarProyectos()) {
             jcboxPorProyectos.addItem(proyect);
         }
+    }
+
+    private void llenarTablaComentarios() {
+        tableComentarios = (DefaultTableModel) tableComentariosSobreTareas.getModel();
+        tableComentarios.setRowCount(0);
+        TareaData td = new TareaData();
+        ComentariosData cd = new ComentariosData();
+        int fila = tableListaDeTareas.getSelectedRow();
+        int id = Integer.parseInt(table.getValueAt(fila, 0)+"");
+        Tarea tarea = td.buscarTareaXiD(id);
+        ArrayList<Comentarios>comentarios= cd.listarComentariosXTarea(tarea);
+        for(Comentarios com : comentarios){
+            tableComentarios.addRow(new Object[]{com.getIdComentario(), com.getTarea().getIdTarea(), com.getComentario(), com.getFechaAvance()});
+        }
+        btnModificarComentario.setEnabled(true);
     }
 }

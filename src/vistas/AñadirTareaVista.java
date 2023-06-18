@@ -28,7 +28,6 @@ public class AñadirTareaVista extends javax.swing.JInternalFrame {
     private DefaultTableModel table;
     private TareaData td = new TareaData();
     private MiembrosEquipoData med = new MiembrosEquipoData();
-    private LineBorder borde = new LineBorder(java.awt.Color.GRAY);
 
     /**
      * Creates new form CrearTareaVista
@@ -110,7 +109,7 @@ public class AñadirTareaVista extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        tableMiembrosEquipos.setSelectionBackground(new java.awt.Color(51, 255, 51));
+        tableMiembrosEquipos.setSelectionBackground(new java.awt.Color(0, 204, 204));
         tableMiembrosEquipos.setSelectionForeground(new java.awt.Color(0, 0, 0));
         jScrollPane1.setViewportView(tableMiembrosEquipos);
         if (tableMiembrosEquipos.getColumnModel().getColumnCount() > 0) {
@@ -129,7 +128,7 @@ public class AñadirTareaVista extends javax.swing.JInternalFrame {
             }
         });
 
-        jPanel1.setBackground(new java.awt.Color(51, 255, 51));
+        jPanel1.setBackground(new java.awt.Color(0, 204, 204));
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
@@ -230,7 +229,6 @@ public class AñadirTareaVista extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAñadirTareaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAñadirTareaActionPerformed
-        jtfNombre.setBorder(borde);
         int filaSeleccionada = tableMiembrosEquipos.getSelectedRow();
         if(filaSeleccionada >= 0){
             String codigo = table.getValueAt(tableMiembrosEquipos.getSelectedRow(), 0)+"";
@@ -239,17 +237,20 @@ public class AñadirTareaVista extends javax.swing.JInternalFrame {
             MiembrosEquipo miembroEquipo = med.buscarMiembrosEquipoPorId(Integer.parseInt(codigo));
             if(nombre.equals("")){
                 JOptionPane.showMessageDialog(this, "Campo nombre obligatorio");
-                LineBorder borde1 = new LineBorder(java.awt.Color.RED);
-                jtfNombre.setBorder(borde1);
+                jtfNombre.requestFocus();
             }else{
-                if(jdcFechaCreacion.getDate() != null && jdcFechaCierre.getDate() != null){
+                if(jdcFechaCreacion.getDate() == null){
+                    JOptionPane.showMessageDialog(this,"Ingrese fecha de creación");
+                    jdcFechaCreacion.requestFocus();
+                }else if(jdcFechaCierre.getDate() == null){
+                    JOptionPane.showMessageDialog(this,"Ingrese fecha de cierre");
+                    jdcFechaCierre.requestFocus();
+                }else{
                     LocalDate fechaCreacion = jdcFechaCreacion.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
                     LocalDate fechaCierre = jdcFechaCierre.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
                     Tarea tarea = new Tarea(miembroEquipo, nombre, fechaCreacion, fechaCierre, estado);
                     td.asignarTareas(tarea);
                     limpiar();
-                }else{
-                    JOptionPane.showMessageDialog(this,"Seleccione fechas");
                 }
             }
         }else{
@@ -308,7 +309,6 @@ public class AñadirTareaVista extends javax.swing.JInternalFrame {
         for (Equipo team : ed.listarEquipos()) {
             jcboxEquipos.addItem(team);
         }
-        jtfNombre.setBorder(borde);
     }
     private void limpiar(){
         table.setRowCount(0);
