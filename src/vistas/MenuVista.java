@@ -27,6 +27,13 @@ public class MenuVista extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenu1 = new javax.swing.JMenu();
+        jMenuBar2 = new javax.swing.JMenuBar();
+        jMenu2 = new javax.swing.JMenu();
+        jMenu3 = new javax.swing.JMenu();
+        jMenuBar3 = new javax.swing.JMenuBar();
+        jMenu4 = new javax.swing.JMenu();
+        jMenu5 = new javax.swing.JMenu();
         escritorio = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jmProyecto = new javax.swing.JMenu();
@@ -43,6 +50,22 @@ public class MenuVista extends javax.swing.JFrame {
         jmiIngresarMiembro = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         jmiModificarMiembro = new javax.swing.JMenuItem();
+        jMenu6 = new javax.swing.JMenu();
+        jMenuSalir = new javax.swing.JMenuItem();
+
+        jMenu1.setText("jMenu1");
+
+        jMenu2.setText("File");
+        jMenuBar2.add(jMenu2);
+
+        jMenu3.setText("Edit");
+        jMenuBar2.add(jMenu3);
+
+        jMenu4.setText("File");
+        jMenuBar3.add(jMenu4);
+
+        jMenu5.setText("Edit");
+        jMenuBar3.add(jMenu5);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -138,6 +161,18 @@ public class MenuVista extends javax.swing.JFrame {
         jmMiembro.add(jmiModificarMiembro);
 
         jMenuBar1.add(jmMiembro);
+
+        jMenu6.setText("Salir");
+
+        jMenuSalir.setText("Salir");
+        jMenuSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuSalirActionPerformed(evt);
+            }
+        });
+        jMenu6.add(jMenuSalir);
+
+        jMenuBar1.add(jMenu6);
 
         setJMenuBar(jMenuBar1);
 
@@ -235,6 +270,11 @@ public class MenuVista extends javax.swing.JFrame {
         bev.moveToFront();
     }//GEN-LAST:event_jmiBuscarEquipoActionPerformed
 
+    private void jMenuSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuSalirActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_jMenuSalirActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -272,7 +312,16 @@ public class MenuVista extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JDesktopPane escritorio;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuBar jMenuBar2;
+    private javax.swing.JMenuBar jMenuBar3;
+    private javax.swing.JMenuItem jMenuSalir;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JMenu jmEquipos;
