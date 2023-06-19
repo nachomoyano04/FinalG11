@@ -23,6 +23,7 @@ public class IngresarMiembroVista extends javax.swing.JInternalFrame {
         initComponents();
         btngEstadoMiembro.add(jrbEstadoActivo);
         btngEstadoMiembro.add(jrbEstadoInactivo);
+        jbtnGuardar.setEnabled(false);
     }
 
     /**
@@ -55,9 +56,30 @@ public class IngresarMiembroVista extends javax.swing.JInternalFrame {
 
         jlNombreMiembro.setText("NOMBRE:");
 
+        jtfNombreMiembro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtfNombreMiembroKeyReleased(evt);
+            }
+        });
+
         jlApellidoMiembro.setText("APELLIDO:");
 
+        jtfApellidoMiembro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtfApellidoMiembroKeyReleased(evt);
+            }
+        });
+
         jlDni.setText("DNI:");
+
+        jtfDniMiembro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtfDniMiembroKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtfDniMiembroKeyTyped(evt);
+            }
+        });
 
         jlEstadoMiembro.setText("ESTADO:");
 
@@ -178,19 +200,24 @@ public class IngresarMiembroVista extends javax.swing.JInternalFrame {
         dispose();
     }//GEN-LAST:event_jbtnSalirActionPerformed
 
-    public static boolean textoLetras(String texto) {
+  /*  public static boolean textoLetras(String texto) {
     return texto.matches("[a-zA-Z]+");
     }
     
     public static boolean textoNumeros(String texto) {
     return texto.matches("[0-9]+");
-}
+}*/
 
     private void jbtnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnGuardarActionPerformed
         // TODO add your handling code here:
         Miembro miembro = new Miembro();
         MiembroData md = new MiembroData();
-        if (jtfNombreMiembro.getText().isEmpty()) {
+        
+        miembro.setNombre(jtfNombreMiembro.getText());
+        miembro.setApellido(jtfApellidoMiembro.getText());
+        miembro.setDni(parseInt(jtfDniMiembro.getText()));
+        
+     /*   if (jtfNombreMiembro.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "El campo Nombre del miembro es obligatorio", "Error", JOptionPane.ERROR_MESSAGE);
         }else{
             miembro.setNombre(jtfNombreMiembro.getText());
@@ -208,15 +235,16 @@ public class IngresarMiembroVista extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Campo invalido, solo admite numeros", "Error", JOptionPane.ERROR_MESSAGE);
         }else{
             miembro.setDni(parseInt(jtfDniMiembro.getText()));
-        }
+        }  */
         
-        if (!jrbEstadoActivo.isSelected() && !jrbEstadoInactivo.isSelected()) {
+        /*if (!jrbEstadoActivo.isSelected() && !jrbEstadoInactivo.isSelected()) {
             JOptionPane.showMessageDialog(this, "Debe seleccionar un estado para el miembro", "Error", JOptionPane.ERROR_MESSAGE);
-        }else if(jrbEstadoActivo.isSelected()){
-            miembro.setEstado(true);        
-        }else{
-            miembro.setEstado(false);
-        }
+        }else 
+            */   if(jrbEstadoActivo.isSelected()){
+                       miembro.setEstado(true);        
+                   }else{
+                          miembro.setEstado(false);
+                       }
         
         md.ingresarMiembro(miembro);
         jlIdGenerada.setText(String.valueOf(miembro.getIdMiembro()));
@@ -228,6 +256,7 @@ public class IngresarMiembroVista extends javax.swing.JInternalFrame {
         jtfApellidoMiembro.setText("");
         btngEstadoMiembro.clearSelection();
         jlIdGenerada.setText("");
+        jtfDniMiembro.setText("");
     }//GEN-LAST:event_jbtnNuevoActionPerformed
 
     private void jbtnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnModificarActionPerformed
@@ -238,6 +267,40 @@ public class IngresarMiembroVista extends javax.swing.JInternalFrame {
         vistaModificarMiembro.setVisible(true);
     }//GEN-LAST:event_jbtnModificarActionPerformed
 
+    private void jtfNombreMiembroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfNombreMiembroKeyReleased
+        // TODO add your handling code here:
+        habilitarBoton();
+    }//GEN-LAST:event_jtfNombreMiembroKeyReleased
+
+    private void jtfApellidoMiembroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfApellidoMiembroKeyReleased
+        // TODO add your handling code here:
+        habilitarBoton();
+    }//GEN-LAST:event_jtfApellidoMiembroKeyReleased
+
+    private void jtfDniMiembroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfDniMiembroKeyReleased
+        // TODO add your handling code here:
+        habilitarBoton();
+    }//GEN-LAST:event_jtfDniMiembroKeyReleased
+
+    private void jtfDniMiembroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfDniMiembroKeyTyped
+        // TODO add your handling code here:
+        int key = evt.getKeyChar();
+        boolean numeros = key >= 48 && key <= 57;
+        if (!numeros){
+            evt.consume();
+            }
+        if (jtfDniMiembro.getText().trim().length() == 8) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_jtfDniMiembroKeyTyped
+    public void habilitarBoton(){
+        if (!jtfNombreMiembro.getText().isEmpty() && !jtfApellidoMiembro.getText().isEmpty() && !jtfDniMiembro.getText().isEmpty()){
+            jbtnGuardar.setEnabled(true);    
+            //jrbEstadoActivo.setEnabled(true);
+            jrbEstadoActivo.setSelected(true);
+        }        
+    } 
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup btngEstadoMiembro;

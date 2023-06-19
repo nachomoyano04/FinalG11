@@ -123,6 +123,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jtfNombreMiembro">
+      <Events>
+        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtfNombreMiembroKeyReleased"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jlApellidoMiembro">
       <Properties>
@@ -130,6 +133,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jtfApellidoMiembro">
+      <Events>
+        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtfApellidoMiembroKeyReleased"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jlDni">
       <Properties>
@@ -137,6 +143,10 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jtfDniMiembro">
+      <Events>
+        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtfDniMiembroKeyReleased"/>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtfDniMiembroKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jlEstadoMiembro">
       <Properties>

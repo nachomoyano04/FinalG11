@@ -287,7 +287,7 @@ public class AñadirTareaVista extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jcboxEquiposActionPerformed
 
-    public boolean isANumber(String numero){ //Implemento este metodo para comprobar si un campo es un número o no...
+   /* public boolean isANumber(String numero){ //Implemento este metodo para comprobar si un campo es un número o no...
         boolean es;
         try{
             Integer.parseInt(numero);
@@ -296,7 +296,7 @@ public class AñadirTareaVista extends javax.swing.JInternalFrame {
             es = false;
         }
         return es;
-    }
+    }*/
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAñadirTarea;
