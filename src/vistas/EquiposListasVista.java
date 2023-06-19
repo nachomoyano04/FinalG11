@@ -17,8 +17,10 @@ import javax.swing.table.DefaultTableModel;
  * @author nacho
  */
 public class EquiposListasVista extends javax.swing.JInternalFrame {
+
     private EquipoData ed = new EquipoData();
     private DefaultTableModel table;
+
     /**
      * Creates new form BuscarEquipoVista
      */
@@ -68,6 +70,7 @@ public class EquiposListasVista extends javax.swing.JInternalFrame {
         jLabel10 = new javax.swing.JLabel();
         btnGuardarModificaciones = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
+        btnSalir = new javax.swing.JButton();
 
         jLabel5.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel5.setText("Nombre:");
@@ -208,6 +211,13 @@ public class EquiposListasVista extends javax.swing.JInternalFrame {
         jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         jLabel3.setText("Seleccionar una fila de la tabla");
 
+        btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -243,8 +253,12 @@ public class EquiposListasVista extends javax.swing.JInternalFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(btnDarDeBajaEquipo))
                                     .addComponent(btnGuardarModificaciones))
-                                .addGap(3, 3, 3)
-                                .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(3, 3, 3)))))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
@@ -299,7 +313,9 @@ public class EquiposListasVista extends javax.swing.JInternalFrame {
                             .addComponent(btnDarDeBajaEquipo)
                             .addComponent(btnLimpiar))
                         .addGap(18, 18, 18)
-                        .addComponent(btnGuardarModificaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnGuardarModificaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnSalir))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(12, 12, 12)
@@ -340,13 +356,13 @@ public class EquiposListasVista extends javax.swing.JInternalFrame {
     private void btnDarDeBajaEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDarDeBajaEquipoActionPerformed
         EquipoData ed = new EquipoData();
         int fila = tableDeEquipos.getSelectedRow();
-        int idEquipo = Integer.parseInt(table.getValueAt(fila, 0)+"");
+        int idEquipo = Integer.parseInt(table.getValueAt(fila, 0) + "");
         ed.darDeBajaEquipo(idEquipo);
         Equipo equi = ed.buscarEquipoPorId(idEquipo);
         String estado = null;
-        if(equi.isEstado()){
+        if (equi.isEstado()) {
             estado = "Activo";
-        }else{
+        } else {
             estado = "Inactivo";
         }
         jtfEstado.setText(estado);
@@ -358,9 +374,9 @@ public class EquiposListasVista extends javax.swing.JInternalFrame {
         int estado = jcboxPorEstado.getSelectedIndex();
         for (Equipo team : ed.listarEquiposPorEstado(estado)) {
             String estau = null;
-            if(estado == 1){
+            if (estado == 1) {
                 estau = "Activo";
-            }else{
+            } else {
                 estau = "Inactivo";
             }
             table.addRow(new Object[]{team.getIdEquipo(), team.getProyecto().getIdProyecto(), team.getNombre(), team.getFechaCreacion(), estau});
@@ -379,9 +395,9 @@ public class EquiposListasVista extends javax.swing.JInternalFrame {
         int idProyecto = proyecto.getIdProyecto();
         for (Equipo team : ed.listarEquiposPorProyectos(idProyecto)) {
             String estado = null;
-            if(team.isEstado()){
+            if (team.isEstado()) {
                 estado = "Activo";
-            }else{
+            } else {
                 estado = "Inactivo";
             }
             table.addRow(new Object[]{team.getIdEquipo(), team.getProyecto().getIdProyecto(), team.getNombre(), team.getFechaCreacion(), estado});
@@ -391,9 +407,9 @@ public class EquiposListasVista extends javax.swing.JInternalFrame {
     private void tableDeEquiposMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableDeEquiposMouseClicked
         // TODO add your handling code here:
         int fila = tableDeEquipos.getSelectedRow();
-        String nombre = table.getValueAt(fila, 2)+"";
-        LocalDate fechaCreacion = Date.valueOf(table.getValueAt(fila, 3)+"").toLocalDate();
-        String estado = table.getValueAt(fila, 4)+"";
+        String nombre = table.getValueAt(fila, 2) + "";
+        LocalDate fechaCreacion = Date.valueOf(table.getValueAt(fila, 3) + "").toLocalDate();
+        String estado = table.getValueAt(fila, 4) + "";
         jtfNombre.setText(nombre);
         jdcFechaCreacion.setDate(Date.valueOf(fechaCreacion));
         jtfEstado.setText(estado);
@@ -416,13 +432,13 @@ public class EquiposListasVista extends javax.swing.JInternalFrame {
     private void btnDarDeAltaEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDarDeAltaEquipoActionPerformed
         EquipoData ed = new EquipoData();
         int fila = tableDeEquipos.getSelectedRow();
-        int idEquipo = Integer.parseInt(table.getValueAt(fila, 0)+"");
+        int idEquipo = Integer.parseInt(table.getValueAt(fila, 0) + "");
         ed.darDeAltaEquipo(idEquipo);
         Equipo equi = ed.buscarEquipoPorId(idEquipo);
         String estado = null;
-        if(equi.isEstado()){
+        if (equi.isEstado()) {
             estado = "Activo";
-        }else{
+        } else {
             estado = "Inactivo";
         }
         jtfEstado.setText(estado);
@@ -432,20 +448,20 @@ public class EquiposListasVista extends javax.swing.JInternalFrame {
     private void btnGuardarModificacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarModificacionesActionPerformed
         // TODO add your handling code here:
         int fila = tableDeEquipos.getSelectedRow();
-        int idEquipo = Integer.parseInt(table.getValueAt(fila, 0)+"");
-        int idProyecto = Integer.parseInt(table.getValueAt(fila, 1)+"");
+        int idEquipo = Integer.parseInt(table.getValueAt(fila, 0) + "");
+        int idProyecto = Integer.parseInt(table.getValueAt(fila, 1) + "");
         String nombre = jtfNombre.getText();
         boolean estado = jtfEstado.getText().equalsIgnoreCase("activo");
-        if(nombre.equalsIgnoreCase("")){
+        if (nombre.equalsIgnoreCase("")) {
             JOptionPane.showMessageDialog(this, "Debe ingresar un nombre...");
             jtfNombre.requestFocus();
-        }else if(nombre.length()>50){
+        } else if (nombre.length() > 50) {
             JOptionPane.showMessageDialog(this, "El nombre no puede ser mayor a 50 caracteres...");
             jtfNombre.requestFocus();
 //        }else if(jdcFechaCreacion.getDate() == null){
 //            JOptionPane.showMessageDialog(this, "Debe ingresar una fecha de creación...");
 //            jdcFechaCreacion.requestFocus();
-        }else{
+        } else {
             LocalDate fechaCreacion = jdcFechaCreacion.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             EquipoData ed = new EquipoData();
             Equipo equipo = new Equipo(idEquipo, new ProyectoData().buscarProyecto(idProyecto), nombre, fechaCreacion, estado);
@@ -456,13 +472,17 @@ public class EquiposListasVista extends javax.swing.JInternalFrame {
             btnGuardarModificaciones.setVisible(false);
         }
     }//GEN-LAST:event_btnGuardarModificacionesActionPerformed
-    
-    public boolean isANumber(String numero){
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnSalirActionPerformed
+
+    public boolean isANumber(String numero) {
         boolean resultado;
-        try{
+        try {
             Integer.parseInt(numero);
             resultado = true;
-        }catch(NumberFormatException nfe){
+        } catch (NumberFormatException nfe) {
             resultado = false;
         }
         return resultado;
@@ -474,6 +494,7 @@ public class EquiposListasVista extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnGuardarModificaciones;
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnModificarEquipo;
+    private javax.swing.JButton btnSalir;
     private javax.swing.JButton btnTodosLosProyectos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -498,9 +519,9 @@ public class EquiposListasVista extends javax.swing.JInternalFrame {
         table = (DefaultTableModel) tableDeEquipos.getModel();
         for (Equipo team : ed.listarEquipos()) {
             String estado = null;
-            if(team.isEstado()){
+            if (team.isEstado()) {
                 estado = "Activo";
-            }else{
+            } else {
                 estado = "Inactivo";
             }
             table.addRow(new Object[]{team.getIdEquipo(), team.getProyecto().getIdProyecto(), team.getNombre(), team.getFechaCreacion(), estado});
