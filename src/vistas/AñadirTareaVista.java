@@ -12,11 +12,11 @@ package vistas;
     import javax.swing.JTextField;
     import entidades.Tarea;
     import entidades.MiembrosEquipo;
+import java.sql.Date;
     import java.time.LocalDate;
     import java.time.ZoneId;
     import javax.swing.JOptionPane;
     import javax.swing.ListSelectionModel;
-    import javax.swing.border.LineBorder;
     import javax.swing.table.DefaultTableModel;
 
  /*
@@ -35,6 +35,9 @@ public class AñadirTareaVista extends javax.swing.JInternalFrame {
     public AñadirTareaVista() {
         initComponents();
         initComboBoxEquipo();
+        //Esto es para la opcion con fecha de creacion ineditable
+        jdcFechaCreacion.setDate(Date.valueOf(LocalDate.now()));
+        jdcFechaCreacion.getCalendarButton().setEnabled(false);
     }
 
     /**
@@ -202,18 +205,18 @@ public class AñadirTareaVista extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(7, 73, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jtfNombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(73, 73, 73)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jtfNombre)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(32, 32, 32)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel4)
-                            .addComponent(jdcFechaCreacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jdcFechaCreacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(36, 36, 36)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jdcFechaCierre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jdcFechaCierre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(50, 50, 50)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
@@ -238,17 +241,27 @@ public class AñadirTareaVista extends javax.swing.JInternalFrame {
             if(nombre.equals("")){
                 JOptionPane.showMessageDialog(this, "Campo nombre obligatorio");
                 jtfNombre.requestFocus();
+            }else if(nombre.length()>30){
+                JOptionPane.showMessageDialog(this, "El nombre no puede superar los 30 caracteres...");
+                jtfNombre.requestFocus();
+//            }else if(jdcFechaCreacion.getDate() == null){
+//                JOptionPane.showMessageDialog(this,"Ingrese fecha de creación");
+//                jdcFechaCreacion.requestFocus();
+            }else if(jdcFechaCierre.getDate() == null){
+                JOptionPane.showMessageDialog(this,"Ingrese fecha de cierre");
+                jdcFechaCierre.requestFocus();
             }else{
-                if(jdcFechaCreacion.getDate() == null){
-                    JOptionPane.showMessageDialog(this,"Ingrese fecha de creación");
+//                LocalDate fechaCreacion = jdcFechaCreacion.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                LocalDate fechaCierre = jdcFechaCierre.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                /*if(!(fechaCreacion.equals(LocalDate.now()))){
+                    JOptionPane.showMessageDialog(this,"La fecha de creación debe ser de hoy");
                     jdcFechaCreacion.requestFocus();
-                }else if(jdcFechaCierre.getDate() == null){
-                    JOptionPane.showMessageDialog(this,"Ingrese fecha de cierre");
+                }else */if((fechaCierre.isBefore(LocalDate.now()))){
+                    JOptionPane.showMessageDialog(this,"La fecha de cierre no puede ser anterior a la fecha de hoy: "+LocalDate.now());
                     jdcFechaCierre.requestFocus();
                 }else{
-                    LocalDate fechaCreacion = jdcFechaCreacion.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-                    LocalDate fechaCierre = jdcFechaCierre.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-                    Tarea tarea = new Tarea(miembroEquipo, nombre, fechaCreacion, fechaCierre, estado);
+//                    Tarea tarea = new Tarea(miembroEquipo, nombre, fechaCreacion, fechaCierre, estado);
+                    Tarea tarea = new Tarea(miembroEquipo, nombre, LocalDate.now(), fechaCierre, estado);
                     td.asignarTareas(tarea);
                     limpiar();
                 }
@@ -313,7 +326,7 @@ public class AñadirTareaVista extends javax.swing.JInternalFrame {
     private void limpiar(){
         table.setRowCount(0);
         jtfNombre.setText("");
-        jdcFechaCreacion.setDate(null);
+//        jdcFechaCreacion.setDate(null);
         jdcFechaCierre.setDate(null);
     }
 }

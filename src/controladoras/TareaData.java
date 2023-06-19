@@ -32,7 +32,7 @@ public class TareaData {
         PreparedStatement ps = null;
         try{
             ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            System.out.println(tarea.getMiembroEq().getIdMiembroEq());
+//            System.out.println(tarea.getMiembroEq().getIdMiembroEq());
             ps.setInt(1, tarea.getMiembroEq().getIdMiembroEq());
             ps.setString(2,tarea.getNombre());
             ps.setDate(3, Date.valueOf(tarea.getFechaCreacion()));
@@ -76,7 +76,6 @@ public class TareaData {
         PreparedStatement ps = null;
         try{
             ps = con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
-//            ps.setInt(1,proyecto.getIdProyecto());
             ps.setInt(1, idProyecto);
             ResultSet res = ps.executeQuery();
             while(res.next()){

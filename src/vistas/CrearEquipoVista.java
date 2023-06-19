@@ -31,6 +31,8 @@ public class CrearEquipoVista extends javax.swing.JInternalFrame {
         initComponents();
         initTableDeProyectos();
         tableDeProyectos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        jdcFechaCreacion.setDate(Date.valueOf(LocalDate.now()));
+        jdcFechaCreacion.getCalendarButton().setEnabled(false);
     }
 
     /**
@@ -132,11 +134,14 @@ public class CrearEquipoVista extends javax.swing.JInternalFrame {
         tableDeProyectos.setSelectionForeground(new java.awt.Color(0, 0, 0));
         jScrollPane1.setViewportView(tableDeProyectos);
         if (tableDeProyectos.getColumnModel().getColumnCount() > 0) {
-            tableDeProyectos.getColumnModel().getColumn(0).setResizable(false);
+            tableDeProyectos.getColumnModel().getColumn(0).setMinWidth(70);
+            tableDeProyectos.getColumnModel().getColumn(0).setMaxWidth(70);
             tableDeProyectos.getColumnModel().getColumn(1).setResizable(false);
             tableDeProyectos.getColumnModel().getColumn(2).setResizable(false);
-            tableDeProyectos.getColumnModel().getColumn(3).setResizable(false);
-            tableDeProyectos.getColumnModel().getColumn(4).setResizable(false);
+            tableDeProyectos.getColumnModel().getColumn(3).setMinWidth(80);
+            tableDeProyectos.getColumnModel().getColumn(3).setMaxWidth(80);
+            tableDeProyectos.getColumnModel().getColumn(4).setMinWidth(70);
+            tableDeProyectos.getColumnModel().getColumn(4).setMaxWidth(70);
         }
 
         jLabel7.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
@@ -225,19 +230,18 @@ public class CrearEquipoVista extends javax.swing.JInternalFrame {
             String id = table.getValueAt(fila, 0)+"";
             String nombre = jtfNombre.getText();
             if(!(nombre.equals(""))){
-                if(jdcFechaCreacion.getDate() != null){
+                if(nombre.length()>50){
+                    JOptionPane.showMessageDialog(this,"El nombre no puede superar los 50 caracteres");
+                    jtfNombre.requestFocus();
+                }else /*if(jdcFechaCreacion.getDate() != null)*/{
                     EquipoData ed = new EquipoData();
                     LocalDate fechaCreacion = jdcFechaCreacion.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
                     boolean estado;
-                    if(jcboxEstado.getSelectedIndex() == 0){
-                        estado = true;
-                    }else{
-                        estado = false;
-                    }
+                    estado = jcboxEstado.getSelectedIndex() == 0;
                     Equipo equipo = new Equipo(new ProyectoData().buscarProyecto(Integer.parseInt(id)), nombre, fechaCreacion, estado);
                     ed.crearEquipo(equipo);
-                }else{
-                    JOptionPane.showMessageDialog(this, "Debe ingresar una fecha de creación.");
+//                }else{
+//                    JOptionPane.showMessageDialog(this, "Debe ingresar una fecha de creación.");
                 }
             }else{
                 JOptionPane.showMessageDialog(this, "Debe ingresar un nombre para el equipo.");
@@ -253,7 +257,7 @@ public class CrearEquipoVista extends javax.swing.JInternalFrame {
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
         // TODO add your handling code here:
             jtfNombre.setText("");
-            jdcFechaCreacion.setDate(null);
+//            jdcFechaCreacion.setDate(null);
             tableDeProyectos.clearSelection();
     }//GEN-LAST:event_btnLimpiarActionPerformed
 

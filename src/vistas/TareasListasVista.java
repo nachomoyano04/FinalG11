@@ -515,7 +515,7 @@ public class TareasListasVista extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this,"Seleccione una fila a modificar");
         }else{
             jtfNombre.setEditable(true);
-            jdcFechaCreacion.getCalendarButton().setEnabled(true);
+//            jdcFechaCreacion.getCalendarButton().setEnabled(true);
             jdcFechaCierre.getCalendarButton().setEnabled(true);
             jcboxEstado.setEnabled(true);
             btnGuardarModificaciones.setVisible(true);
@@ -539,8 +539,8 @@ public class TareasListasVista extends javax.swing.JInternalFrame {
             table.addRow(new Object[]{tar.getIdTarea(), tar.getMiembroEq().getIdMiembroEq(), tar.getNombre(), tar.getFechaCreacion(), tar.getFechaCierre(), estado1});
         }
         jtfNombre.setText("");
-        jdcFechaCreacion.setDate(null);
-        jdcFechaCreacion.getCalendarButton().setEnabled(false);
+//        jdcFechaCreacion.setDate(null);
+//        jdcFechaCreacion.getCalendarButton().setEnabled(false);
         jdcFechaCierre.setDate(null);
         jdcFechaCierre.getCalendarButton().setEnabled(false);
     }//GEN-LAST:event_jcboxPorEstadoActionPerformed
@@ -561,8 +561,8 @@ public class TareasListasVista extends javax.swing.JInternalFrame {
             table.addRow(new Object[]{tar.getIdTarea(), tar.getMiembroEq().getIdMiembroEq(), tar.getNombre(), tar.getFechaCreacion(), tar.getFechaCierre(),estado});
         }
         jtfNombre.setText("");
-        jdcFechaCreacion.setDate(null);
-        jdcFechaCreacion.getCalendarButton().setEnabled(false);
+//        jdcFechaCreacion.setDate(null);
+//        jdcFechaCreacion.getCalendarButton().setEnabled(false);
         jdcFechaCierre.setDate(null);
         jdcFechaCierre.getCalendarButton().setEnabled(false);
     }//GEN-LAST:event_jcboxPorEquiposActionPerformed
@@ -583,8 +583,8 @@ public class TareasListasVista extends javax.swing.JInternalFrame {
             table.addRow(new Object[]{tar.getIdTarea(), tar.getMiembroEq().getIdMiembroEq(), tar.getNombre(), tar.getFechaCreacion(), tar.getFechaCierre(), estado});
         }
         jtfNombre.setText("");
-        jdcFechaCreacion.setDate(null);
-        jdcFechaCreacion.getCalendarButton().setEnabled(false);
+//        jdcFechaCreacion.setDate(null);
+//        jdcFechaCreacion.getCalendarButton().setEnabled(false);
         jdcFechaCierre.setDate(null);
         jdcFechaCierre.getCalendarButton().setEnabled(false);
     }//GEN-LAST:event_jcboxPorProyectosActionPerformed
@@ -606,7 +606,7 @@ public class TareasListasVista extends javax.swing.JInternalFrame {
             indice = 3;
         }
         jcboxEstado.setSelectedIndex(indice);
-        jdcFechaCreacion.getCalendarButton().setEnabled(false);
+//        jdcFechaCreacion.getCalendarButton().setEnabled(false);
         jdcFechaCierre.getCalendarButton().setEnabled(false);
         jdcFechaAvanceComentarios.getCalendarButton().setEnabled(false);
         btnModificar.setEnabled(true);
@@ -630,9 +630,12 @@ public class TareasListasVista extends javax.swing.JInternalFrame {
         if(jtfNombre.getText().equals("")){
             JOptionPane.showMessageDialog(this,"El campo nombre debe estar completo");
             jtfNombre.requestFocus();
-        }else if(jdcFechaCreacion.getDate() == null){
-            JOptionPane.showMessageDialog(this,"El campo fecha creacion no debe estar nulo");
-            jdcFechaCreacion.requestFocus();
+        }else if(jtfNombre.getText().length() > 30){
+            JOptionPane.showMessageDialog(this,"El nombre no debe superar los 30 caracteres...");
+            jtfNombre.requestFocus();
+//        }else if(jdcFechaCreacion.getDate() == null){
+//            JOptionPane.showMessageDialog(this,"El campo fecha creacion no debe estar nulo");
+//            jdcFechaCreacion.requestFocus();
         }else if(jdcFechaCierre.getDate() == null){
             JOptionPane.showMessageDialog(this,"El campo fecha cierre no debe estar nulo");
             jdcFechaCierre.requestFocus();
@@ -640,26 +643,30 @@ public class TareasListasVista extends javax.swing.JInternalFrame {
             String nombre = jtfNombre.getText();
             LocalDate fechaCreacion = jdcFechaCreacion.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             LocalDate fechaCierre = jdcFechaCierre.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            int estado = jcboxEstado.getSelectedIndex();
-            MiembrosEquipo miembroequipo =  new MiembrosEquipoData().buscarMiembrosEquipoPorId(Integer.parseInt(idMiembroEquipo));
-            if(miembroequipo == null){
-                JOptionPane.showMessageDialog(this,"El código no existe...");
-            }else{
-                Tarea tarea = new Tarea(Integer.parseInt(idTarea), miembroequipo, nombre, fechaCreacion, fechaCierre, estado);
-                td.modificarTarea(tarea);
-                String estau = null;
-                switch(estado){
-                    case 0: estau = "Pendiente";break;
-                    case 1: estau = "En Progreso";break;
-                    case 2: estau = "Inactiva";break;
-                    case 3: estau = "Completada";break;
+            if(fechaCierre.isBefore(fechaCreacion)){
+                JOptionPane.showMessageDialog(this, "La fecha de cierre no puede ser anterior a la fecha de creación...");
+            }else{ 
+                int estado = jcboxEstado.getSelectedIndex();
+                MiembrosEquipo miembroequipo =  new MiembrosEquipoData().buscarMiembrosEquipoPorId(Integer.parseInt(idMiembroEquipo));
+                if(miembroequipo == null){
+                    JOptionPane.showMessageDialog(this,"El código no existe...");
+                }else{
+                    Tarea tarea = new Tarea(Integer.parseInt(idTarea), miembroequipo, nombre, fechaCreacion, fechaCierre, estado);
+                    td.modificarTarea(tarea);
+                    String estau = null;
+                    switch(estado){
+                        case 0: estau = "Pendiente";break;
+                        case 1: estau = "En Progreso";break;
+                        case 2: estau = "Inactiva";break;
+                        case 3: estau = "Completada";break;
+                    }
+                    table.setValueAt(nombre, fila, 2);
+                    table.setValueAt(fechaCreacion, fila, 3);
+                    table.setValueAt(fechaCierre, fila, 4);
+                    table.setValueAt(estau, fila, 5);
+                    btnGuardarModificaciones.setVisible(false);
                 }
-                table.setValueAt(nombre, fila, 2);
-                table.setValueAt(fechaCreacion, fila, 3);
-                table.setValueAt(fechaCierre, fila, 4);
-                table.setValueAt(estau, fila, 5);
-                btnGuardarModificaciones.setVisible(false);
-            }
+            }   
         }
     }//GEN-LAST:event_btnGuardarModificacionesActionPerformed
 
@@ -692,21 +699,28 @@ public class TareasListasVista extends javax.swing.JInternalFrame {
         String comentario = txtAreaComentario.getText();
         if(comentario.equalsIgnoreCase("")){
             JOptionPane.showMessageDialog(this, "Tiene que ingresar un comentario...");
-        }else{
+        }else if(comentario.length()>50){
+            JOptionPane.showMessageDialog(this, "El comentario no debe superar los 50 caracteres...");
+            txtAreaComentario.requestFocus();
+            }else{
             if(jdcFechaAvanceComentarios.getDate() == null){
                 JOptionPane.showMessageDialog(this, "Debe elegir una fecha de avance...");
             }else{
                 LocalDate fechaAvance = jdcFechaAvanceComentarios.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-                Comentarios comen = new Comentarios(new TareaData().buscarTareaXiD(idTarea), comentario, fechaAvance);
-                cd.crearComentarios(comen);
-                btnModificarComentario.setEnabled(false);
-                txtAreaComentario.setText("");
-                txtAreaComentario.setEditable(false);
-                jdcFechaAvanceComentarios.setDate(null);
-                jdcFechaAvanceComentarios.setEnabled(true);
-                btnModificarComentario.setEnabled(true);
-                btnGuardarNuevoComentario.setVisible(false);
-                tableComentarios.addRow(new Object[]{comen.getIdComentario(), comen.getTarea().getIdTarea(), comen.getComentario(), comen.getFechaAvance()});
+                if(fechaAvance.equals(LocalDate.now())||fechaAvance.isAfter(LocalDate.now())){
+                    Comentarios comen = new Comentarios(new TareaData().buscarTareaXiD(idTarea), comentario, fechaAvance);
+                    cd.crearComentarios(comen);
+                    btnModificarComentario.setEnabled(false);
+                    txtAreaComentario.setText("");
+                    txtAreaComentario.setEditable(false);
+                    jdcFechaAvanceComentarios.setDate(null);
+                    jdcFechaAvanceComentarios.setEnabled(true);
+                    btnModificarComentario.setEnabled(true);
+                    btnGuardarNuevoComentario.setVisible(false);
+                    tableComentarios.addRow(new Object[]{comen.getIdComentario(), comen.getTarea().getIdTarea(), comen.getComentario(), comen.getFechaAvance()});                    
+                }else{
+                    JOptionPane.showMessageDialog(this, "La fecha de avance no puede ser anterior a la fecha actual...");
+                }
             }
         }
     }//GEN-LAST:event_btnGuardarNuevoComentarioActionPerformed

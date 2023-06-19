@@ -67,6 +67,6 @@ public class MiembrosEquipo {
     }
     
     public String toString(){
-        return miembro.getNombre()+"/"+equipo.getNombre();
+        return miembro.getNombre()+"/ "+equipo.getNombre();
     }
 }

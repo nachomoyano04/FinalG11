@@ -124,7 +124,7 @@ public class EquiposListasVista extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "ID Equipo", "ID Proyecto", "nombre", "fecha de creacion", "estado"
+                "ID Equipo", "ID Proyecto", "nombre", "fecha creacion", "estado"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -144,11 +144,15 @@ public class EquiposListasVista extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(tableDeEquipos);
         if (tableDeEquipos.getColumnModel().getColumnCount() > 0) {
-            tableDeEquipos.getColumnModel().getColumn(0).setResizable(false);
-            tableDeEquipos.getColumnModel().getColumn(1).setResizable(false);
+            tableDeEquipos.getColumnModel().getColumn(0).setMinWidth(80);
+            tableDeEquipos.getColumnModel().getColumn(0).setMaxWidth(80);
+            tableDeEquipos.getColumnModel().getColumn(1).setMinWidth(80);
+            tableDeEquipos.getColumnModel().getColumn(1).setMaxWidth(80);
             tableDeEquipos.getColumnModel().getColumn(2).setResizable(false);
-            tableDeEquipos.getColumnModel().getColumn(3).setResizable(false);
-            tableDeEquipos.getColumnModel().getColumn(4).setResizable(false);
+            tableDeEquipos.getColumnModel().getColumn(3).setMinWidth(90);
+            tableDeEquipos.getColumnModel().getColumn(3).setMaxWidth(90);
+            tableDeEquipos.getColumnModel().getColumn(4).setMinWidth(60);
+            tableDeEquipos.getColumnModel().getColumn(4).setMaxWidth(60);
         }
 
         jcboxPorProyectos.addActionListener(new java.awt.event.ActionListener() {
@@ -323,14 +327,14 @@ public class EquiposListasVista extends javax.swing.JInternalFrame {
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
         jtfEstado.setText("");
-        jdcFechaCreacion.setDate(null);
+//        jdcFechaCreacion.setDate(null);
         jtfNombre.setText("");
         tableDeEquipos.clearSelection();
         btnDarDeBajaEquipo.setEnabled(false);
         btnDarDeAltaEquipo.setEnabled(false);
         btnModificarEquipo.setEnabled(false);
         btnGuardarModificaciones.setVisible(false);
-        jdcFechaCreacion.getCalendarButton().setEnabled(false);
+//        jdcFechaCreacion.getCalendarButton().setEnabled(false);
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btnDarDeBajaEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDarDeBajaEquipoActionPerformed
@@ -406,7 +410,7 @@ public class EquiposListasVista extends javax.swing.JInternalFrame {
         btnDarDeBajaEquipo.setEnabled(false);
         jtfNombre.setEditable(true);
         jtfNombre.requestFocus();
-        jdcFechaCreacion.getCalendarButton().setEnabled(true);
+//        jdcFechaCreacion.getCalendarButton().setEnabled(true);
     }//GEN-LAST:event_btnModificarEquipoActionPerformed
 
     private void btnDarDeAltaEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDarDeAltaEquipoActionPerformed
@@ -435,9 +439,12 @@ public class EquiposListasVista extends javax.swing.JInternalFrame {
         if(nombre.equalsIgnoreCase("")){
             JOptionPane.showMessageDialog(this, "Debe ingresar un nombre...");
             jtfNombre.requestFocus();
-        }else if(jdcFechaCreacion.getDate() == null){
-            JOptionPane.showMessageDialog(this, "Debe ingresar una fecha de creación...");
-            jdcFechaCreacion.requestFocus();
+        }else if(nombre.length()>50){
+            JOptionPane.showMessageDialog(this, "El nombre no puede ser mayor a 50 caracteres...");
+            jtfNombre.requestFocus();
+//        }else if(jdcFechaCreacion.getDate() == null){
+//            JOptionPane.showMessageDialog(this, "Debe ingresar una fecha de creación...");
+//            jdcFechaCreacion.requestFocus();
         }else{
             LocalDate fechaCreacion = jdcFechaCreacion.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             EquipoData ed = new EquipoData();
