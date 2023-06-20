@@ -6,7 +6,6 @@
 package controladoras;
 
 import entidades.Equipo;
-import entidades.Miembro;
 import entidades.MiembrosEquipo;
 import java.sql.Connection;
 import java.sql.Date;
@@ -22,7 +21,7 @@ import javax.swing.JOptionPane;
  * @author Isma
  */
 public class MiembrosEquipoData {
-    
+
     private MiembroData md = new MiembroData();
     private EquipoData ed = new EquipoData();
     private Connection con = null;
@@ -70,54 +69,54 @@ public class MiembrosEquipoData {
         }
         return miembrosEquipo;
     }
-    
-    public ArrayList<Equipo> buscarEquipoConDni(int dni){
+
+    public ArrayList<Equipo> buscarEquipoConDni(int dni) {
         String sql = "SELECT miembrosequipo.idEquipo FROM miembrosequipo JOIN miembro ON miembrosequipo.idMiembro = miembro.idMiembro WHERE miembro.dni = ?";
         EquipoData ed = new EquipoData();
-        ArrayList<Equipo>equipos = new ArrayList();
+        ArrayList<Equipo> equipos = new ArrayList();
         PreparedStatement ps = null;
-        try{
+        try {
             ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, dni);
             ResultSet res = ps.executeQuery();
-            while(res.next()){
+            while (res.next()) {
                 equipos.add(ed.buscarEquipoPorId(res.getInt("idEquipo")));
             }
             ps.close();
-        }catch(SQLException ex){
-            JOptionPane.showMessageDialog(null, "Error al buscar equio "+ex.getMessage());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al buscar equio " + ex.getMessage());
         }
         return equipos;
     }
-    
-    public int codigoGeneradoSegunEquipoYMiembro(int idEquipo, int idMiembro){
+
+    public int codigoGeneradoSegunEquipoYMiembro(int idEquipo, int idMiembro) {
         String sql = "SELECT miembrosequipo.idMiembroEq FROM miembrosequipo WHERE idEquipo = ? AND idMiembro = ?";
         int codigo = 0;
         PreparedStatement ps = null;
-        try{
+        try {
             ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, idEquipo);
             ps.setInt(2, idMiembro);
             ResultSet res = ps.executeQuery();
-            if(res.next()){
+            if (res.next()) {
                 codigo = res.getInt("idMiembroEq");
             }
             ps.close();
-        }catch(SQLException ex){
-            JOptionPane.showMessageDialog(null,"Error al generar codigo miembro equipo: "+ex.getMessage());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al generar codigo miembro equipo: " + ex.getMessage());
         }
         return codigo;
     }
-    
-    public ArrayList<MiembrosEquipo> listarMiembrosEquipos(int idEquipo){
+
+    public ArrayList<MiembrosEquipo> listarMiembrosEquipos(int idEquipo) {
         String sql = "SELECT * FROM miembrosequipo WHERE idEquipo = ?";
-        ArrayList<MiembrosEquipo>miembrosEquipos = new ArrayList();
+        ArrayList<MiembrosEquipo> miembrosEquipos = new ArrayList();
         PreparedStatement ps = null;
-        try{
+        try {
             ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, idEquipo);
             ResultSet res = ps.executeQuery();
-            while(res.next()){
+            while (res.next()) {
                 MiembrosEquipo me = new MiembrosEquipo();
                 me.setIdMiembroEq(res.getInt("idMiembroEq"));
                 me.setEquipo(ed.buscarEquipoPorId(res.getInt("idEquipo")));
@@ -126,20 +125,20 @@ public class MiembrosEquipoData {
                 miembrosEquipos.add(me);
             }
             ps.close();
-        }catch(SQLException ex){
-            JOptionPane.showMessageDialog(null,"Error al cargar miembrosEquipo");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al cargar miembrosEquipo");
         }
         return miembrosEquipos;
     }
-    
-    public ArrayList<MiembrosEquipo> listarTodosMiembrosEquipos(){
+
+    public ArrayList<MiembrosEquipo> listarTodosMiembrosEquipos() {
         String sql = "SELECT * FROM miembrosequipo";
-        ArrayList<MiembrosEquipo>miembrosEquipos = new ArrayList();
+        ArrayList<MiembrosEquipo> miembrosEquipos = new ArrayList();
         PreparedStatement ps = null;
-        try{
+        try {
             ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ResultSet res = ps.executeQuery();
-            while(res.next()){
+            while (res.next()) {
                 MiembrosEquipo me = new MiembrosEquipo();
                 me.setIdMiembroEq(res.getInt("idMiembroEq"));
                 me.setEquipo(ed.buscarEquipoPorId(res.getInt("idEquipo")));
@@ -148,21 +147,21 @@ public class MiembrosEquipoData {
                 miembrosEquipos.add(me);
             }
             ps.close();
-        }catch(SQLException ex){
-            JOptionPane.showMessageDialog(null,"Error al cargar miembrosEquipo");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al cargar miembrosEquipo");
         }
         return miembrosEquipos;
     }
-    
-    public ArrayList<MiembrosEquipo> listarMiembrosEquipoPorIdProyecto(int idProyecto){
+
+    public ArrayList<MiembrosEquipo> listarMiembrosEquipoPorIdProyecto(int idProyecto) {
         String sql = "SELECT miembrosequipo.* FROM miembrosequipo JOIN equipo ON miembrosequipo.idEquipo = equipo.idEquipo JOIN proyecto ON equipo.idProyecto = proyecto.idProyecto WHERE proyecto.idProyecto = ?";
-        ArrayList<MiembrosEquipo>miembrosEq = new ArrayList();
+        ArrayList<MiembrosEquipo> miembrosEq = new ArrayList();
         PreparedStatement ps = null;
-        try{
+        try {
             ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, idProyecto);
             ResultSet res = ps.executeQuery();
-            while(res.next()){
+            while (res.next()) {
                 MiembrosEquipo me = new MiembrosEquipo();
                 me.setIdMiembroEq(res.getInt("idMiembroEq"));
                 me.setEquipo(new EquipoData().buscarEquipoPorId(res.getInt("idEquipo")));
@@ -171,9 +170,23 @@ public class MiembrosEquipoData {
                 miembrosEq.add(me);
             }
             ps.close();
-        }catch(SQLException ex){
-            JOptionPane.showMessageDialog(null,"Error al listar miembrosEquipo: "+ex.getMessage());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al listar miembrosEquipo: " + ex.getMessage());
         }
         return miembrosEq;
     }
+
+    public void quitarMiembroDeEquipo(int idMiembroEq) {
+        String sql = "UPDATE miembrosequipo SET idEquipo = NULL WHERE idMiembroEq = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, idMiembroEq);
+            ps.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Miembro de equipo desasociado con éxito");
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al desasociar miembro de equipo: " + ex.getMessage());
+        }
+    }
+
 }
