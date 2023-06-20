@@ -28,6 +28,9 @@ public class ModificarMiembroVista extends javax.swing.JInternalFrame {
         btngRadioB.add(jrbEstadoInactivo);
         btnActualizar.setEnabled(false);
         jtfDniMiembro.setEditable(false);
+        jtfNombreMiembro.setEditable(false);
+        jtfApellidoMiembro.setEditable(false);
+        
 
     }
 
@@ -285,6 +288,9 @@ public class ModificarMiembroVista extends javax.swing.JInternalFrame {
             jrbEstadoInactivo.setSelected(true);
         }
         btnActualizar.setEnabled(true);
+        jtfDniMiembro.setEditable(true);
+        jtfNombreMiembro.setEditable(true);
+        jtfApellidoMiembro.setEditable(true);
 
     }//GEN-LAST:event_tableListaMiembroMouseClicked
     
@@ -339,7 +345,6 @@ public class ModificarMiembroVista extends javax.swing.JInternalFrame {
         jtfApellidoMiembro.setText("");
         btngRadioB.clearSelection();
         btnActualizar.setEnabled(false);
-
     }//GEN-LAST:event_jcboxEstadoMiembrosActionPerformed
 
     private void jtfNombreMiembroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfNombreMiembroKeyTyped
@@ -371,6 +376,7 @@ public class ModificarMiembroVista extends javax.swing.JInternalFrame {
             table.addRow(new Object[]{me.getIdMiembro(), me.getDni(), me.getNombre(), me.getApellido(),estado});
         }
     }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnSalir;

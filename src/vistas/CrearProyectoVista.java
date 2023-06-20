@@ -221,16 +221,24 @@ public class CrearProyectoVista extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
-         // TODO add your handling code here:
+        // TODO add your handling code here:
         java.util.Date fecha = jdcFechaInicio.getDate();
+        LocalDate fechaActual = LocalDate.now();
         Proyecto proyecto = new Proyecto();
         ProyectoData pd = new ProyectoData();
-        
-        if (!jtfNombreProyecto.getText().trim().isEmpty() && !jtaDescripcion.getText().trim().isEmpty()){
+
+        if (!jtfNombreProyecto.getText().trim().isEmpty() && !jtaDescripcion.getText().trim().isEmpty()) {
             proyecto.setNombre(jtfNombreProyecto.getText());
             proyecto.setDescripcion(jtaDescripcion.getText());
-            LocalDate inicio = fecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            proyecto.setFechaInicio(inicio);
+            if (fecha != null) {
+                LocalDate inicio = fecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                if (inicio.isBefore(fechaActual)) {
+                    JOptionPane.showMessageDialog(this, "La fecha de inicio no puede ser anterior a la fecha actual", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }else{
+                    proyecto.setFechaInicio(inicio);
+                }               
+            }
             if (!jrbEstadoActivo.isSelected() && !jrbEstadoInactivo.isSelected()) {
                 JOptionPane.showMessageDialog(this, "Debe seleccionar un estado para el proyecto", "Error", JOptionPane.ERROR_MESSAGE);
             } else if (jrbEstadoActivo.isSelected()) {
@@ -239,11 +247,11 @@ public class CrearProyectoVista extends javax.swing.JInternalFrame {
                 proyecto.setEstado(false);
             }
             pd.crearProyecto(proyecto);
-        } else{
+        } else {
             JOptionPane.showMessageDialog(this, "Los campos no pueden estar vacíos.");
-        }        
-        //jlIdGenerada.setText(String.valueOf(proyecto.getIdProyecto()));
-     
+        }
+        jlIdGenerada.setText(String.valueOf(proyecto.getIdProyecto()));
+
     }//GEN-LAST:event_btnCrearActionPerformed
 
     private void btnNuevoProyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoProyectoActionPerformed

@@ -59,7 +59,7 @@ public class ProyectoData {
                 proyecto.setNombre(res.getString("nombre"));
                 proyecto.setFechaInicio(res.getDate("fechaInicio").toLocalDate());
                 proyecto.setDescripcion(res.getString("descripcion"));
-                proyecto.setEstado(true);
+                proyecto.setEstado(res.getBoolean("estado"));
                 proyectos.add(proyecto);
             }
             ps.close();
@@ -82,7 +82,7 @@ public class ProyectoData {
                 proyecto.setNombre(res.getString("nombre"));
                 proyecto.setFechaInicio(res.getDate("fechaInicio").toLocalDate());
                 proyecto.setDescripcion(res.getString("descripcion"));
-                proyecto.setEstado(true);
+                proyecto.setEstado(res.getBoolean("estado"));
                 proyectos.add(proyecto);
             }
             ps.close();
@@ -119,14 +119,15 @@ public class ProyectoData {
     
     public void modificarDatosProyecto(Proyecto proyecto) {
 
-        String sql = "UPDATE proyecto SET nombre = ?, descripcion = ?, fechaInicio = ? WHERE  idProyecto = ?";
+        String sql = "UPDATE proyecto SET nombre = ?, descripcion = ?, fechaInicio = ? , estado = ? WHERE  idProyecto = ?";
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, proyecto.getNombre());
             ps.setString(2,proyecto.getDescripcion());
             ps.setDate(3, Date.valueOf(proyecto.getFechaInicio())); 
-            ps.setInt(4, proyecto.getIdProyecto());
+            ps.setBoolean(4, proyecto.isEstado());
+            ps.setInt(5, proyecto.getIdProyecto());
             int modificar = ps.executeUpdate();
             if (modificar == 1){
                 JOptionPane.showMessageDialog(null, "Modificado Exitosamente.");

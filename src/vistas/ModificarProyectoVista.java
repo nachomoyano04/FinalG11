@@ -4,6 +4,7 @@
  */
 package vistas;
 
+import com.toedter.calendar.JTextFieldDateEditor;
 import controladoras.ProyectoData;
 import entidades.Proyecto;
 import java.sql.Date;
@@ -27,12 +28,15 @@ public class ModificarProyectoVista extends javax.swing.JInternalFrame {
         inicializarTabla();
         btngEstadoProyecto.add(jrbEstadoActivo);
         btngEstadoProyecto.add(jrbEstadoInactivo);
-                        //Se inicializan el boton Actualizar en desactivado hasta que se ingresen valores en los campos 
+        //Se inicializan el boton Actualizar en desactivado hasta que se ingresen valores en los campos 
         btnActualizar.setEnabled(false);
-                       //Se descativa la edición de los campos Nombre, Descripción y Fecha. Los adots se seleccionan desde la tabla
+        //Se descativa la edición de los campos Nombre, Descripción y Fecha. Los adots se seleccionan desde la tabla
         jtfNombreProyecto.setEditable(false);
         jtaDescripcion.setEditable(false);
         jdcFechaInicio.setEnabled(false);
+        JTextFieldDateEditor textFInicio = (JTextFieldDateEditor) jdcFechaInicio.getDateEditor();
+        textFInicio.setEditable(false);
+        
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -222,31 +226,40 @@ public class ModificarProyectoVista extends javax.swing.JInternalFrame {
         LocalDate inicio = fecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         Proyecto proyecto = new Proyecto();
         ProyectoData pd = new ProyectoData();
-        proyecto.setIdProyecto(Integer.parseInt(table.getValueAt(tableListaProyectos.getSelectedRow(), 0)+""));
-        if(jtfNombreProyecto.getText().equals("")){
-            JOptionPane.showMessageDialog(this,"El campo Nombre debe estar completo");
+        proyecto.setIdProyecto(Integer.parseInt(table.getValueAt(tableListaProyectos.getSelectedRow(), 0) + ""));
+
+        if (jtfNombreProyecto.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "El campo Nombre debe estar completo");
             jtfNombreProyecto.requestFocus();
-        }else if(jtaDescripcion.getText().equals("")){
-            JOptionPane.showMessageDialog(this,"El campo Descripcion debe estar completo");
+        } else if (jtaDescripcion.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "El campo Descripcion debe estar completo");
             jtaDescripcion.requestFocus();
-        }else {  
-            proyecto.setNombre(jtfNombreProyecto.getText());
-            proyecto.setDescripcion(jtaDescripcion.getText());        
-            jdcFechaInicio.setEnabled(false);             
-            proyecto.setFechaInicio(inicio);
-            if(jrbEstadoActivo.isSelected()){
-                proyecto.setEstado(true);
-            }else{
-                proyecto.setEstado(false);
+        } else if (fecha != null) {
+            LocalDate fechaActual = LocalDate.now();
+            if (inicio.isBefore(fechaActual)) {
+                JOptionPane.showMessageDialog(this, "La fecha de inicio no puede ser anterior a la fecha actual", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
             }
-            pd.modificarDatosProyecto(proyecto); 
-            inicializarTabla();
-            jtfNombreProyecto.setText("");
-            jtaDescripcion.setText("");
-            jdcFechaInicio.setDate(null);
-            btngEstadoProyecto.clearSelection();
-            btnActualizar.setEnabled(false);
+            proyecto.setFechaInicio(inicio);
+            jdcFechaInicio.setEnabled(false);
+        } else {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar una fecha de inicio", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
         }
+
+        if (jrbEstadoActivo.isSelected()) {
+            proyecto.setEstado(true);
+        } else {
+            proyecto.setEstado(false);
+        }
+
+        pd.modificarDatosProyecto(proyecto);
+        inicializarTabla();
+        jtfNombreProyecto.setText("");
+        jtaDescripcion.setText("");
+        jdcFechaInicio.setDate(null);
+        btngEstadoProyecto.clearSelection();
+        btnActualizar.setEnabled(false);
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
@@ -317,8 +330,7 @@ public class ModificarProyectoVista extends javax.swing.JInternalFrame {
             evt.consume();
         }
     }//GEN-LAST:event_jtaDescripcionKeyTyped
-    
-    
+       
     private void inicializarTabla() {
         table = (DefaultTableModel) tableListaProyectos.getModel(); 
         table.setRowCount(0);
