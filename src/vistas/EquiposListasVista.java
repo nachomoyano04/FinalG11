@@ -75,6 +75,11 @@ public class EquiposListasVista extends javax.swing.JInternalFrame {
         jLabel7.setText("Estado:");
 
         jtfNombre.setEditable(false);
+        jtfNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtfNombreKeyTyped(evt);
+            }
+        });
 
         jtfEstado.setEditable(false);
 
@@ -475,6 +480,13 @@ public class EquiposListasVista extends javax.swing.JInternalFrame {
         //---SE CIERRA LA VENTANA---
         dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void jtfNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfNombreKeyTyped
+        // TODO add your handling code here:
+        if (jtfNombre.getText().trim().length() == 50) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_jtfNombreKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

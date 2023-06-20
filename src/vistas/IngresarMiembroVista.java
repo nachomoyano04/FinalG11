@@ -24,6 +24,7 @@ public class IngresarMiembroVista extends javax.swing.JInternalFrame {
         btngEstadoMiembro.add(jrbEstadoActivo);
         btngEstadoMiembro.add(jrbEstadoInactivo);
         jbtnGuardar.setEnabled(false);
+       
     }
 
     /**
@@ -60,6 +61,9 @@ public class IngresarMiembroVista extends javax.swing.JInternalFrame {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jtfNombreMiembroKeyReleased(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtfNombreMiembroKeyTyped(evt);
+            }
         });
 
         jlApellidoMiembro.setText("APELLIDO:");
@@ -67,6 +71,9 @@ public class IngresarMiembroVista extends javax.swing.JInternalFrame {
         jtfApellidoMiembro.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jtfApellidoMiembroKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtfApellidoMiembroKeyTyped(evt);
             }
         });
 
@@ -155,7 +162,7 @@ public class IngresarMiembroVista extends javax.swing.JInternalFrame {
                         .addComponent(jbtnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jbtnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(58, Short.MAX_VALUE))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -183,7 +190,7 @@ public class IngresarMiembroVista extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlIdMiembro)
                     .addComponent(jlIdGenerada, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbtnSalir)
                     .addComponent(jbtnGuardar)
@@ -200,13 +207,6 @@ public class IngresarMiembroVista extends javax.swing.JInternalFrame {
         dispose();
     }//GEN-LAST:event_jbtnSalirActionPerformed
 
-  /*  public static boolean textoLetras(String texto) {
-    return texto.matches("[a-zA-Z]+");
-    }
-    
-    public static boolean textoNumeros(String texto) {
-    return texto.matches("[0-9]+");
-}*/
 
     private void jbtnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnGuardarActionPerformed
         // TODO add your handling code here:
@@ -245,9 +245,13 @@ public class IngresarMiembroVista extends javax.swing.JInternalFrame {
                    }else{
                           miembro.setEstado(false);
                        }
+        if (!jtfNombreMiembro.getText().isEmpty()&& !jtfApellidoMiembro.getText().isEmpty() && !jtfDniMiembro.getText().isEmpty()){
+            md.ingresarMiembro(miembro);
+            jlIdGenerada.setText(String.valueOf(miembro.getIdMiembro()));
+        }else{
+            JOptionPane.showMessageDialog(this, "Los campos deben estar completos");
+        }
         
-        md.ingresarMiembro(miembro);
-        jlIdGenerada.setText(String.valueOf(miembro.getIdMiembro()));
     }//GEN-LAST:event_jbtnGuardarActionPerformed
 
     private void jbtnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnNuevoActionPerformed
@@ -283,7 +287,7 @@ public class IngresarMiembroVista extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jtfDniMiembroKeyReleased
 
     private void jtfDniMiembroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfDniMiembroKeyTyped
-        // TODO add your handling code here:
+        //Validación cantidad de caracteres ingresados. Max 8 y que sean números
         int key = evt.getKeyChar();
         boolean numeros = key >= 48 && key <= 57;
         if (!numeros){
@@ -293,10 +297,25 @@ public class IngresarMiembroVista extends javax.swing.JInternalFrame {
             evt.consume();
         }
     }//GEN-LAST:event_jtfDniMiembroKeyTyped
+ 
+    
+    private void jtfNombreMiembroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfNombreMiembroKeyTyped
+        //Validación cantidad de caracteres ingresados. Max 30
+        if (jtfNombreMiembro.getText().trim().length() == 30) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_jtfNombreMiembroKeyTyped
+
+    private void jtfApellidoMiembroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfApellidoMiembroKeyTyped
+        //Validación cantidad de caracteres ingresados. Max 30
+        if (jtfApellidoMiembro.getText().trim().length() == 30) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_jtfApellidoMiembroKeyTyped
     public void habilitarBoton(){
-        if (!jtfNombreMiembro.getText().isEmpty() && !jtfApellidoMiembro.getText().isEmpty() && !jtfDniMiembro.getText().isEmpty()){
+       //El boton Guardar se habilita cuando los campos nombre, Aopellido y DNi están con datos
+        if (!jtfNombreMiembro.getText().trim().isEmpty() && !jtfApellidoMiembro.getText().trim().isEmpty() && !jtfDniMiembro.getText().trim().isEmpty()){
             jbtnGuardar.setEnabled(true);    
-            //jrbEstadoActivo.setEnabled(true);
             jrbEstadoActivo.setSelected(true);
         }        
     } 

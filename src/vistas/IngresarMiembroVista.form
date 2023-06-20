@@ -61,7 +61,7 @@
                       <Component id="jbtnSalir" min="-2" pref="98" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="58" max="32767" attributes="0"/>
+              <EmptySpace pref="65" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -96,7 +96,7 @@
                   <Component id="jlIdMiembro" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jlIdGenerada" alignment="3" min="-2" pref="68" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="47" max="32767" attributes="0"/>
+              <EmptySpace pref="61" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jbtnSalir" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jbtnGuardar" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -125,6 +125,7 @@
     <Component class="javax.swing.JTextField" name="jtfNombreMiembro">
       <Events>
         <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtfNombreMiembroKeyReleased"/>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtfNombreMiembroKeyTyped"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jlApellidoMiembro">
@@ -135,6 +136,7 @@
     <Component class="javax.swing.JTextField" name="jtfApellidoMiembro">
       <Events>
         <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtfApellidoMiembroKeyReleased"/>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtfApellidoMiembroKeyTyped"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jlDni">

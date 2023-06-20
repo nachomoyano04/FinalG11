@@ -64,6 +64,9 @@ public class CrearProyectoVista extends javax.swing.JInternalFrame {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jtfNombreProyectoKeyReleased(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtfNombreProyectoKeyTyped(evt);
+            }
         });
 
         jlDescripcion.setText("DESCRIPCION:");
@@ -73,6 +76,9 @@ public class CrearProyectoVista extends javax.swing.JInternalFrame {
         jtaDescripcion.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jtaDescripcionKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtaDescripcionKeyTyped(evt);
             }
         });
         jScrollPane1.setViewportView(jtaDescripcion);
@@ -179,14 +185,13 @@ public class CrearProyectoVista extends javax.swing.JInternalFrame {
                     .addComponent(jdcFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jlEstado)
-                        .addComponent(jrbEstadoActivo))
+                    .addComponent(jrbEstadoActivo)
+                    .addComponent(jlEstado)
                     .addComponent(jrbEstadoInactivo))
                 .addGap(46, 46, 46)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jlIdProyecto)
-                    .addComponent(jlIdGenerada, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jlIdGenerada, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jlIdProyecto))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalir)
@@ -198,60 +203,10 @@ public class CrearProyectoVista extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-   private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        // TODO add your handling code here:
-        java.util.Date fecha = jdcFechaInicio.getDate();
-        Proyecto proyecto = new Proyecto();
-        ProyectoData pd = new ProyectoData();
-        proyecto.setNombre(jtfNombreProyecto.getText());  
-        proyecto.setDescripcion(jtaDescripcion.getText());
-        LocalDate inicio = fecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        proyecto.setFechaInicio(inicio);
-        if (!jrbEstadoActivo.isSelected() && !jrbEstadoInactivo.isSelected()) {
-                   JOptionPane.showMessageDialog(this, "Debe seleccionar un estado para el proyecto", "Error", JOptionPane.ERROR_MESSAGE);
-        } else if (jrbEstadoActivo.isSelected()) {
-            proyecto.setEstado(true);
-        } else {
-            proyecto.setEstado(false);
-        }
-        
-        pd.crearProyecto(proyecto);
-        //jlIdGenerada.setText(String.valueOf(proyecto.getIdProyecto()));
-
-        
-    }                                        
-
-    private void btnNuevoProyectoActionPerformed(java.awt.event.ActionEvent evt) {                                                 
-        // TODO add your handling code here:
-        jtfNombreProyecto.setText("");
-        jtaDescripcion.setText("");
-        jdcFechaInicio.setDate(null);
-        btngEstadoProyecto.clearSelection();
-        jlIdGenerada.setText("");
-        btnCrear.setEnabled(false);
-    }                                                
-
-    private void jbtnModificarActionPerformed(java.awt.event.ActionEvent evt) {                                              
-        // TODO add your handling code here:
-        ModificarProyectoVista vistaModificarProyecto = new ModificarProyectoVista();
-        JDesktopPane escritorio = getDesktopPane();
-        escritorio.add(vistaModificarProyecto);
-        vistaModificarProyecto.setVisible(true);
-    }                                             
-
-    private void jtfNombreProyectoKeyReleased(java.awt.event.KeyEvent evt) {                                              
-        // TODO add your handling code here:
-        habilitarBoton();
-    }                                             
-
-    private void jtaDescripcionKeyReleased(java.awt.event.KeyEvent evt) {                                           
-        // TODO add your handling code here:
-        habilitarBoton();
-    }                                                                    
+                                                                    
     
     public void habilitarBoton(){
-        if (!jtfNombreProyecto.getText().isEmpty() && !jtaDescripcion.getText().isEmpty()){
+        if (!jtfNombreProyecto.getText().trim().isEmpty() && !jtaDescripcion.getText().trim().isEmpty()){
             Calendar calendar = Calendar.getInstance();
             java.util.Date currentDate = calendar.getTime();
             jdcFechaInicio.setDate(currentDate);
@@ -264,46 +219,40 @@ public class CrearProyectoVista extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
-/*
+
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
-        // TODO add your handling code here:
+         // TODO add your handling code here:
         java.util.Date fecha = jdcFechaInicio.getDate();
         Proyecto proyecto = new Proyecto();
         ProyectoData pd = new ProyectoData();
-        if (jtfNombreProyecto.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "El campo Nombre del Proyecto es obligatorio", "Error", JOptionPane.ERROR_MESSAGE);
-        }else{
+        
+        if (!jtfNombreProyecto.getText().trim().isEmpty() && !jtaDescripcion.getText().trim().isEmpty()){
             proyecto.setNombre(jtfNombreProyecto.getText());
-        }
-        if (jtaDescripcion.getText().isEmpty()) {
-        JOptionPane.showMessageDialog(this, "El campo Descripción es obligatorio", "Error", JOptionPane.ERROR_MESSAGE);
-        }else{
             proyecto.setDescripcion(jtaDescripcion.getText());
-        }
-        if (fecha == null) {
-        JOptionPane.showMessageDialog(this, "Debe seleccionar una fecha de inicio válida", "Error", JOptionPane.ERROR_MESSAGE);
-        }else{
             LocalDate inicio = fecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             proyecto.setFechaInicio(inicio);
-        }
-        if (!jrbEstadoActivo.isSelected() && !jrbEstadoInactivo.isSelected()) {
-        JOptionPane.showMessageDialog(this, "Debe seleccionar un estado para el proyecto", "Error", JOptionPane.ERROR_MESSAGE);
-        }else if(jrbEstadoActivo.isSelected()){
-            proyecto.setEstado(true);        
-        }else{
-            proyecto.setEstado(false);
-        }
-        pd.crearProyecto(proyecto);
-        jlIdGenerada.setText(String.valueOf(proyecto.getIdProyecto()));
+            if (!jrbEstadoActivo.isSelected() && !jrbEstadoInactivo.isSelected()) {
+                JOptionPane.showMessageDialog(this, "Debe seleccionar un estado para el proyecto", "Error", JOptionPane.ERROR_MESSAGE);
+            } else if (jrbEstadoActivo.isSelected()) {
+                proyecto.setEstado(true);
+            } else {
+                proyecto.setEstado(false);
+            }
+            pd.crearProyecto(proyecto);
+        } else{
+            JOptionPane.showMessageDialog(this, "Los campos no pueden estar vacíos.");
+        }        
+        //jlIdGenerada.setText(String.valueOf(proyecto.getIdProyecto()));
+     
     }//GEN-LAST:event_btnCrearActionPerformed
 
     private void btnNuevoProyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoProyectoActionPerformed
-        // TODO add your handling code here:
         jtfNombreProyecto.setText("");
         jtaDescripcion.setText("");
         jdcFechaInicio.setDate(null);
         btngEstadoProyecto.clearSelection();
         jlIdGenerada.setText("");
+        btnCrear.setEnabled(false);
     }//GEN-LAST:event_btnNuevoProyectoActionPerformed
 
     private void jbtnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnModificarActionPerformed
@@ -314,14 +263,28 @@ public class CrearProyectoVista extends javax.swing.JInternalFrame {
         vistaModificarProyecto.setVisible(true);
     }//GEN-LAST:event_jbtnModificarActionPerformed
 
+    private void jtfNombreProyectoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfNombreProyectoKeyTyped
+        if (jtfNombreProyecto.getText().trim().length() == 50) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_jtfNombreProyectoKeyTyped
+
+    private void jtaDescripcionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtaDescripcionKeyTyped
+        if (jtaDescripcion.getText().trim().length() == 50) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_jtaDescripcionKeyTyped
+
     private void jtfNombreProyectoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfNombreProyectoKeyReleased
         // TODO add your handling code here:
+        habilitarBoton();
     }//GEN-LAST:event_jtfNombreProyectoKeyReleased
 
     private void jtaDescripcionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtaDescripcionKeyReleased
         // TODO add your handling code here:
+        habilitarBoton();
     }//GEN-LAST:event_jtaDescripcionKeyReleased
-*/
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCrear;

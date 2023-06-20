@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JInternalFrameFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JInternalFrameFormInfo">
   <NonVisualComponents>
     <Component class="javax.swing.ButtonGroup" name="btngRadioB">
     </Component>
@@ -150,6 +150,7 @@
     <Component class="javax.swing.JTextField" name="jtfNombreMiembro">
       <Events>
         <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtfNombreMiembroKeyReleased"/>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtfNombreMiembroKeyTyped"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jlApellidoMiembro">
@@ -160,6 +161,7 @@
     <Component class="javax.swing.JTextField" name="jtfApellidoMiembro">
       <Events>
         <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtfApellidoMiembroKeyReleased"/>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtfApellidoMiembroKeyTyped"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jlEstadoMiembro">

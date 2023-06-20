@@ -8,6 +8,7 @@ import java.sql.Date;
 import javax.swing.JTextField;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.Calendar;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
@@ -27,6 +28,7 @@ public class CrearEquipoVista extends javax.swing.JInternalFrame {
         //---SE SETEA LA FECHA DE CREACION CON LA FECHA DE HOY Y SE DESHABILITA EL JDCHOOSER DE FECHA DE CREACION---
         jdcFechaCreacion.setDate(Date.valueOf(LocalDate.now()));
         jdcFechaCreacion.getCalendarButton().setEnabled(false);
+        btnCrear.setEnabled(false);
     }
 
 
@@ -54,6 +56,15 @@ public class CrearEquipoVista extends javax.swing.JInternalFrame {
         jLabel4.setText("FECHA CREACION");
 
         jLabel5.setText("ESTADO");
+
+        jtfNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtfNombreKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtfNombreKeyTyped(evt);
+            }
+        });
 
         JTextField texto = (JTextField) jdcFechaCreacion.getComponent(1);
         texto.setEditable(false);
@@ -219,21 +230,15 @@ public class CrearEquipoVista extends javax.swing.JInternalFrame {
         }else{
             String id = table.getValueAt(fila, 0)+"";
             String nombre = jtfNombre.getText();
-            if(!(nombre.equals(""))){ //---SE CHEQUEA QUE EL NOMBRE DEL EQUIPO NO ESTE VACIO---
-                if(nombre.length()>50){ //---SE CHEQUEA QUE EL NOMBRE DEL EQUIPO NO SUPERE LOS 50 CARACTERES---
-                    JOptionPane.showMessageDialog(this,"El nombre no puede superar los 50 caracteres");
-                    jtfNombre.requestFocus();
-                }else /*if(jdcFechaCreacion.getDate() != null)*/{
-                    EquipoData ed = new EquipoData();
-                    LocalDate fechaCreacion = jdcFechaCreacion.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-                    boolean estado;
-                    estado = jcboxEstado.getSelectedIndex() == 0;
-                    Equipo equipo = new Equipo(new ProyectoData().buscarProyecto(Integer.parseInt(id)), nombre, fechaCreacion, estado);
-                    ed.crearEquipo(equipo);
-//                }else{
-//                    JOptionPane.showMessageDialog(this, "Debe ingresar una fecha de creación.");
-                }
-            }else{
+            if(!jtfNombre.getText().trim().isEmpty()){ //---SE CHEQUEA QUE EL NOMBRE DEL EQUIPO NO ESTE VACIO---
+                EquipoData ed = new EquipoData();
+                LocalDate fechaCreacion = jdcFechaCreacion.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                boolean estado;
+                estado = jcboxEstado.getSelectedIndex() == 0;
+                Equipo equipo = new Equipo(new ProyectoData().buscarProyecto(Integer.parseInt(id)), nombre, fechaCreacion, estado);
+                ed.crearEquipo(equipo);             
+             }else{
+                jtfNombre.requestFocus();
                 JOptionPane.showMessageDialog(this, "Debe ingresar un nombre para el equipo.");
             }
         }
@@ -251,6 +256,26 @@ public class CrearEquipoVista extends javax.swing.JInternalFrame {
             tableDeProyectos.clearSelection();
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
+    private void jtfNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfNombreKeyTyped
+        //Validación cantidad de caracteres ingresados. Max 50
+        if (jtfNombre.getText().trim().length() == 50) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_jtfNombreKeyTyped
+
+    private void jtfNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfNombreKeyReleased
+        // TODO add your handling code here:
+        habilitarBoton();
+    }//GEN-LAST:event_jtfNombreKeyReleased
+   public void habilitarBoton(){
+        if (!jtfNombre.getText().trim().isEmpty()){
+            /*Calendar calendar = Calendar.getInstance();
+            java.util.Date currentDate = calendar.getTime();
+            jdcFechaInicio.setDate(currentDate);*/
+            btnCrear.setEnabled(true);    
+            //jrbEstadoActivo.setSelected(true);
+        }        
+    } 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCrear;

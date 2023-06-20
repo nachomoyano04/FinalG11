@@ -27,7 +27,7 @@ public class ModificarMiembroVista extends javax.swing.JInternalFrame {
         btngRadioB.add(jrbEstadoActivo);
         btngRadioB.add(jrbEstadoInactivo);
         btnActualizar.setEnabled(false);
-        
+        jtfDniMiembro.setEditable(false);
 
     }
 
@@ -73,6 +73,9 @@ public class ModificarMiembroVista extends javax.swing.JInternalFrame {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jtfNombreMiembroKeyReleased(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtfNombreMiembroKeyTyped(evt);
+            }
         });
 
         jlApellidoMiembro.setText("APELLIDO:");
@@ -80,6 +83,9 @@ public class ModificarMiembroVista extends javax.swing.JInternalFrame {
         jtfApellidoMiembro.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jtfApellidoMiembroKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtfApellidoMiembroKeyTyped(evt);
             }
         });
 
@@ -249,13 +255,8 @@ public class ModificarMiembroVista extends javax.swing.JInternalFrame {
             jtfApellidoMiembro.requestFocus();
         }else{  
             miembro.setNombre(jtfNombreMiembro.getText());
-            miembro.setApellido(jtfApellidoMiembro.getText());        
-            int dniActual = parseInt(jtfDniMiembro.getText());
-            if (dniActual != miembro.getDni()) {
-                JOptionPane.showMessageDialog(this,"El campo DNI no puede ser modificado...");   
-            }else{
-                miembro.setDni(dniActual);
-            }
+            miembro.setApellido(jtfApellidoMiembro.getText());
+            miembro.setDni(parseInt(jtfDniMiembro.getText()));            
             if(jrbEstadoActivo.isSelected()){
                 miembro.setEstado(true);
             }else{
@@ -340,6 +341,20 @@ public class ModificarMiembroVista extends javax.swing.JInternalFrame {
         btnActualizar.setEnabled(false);
 
     }//GEN-LAST:event_jcboxEstadoMiembrosActionPerformed
+
+    private void jtfNombreMiembroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfNombreMiembroKeyTyped
+        //Validación cantidad de caracteres ingresados. Max 30
+        if (jtfNombreMiembro.getText().trim().length() == 30) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_jtfNombreMiembroKeyTyped
+
+    private void jtfApellidoMiembroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfApellidoMiembroKeyTyped
+        //Validación cantidad de caracteres ingresados. Max 30
+        if (jtfApellidoMiembro.getText().trim().length() == 30) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_jtfApellidoMiembroKeyTyped
 
     private void inicializarTabla() {
         table = (DefaultTableModel) tableListaMiembro.getModel(); 
