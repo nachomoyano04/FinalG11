@@ -47,6 +47,21 @@
         </Menu>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JMenuItem" name="jMenuItem1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="jMenuItem1"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JMenuItem" name="jMenuItem2">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="jMenuItem2"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JMenuItem" name="jMenuItem3">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="jMenuItem3"/>
+      </Properties>
+    </Component>
     <Menu class="javax.swing.JMenuBar" name="jMenuBar1">
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="jmProyecto">
@@ -151,6 +166,21 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu6">
           <Properties>
+            <Property name="text" type="java.lang.String" value="Listado"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="jmiMiembrosEquipo">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Miembros y equipos"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiMiembrosEquipoActionPerformed"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="jmSalir">
+          <Properties>
             <Property name="text" type="java.lang.String" value="Salir"/>
           </Properties>
           <SubComponents>
@@ -213,7 +243,7 @@
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="755" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="757" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
