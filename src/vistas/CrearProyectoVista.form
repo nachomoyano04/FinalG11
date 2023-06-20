@@ -30,54 +30,50 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <Group type="103" groupAlignment="1" attributes="0">
+          <Group type="102" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="255" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jtfNombreProyecto" max="32767" attributes="0"/>
-                          <Component id="jScrollPane1" pref="296" max="32767" attributes="0"/>
-                          <Component id="jdcFechaInicio" alignment="0" max="32767" attributes="0"/>
-                          <Group type="102" attributes="0">
-                              <Component id="jrbEstadoActivo" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="jrbEstadoInactivo" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
+                      <EmptySpace min="-2" pref="116" max="-2" attributes="0"/>
+                      <Component id="jlTitulo" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jlNombreProyecto" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jlDescripcion" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jlFechaInicio" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jlEstado" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jlIdProyecto" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" max="-2" attributes="0"/>
-                              <Component id="jlIdGenerada" min="-2" pref="208" max="-2" attributes="0"/>
+                  <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jbtnModificar" min="-2" pref="122" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="btnNuevoProyecto" min="-2" pref="113" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="btnCrear" min="-2" pref="111" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="btnSalir" min="-2" pref="65" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jlNombreProyecto" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jlDescripcion" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jlFechaInicio" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jlEstado" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jlIdProyecto" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jbtnModificar" min="-2" pref="122" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="btnNuevoProyecto" min="-2" pref="113" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="btnCrear" min="-2" pref="111" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jtfNombreProyecto" alignment="0" min="-2" pref="296" max="-2" attributes="0"/>
+                              <Component id="jScrollPane1" min="-2" pref="296" max="-2" attributes="0"/>
+                              <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Component id="jrbEstadoActivo" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                      <Component id="jrbEstadoInactivo" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="jdcFechaInicio" min="-2" pref="296" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="jlIdGenerada" alignment="1" min="-2" pref="208" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="btnSalir" min="-2" pref="65" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="72" max="32767" attributes="0"/>
-          </Group>
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-              <Component id="jlTitulo" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="129" max="-2" attributes="0"/>
+              <EmptySpace pref="65" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -105,14 +101,14 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jlEstado" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jrbEstadoActivo" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jrbEstadoActivo" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="jrbEstadoInactivo" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jlIdProyecto" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jlIdGenerada" alignment="3" min="-2" pref="52" max="-2" attributes="0"/>
+                  <Component id="jlIdGenerada" alignment="0" min="-2" pref="52" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="55" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -141,6 +137,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jtfNombreProyecto">
+      <Events>
+        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtfNombreProyectoKeyReleased"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jlDescripcion">
       <Properties>
@@ -159,6 +158,9 @@
             <Property name="columns" type="int" value="20"/>
             <Property name="rows" type="int" value="5"/>
           </Properties>
+          <Events>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtaDescripcionKeyReleased"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -213,7 +215,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jlIdProyecto">
       <Properties>
-        <Property name="text" type="java.lang.String" value="ID DE PROYECTO GENERADA"/>
+        <Property name="text" type="java.lang.String" value="NUMERO DE PROYECTO:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jlIdGenerada">

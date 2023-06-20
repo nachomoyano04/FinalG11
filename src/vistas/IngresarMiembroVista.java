@@ -87,7 +87,7 @@ public class IngresarMiembroVista extends javax.swing.JInternalFrame {
 
         jrbEstadoInactivo.setText("Miembro Inactivo");
 
-        jlIdMiembro.setText("ID DE MIEMBRO GENERADA:");
+        jlIdMiembro.setText("NUMERO DE LEGAJO:");
 
         jlIdGenerada.setFont(new java.awt.Font("Bahnschrift", 1, 36)); // NOI18N
         jlIdGenerada.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -129,7 +129,7 @@ public class IngresarMiembroVista extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(jlIdMiembro)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
                         .addComponent(jlIdGenerada, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -155,7 +155,7 @@ public class IngresarMiembroVista extends javax.swing.JInternalFrame {
                         .addComponent(jbtnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jbtnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addContainerGap(58, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

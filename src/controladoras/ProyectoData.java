@@ -50,8 +50,31 @@ public class ProyectoData {
     public ArrayList<Proyecto> listarProyectos(){
         ArrayList<Proyecto> proyectos = new ArrayList();
         try{        
-            String sql = "SELECT * FROM proyecto WHERE estado = 1";
+            String sql = "SELECT * FROM proyecto";
             PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet res = ps.executeQuery();
+            while(res.next()){
+                Proyecto proyecto = new Proyecto();
+                proyecto.setIdProyecto(res.getInt("idProyecto"));
+                proyecto.setNombre(res.getString("nombre"));
+                proyecto.setFechaInicio(res.getDate("fechaInicio").toLocalDate());
+                proyecto.setDescripcion(res.getString("descripcion"));
+                proyecto.setEstado(true);
+                proyectos.add(proyecto);
+            }
+            ps.close();
+        } catch(SQLException ex){
+            JOptionPane.showMessageDialog(null,"Error al mostrar proyectos "+ ex.getMessage());
+        }
+        return proyectos;
+    }
+    
+    public ArrayList<Proyecto> listarProyectosPorEstado(int estado){
+        ArrayList<Proyecto> proyectos = new ArrayList();
+        try{        
+            String sql = "SELECT * FROM proyecto WHERE estado = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, estado);
             ResultSet res = ps.executeQuery();
             while(res.next()){
                 Proyecto proyecto = new Proyecto();

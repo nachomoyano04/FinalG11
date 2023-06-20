@@ -98,14 +98,15 @@ public class MiembroData {
     
     public void modificarDatosMiembro(Miembro miembro) {
 
-        String sql = "UPDATE miembro SET dni = ? , nombre = ?, apellido =? WHERE  idMiembro = ?";
+        String sql = "UPDATE miembro SET dni = ? , nombre = ?, apellido = ? , estado = ? WHERE  idMiembro = ?";
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(sql);
             ps.setInt(1, miembro.getDni());
             ps.setString(2, miembro.getNombre());
             ps.setString(3,miembro.getApellido());
-            ps.setInt(4, miembro.getIdMiembro());
+            ps.setBoolean(4, miembro.isEstado());
+            ps.setInt(5, miembro.getIdMiembro());
             int modificar = ps.executeUpdate();
             if (modificar == 1){
                 JOptionPane.showMessageDialog(null, "Modificado Exitosamente.");
@@ -118,10 +119,32 @@ public class MiembroData {
         }
     }
     
+    public ArrayList<Miembro> listarMiembrosPorEstado(int estado) {
+        ArrayList<Miembro> miembros = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM miembro WHERE estado = ? ";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, estado);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Miembro miembro = new Miembro();
+                miembro.setIdMiembro(rs.getInt("idMiembro"));
+                miembro.setDni(rs.getInt("dni"));
+                miembro.setApellido(rs.getString("apellido"));
+                miembro.setNombre(rs.getString("nombre"));
+                miembro.setEstado(rs.getBoolean("estado"));
+                miembros.add(miembro);
+            }
+            ps.close();           
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, " Error al acceder a la tabla Miembro "+ex.getMessage());
+        }
+        return miembros;
+    }
     public ArrayList<Miembro> listarMiembros() {
         ArrayList<Miembro> miembros = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM miembro WHERE estado = 1 ";
+            String sql = "SELECT * FROM miembro ";
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
