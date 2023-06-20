@@ -166,15 +166,25 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu6">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Listado"/>
+            <Property name="text" type="java.lang.String" value="Incorporaciones"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jmiMiembrosEquipo">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Miembros y equipos"/>
+                <Property name="text" type="java.lang.String" value="Asignar"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiMiembrosEquipoActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator3">
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jmiListadosModificacionesME">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Listados/Modificaciones"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiListadosModificacionesMEActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>

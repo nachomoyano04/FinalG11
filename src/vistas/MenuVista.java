@@ -57,6 +57,8 @@ public class MenuVista extends javax.swing.JFrame {
         jmiModificarMiembro = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
         jmiMiembrosEquipo = new javax.swing.JMenuItem();
+        jSeparator3 = new javax.swing.JPopupMenu.Separator();
+        jmiListadosModificacionesME = new javax.swing.JMenuItem();
         jmSalir = new javax.swing.JMenu();
         jMenuSalir = new javax.swing.JMenuItem();
 
@@ -175,15 +177,24 @@ public class MenuVista extends javax.swing.JFrame {
 
         jMenuBar1.add(jmMiembro);
 
-        jMenu6.setText("Listado");
+        jMenu6.setText("Incorporaciones");
 
-        jmiMiembrosEquipo.setText("Miembros y equipos");
+        jmiMiembrosEquipo.setText("Asignar");
         jmiMiembrosEquipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmiMiembrosEquipoActionPerformed(evt);
             }
         });
         jMenu6.add(jmiMiembrosEquipo);
+        jMenu6.add(jSeparator3);
+
+        jmiListadosModificacionesME.setText("Listados/Modificaciones");
+        jmiListadosModificacionesME.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiListadosModificacionesMEActionPerformed(evt);
+            }
+        });
+        jMenu6.add(jmiListadosModificacionesME);
 
         jMenuBar1.add(jMenu6);
 
@@ -308,7 +319,18 @@ public class MenuVista extends javax.swing.JFrame {
         mev.setVisible(true);
         escritorio.add(mev);
         mev.moveToFront();
+        mev.setBounds(0, 0, 1300, 500);
     }//GEN-LAST:event_jmiMiembrosEquipoActionPerformed
+
+    private void jmiListadosModificacionesMEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiListadosModificacionesMEActionPerformed
+        // TODO add your handling code here:
+        escritorio.removeAll();
+        escritorio.repaint();
+        ListadoDeMiembrosEquipos ldme = new ListadoDeMiembrosEquipos();
+        ldme.setVisible(true);
+        escritorio.add(ldme);
+        ldme.moveToFront();
+    }//GEN-LAST:event_jmiListadosModificacionesMEActionPerformed
 
     /**
      * @param args the command line arguments
@@ -362,6 +384,7 @@ public class MenuVista extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuSalir;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
+    private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JMenu jmEquipos;
     private javax.swing.JMenu jmMiembro;
     private javax.swing.JMenu jmProyecto;
@@ -372,6 +395,7 @@ public class MenuVista extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmiCrearEquipo;
     private javax.swing.JMenuItem jmiCrearProyecto;
     private javax.swing.JMenuItem jmiIngresarMiembro;
+    private javax.swing.JMenuItem jmiListadosModificacionesME;
     private javax.swing.JMenuItem jmiMiembrosEquipo;
     private javax.swing.JMenuItem jmiModificarMiembro;
     private javax.swing.JMenuItem jmiModificarProyecto;
