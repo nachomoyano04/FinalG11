@@ -224,6 +224,8 @@ public class TareasListasVista extends javax.swing.JInternalFrame {
             tableComentariosSobreTareas.getColumnModel().getColumn(3).setMaxWidth(100);
         }
 
+        jdcFechaAvanceComentarios.setDateFormatString("yyyy/MM/dd");
+
         jLabel7.setText("Fecha avance");
 
         btnModificarComentario.setText("Modificar Comentario");
@@ -313,6 +315,10 @@ public class TareasListasVista extends javax.swing.JInternalFrame {
         jPanel3.setBackground(new java.awt.Color(0, 204, 204));
 
         jtfNombre.setEditable(false);
+
+        jdcFechaCreacion.setDateFormatString("yyyy/MM/dd");
+
+        jdcFechaCierre.setDateFormatString("yyyy/MM/dd");
 
         jLabel6.setText("ESTADO");
 

@@ -137,11 +137,17 @@
     <Component class="javax.swing.JTextField" name="jtfNombre">
     </Component>
     <Component class="com.toedter.calendar.JDateChooser" name="jdcFechaCierre">
+      <Properties>
+        <Property name="dateFormatString" type="java.lang.String" value="yyyy/MM/dd"/>
+      </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="JTextField texto1 = (JTextField) jdcFechaCierre.getComponent(1);&#xa;texto1.setEditable(false);"/>
       </AuxValues>
     </Component>
     <Component class="com.toedter.calendar.JDateChooser" name="jdcFechaCreacion">
+      <Properties>
+        <Property name="dateFormatString" type="java.lang.String" value="yyyy/MM/dd"/>
+      </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="JTextField texto = (JTextField) jdcFechaCreacion.getComponent(1);&#xa;texto.setEditable(false);"/>
       </AuxValues>

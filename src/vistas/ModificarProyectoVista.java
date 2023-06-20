@@ -91,6 +91,8 @@ public class ModificarProyectoVista extends javax.swing.JInternalFrame {
 
         jlFechaInicio.setText("FECHA DE INICIO:");
 
+        jdcFechaInicio.setDateFormatString("yyyy/MM/dd");
+
         btnSalir.setText("SALIR");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

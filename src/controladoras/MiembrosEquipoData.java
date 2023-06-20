@@ -69,6 +69,7 @@ public class MiembrosEquipoData {
         }
         return miembrosEquipo;
     }
+   
 
     public ArrayList<Equipo> buscarEquipoConDni(int dni) {
         String sql = "SELECT miembrosequipo.idEquipo FROM miembrosequipo JOIN miembro ON miembrosequipo.idMiembro = miembro.idMiembro WHERE miembro.dni = ?";
@@ -176,16 +177,22 @@ public class MiembrosEquipoData {
         return miembrosEq;
     }
 
-    public void quitarMiembroDeEquipo(int idMiembroEq) {
-        String sql = "UPDATE miembrosequipo SET idEquipo = NULL WHERE idMiembroEq = ?";
+    public void cambiarDeEquipo(int idMiembroEq, int idEquipo, int idMiembro) {
+        String sql = "UPDATE miembrosequipo SET idEquipo = ?, idMiembro = ? WHERE idMiembroEq = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, idMiembroEq);
-            ps.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Miembro de equipo desasociado con éxito");
+            ps.setInt(1, idEquipo);
+            ps.setInt(2, idMiembro);
+            ps.setInt(3, idMiembroEq);
+            int exito = ps.executeUpdate();
+            if(exito == 1){
+                JOptionPane.showMessageDialog(null, "Cambio de equipo hecho");
+            }else{
+                JOptionPane.showMessageDialog(null, "No se pudo hacer el cambio de equipo");
+            }
             ps.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al desasociar miembro de equipo: " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al cambiar equipo: " + ex.getMessage());
         }
     }
 

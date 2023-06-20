@@ -176,6 +176,8 @@ public class EquiposListasVista extends javax.swing.JInternalFrame {
             }
         });
 
+        jdcFechaCreacion.setDateFormatString("yyyy/MM/dd");
+
         btnModificarEquipo.setText("Modificar");
         btnModificarEquipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

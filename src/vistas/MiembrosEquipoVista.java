@@ -180,7 +180,7 @@ public class MiembrosEquipoVista extends javax.swing.JInternalFrame {
         });
         jScrollPane2.setViewportView(jtMiembros);
 
-        jLabel1.setText("LISTAR MIEMBROS Y EQUIPOS - ASIGNAR O QUITAR MIEMBROS A UN EQUIPO");
+        jLabel1.setText("INCORPORACION DE UN MIEMBRO A UN EQUIPO");
 
         btnAsignar.setText("ASIGNAR");
         btnAsignar.addActionListener(new java.awt.event.ActionListener() {
@@ -193,7 +193,8 @@ public class MiembrosEquipoVista extends javax.swing.JInternalFrame {
 
         jLabel3.setText("LISTA DE EQUIPOS");
 
-        jdcFechaIncorporacion.setDateFormatString("dd/MM/yyyy");
+        jdcFechaIncorporacion.setDateFormatString("yyyy/MM/dd");
+        jdcFechaIncorporacion.setDoubleBuffered(false);
 
         jLabel4.setText("Fecha de incorporacion");
 
@@ -219,7 +220,7 @@ public class MiembrosEquipoVista extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(38, 38, 38)
                         .addComponent(btnAsignar, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 552, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(46, 46, 46))
             .addGroup(layout.createSequentialGroup()
@@ -227,7 +228,7 @@ public class MiembrosEquipoVista extends javax.swing.JInternalFrame {
                 .addComponent(btnSalir)
                 .addGap(129, 129, 129))
             .addGroup(layout.createSequentialGroup()
-                .addGap(367, 367, 367)
+                .addGap(451, 451, 451)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -274,13 +275,16 @@ public class MiembrosEquipoVista extends javax.swing.JInternalFrame {
         int filaEquipo = jtEquipos.getSelectedRow();
         LocalDate fechaIncorporacion = jdcFechaIncorporacion.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         MiembrosEquipo miembrosEquipo = new MiembrosEquipo();
-        Proyecto pro  = (Proyecto) equiposTableModel.getValueAt(fila, 0);
+        Proyecto pro  = (Proyecto) equiposTableModel.getValueAt(filaEquipo, 0);
         Miembro miembro = md.buscarMiembroPorDni(Integer.parseInt(miembrosTableModel.getValueAt(fila, 2)+""));
         Equipo equipo = ed.buscarEquipoPorProyecto(pro.getIdProyecto());
         miembrosEquipo.setMiembro(miembro);
         miembrosEquipo.setEquipo(equipo);
         miembrosEquipo.setFechaIncorporacion(fechaIncorporacion);
         med.crearMiembrosEquipo(miembrosEquipo);
+        btnAsignar.setEnabled(false);
+        jtEquipos.clearSelection();
+        jtMiembros.clearSelection();
     }//GEN-LAST:event_btnAsignarActionPerformed
 
     private void jtMiembrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtMiembrosMouseClicked

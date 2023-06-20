@@ -63,9 +63,11 @@ public class AñadirTareaVista extends javax.swing.JInternalFrame {
 
         JTextField texto1 = (JTextField) jdcFechaCierre.getComponent(1);
         texto1.setEditable(false);
+        jdcFechaCierre.setDateFormatString("yyyy/MM/dd");
 
         JTextField texto = (JTextField) jdcFechaCreacion.getComponent(1);
         texto.setEditable(false);
+        jdcFechaCreacion.setDateFormatString("yyyy/MM/dd");
 
         jcboxEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pendiente", "En progreso", "Inactiva", "Completada" }));
 

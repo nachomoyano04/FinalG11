@@ -85,7 +85,7 @@ public class CrearProyectoVista extends javax.swing.JInternalFrame {
 
         jlFechaInicio.setText("FECHA DE INICIO:");
 
-        jdcFechaInicio.setDateFormatString("dd-MM-yyyy");
+        jdcFechaInicio.setDateFormatString("yyyy/MM/dd");
 
         jlEstado.setText("ESTADO:");
 

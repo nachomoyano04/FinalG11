@@ -91,7 +91,7 @@ public class EquipoData {
             ps.setInt(1, idEquipo);
             ResultSet res = ps.executeQuery();
             if (res.next()) {
-                team.setIdEquipo(idEquipo);
+                team.setIdEquipo(res.getInt("idEquipo"));
                 team.setProyecto(pd.buscarProyecto(res.getInt("idProyecto")));
                 team.setNombre(res.getString("nombre"));
                 team.setFechaCreacion(res.getDate("fechaCreacion").toLocalDate());
@@ -103,6 +103,29 @@ public class EquipoData {
         }
         return team;
     }
+    public Equipo buscarEquipoPorProyecto(int idProyecto) {
+        String sql = "SELECT equipo.* FROM equipo WHERE idProyecto = ?";
+        Equipo team = new Equipo();
+        ProyectoData pd = new ProyectoData();
+        PreparedStatement ps = null;
+        try {
+            ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, idProyecto);
+            ResultSet res = ps.executeQuery();
+            if (res.next()) {
+                team.setIdEquipo(res.getInt("idEquipo"));
+                team.setProyecto(pd.buscarProyecto(res.getInt("idProyecto")));
+                team.setNombre(res.getString("nombre"));
+                team.setFechaCreacion(res.getDate("fechaCreacion").toLocalDate());
+                team.setEstado(res.getBoolean("estado"));
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al buscar equipo " + ex.getMessage());
+        }
+        return team;
+    }
+    
     
     public ArrayList<Equipo> listarEquipos(){
         ArrayList<Equipo>equipos = new ArrayList();

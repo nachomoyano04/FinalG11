@@ -68,6 +68,7 @@ public class CrearEquipoVista extends javax.swing.JInternalFrame {
 
         JTextField texto = (JTextField) jdcFechaCreacion.getComponent(1);
         texto.setEditable(false);
+        jdcFechaCreacion.setDateFormatString("yyyy/MM/dd");
 
         jcboxEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Activo", "Inactivo" }));
 
