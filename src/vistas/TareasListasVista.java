@@ -37,7 +37,7 @@ public class TareasListasVista extends javax.swing.JInternalFrame {
     public TareasListasVista() {
         initComponents();
         initTable();
-        initComboEquipos();
+//        initComboEquipos();
         initComboProyectos();
         tableListaDeTareas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tableListaDeTareas.setRowSelectionInterval(0, 0);
@@ -60,6 +60,9 @@ public class TareasListasVista extends javax.swing.JInternalFrame {
         btnGuardarNuevoComentario.setEnabled(false);
         btnGuardarNuevoComentario.setVisible(false);
         btnGuardarModificacionDeComentario.setVisible(false);
+        //---DESHABILITAMOS LOS JCOMBO BOX HASTA Q NO ENCUENTREN UN PROYECTO RELACIONADO---
+//        jcboxPorEquipos.setEnabled(false);
+//        jcboxPorEstado.setEnabled(false);
     }
 
     /**
@@ -190,7 +193,7 @@ public class TareasListasVista extends javax.swing.JInternalFrame {
 
         jLabel9.setText("Por estado");
 
-        jLabel10.setText("Por equipos");
+        jLabel10.setText("Por Miembro en Equipo");
 
         jLabel11.setText("Por proyectos");
 
@@ -441,31 +444,32 @@ public class TareasListasVista extends javax.swing.JInternalFrame {
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jcboxPorProyectos, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel11)
+                                .addGap(61, 61, 61)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(22, 22, 22)
-                                        .addComponent(jLabel9)
-                                        .addGap(184, 184, 184)
-                                        .addComponent(jLabel10))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jcboxPorEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(89, 89, 89)
-                                        .addComponent(jcboxPorEquipos, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(158, 158, 158)
-                                        .addComponent(jLabel11))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(80, 80, 80)
-                                        .addComponent(jcboxPorProyectos, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 759, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(74, 74, 74))))
+                                .addGap(80, 80, 80)
+                                .addComponent(jcboxPorEquipos, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(96, 96, 96))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel10)
+                                .addGap(122, 122, 122)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(22, 22, 22)
+                                .addComponent(jLabel9))
+                            .addComponent(jcboxPorEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(107, 107, 107))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 827, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel13)
-                .addGap(359, 359, 359))
+                .addGap(315, 315, 315))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -473,19 +477,20 @@ public class TareasListasVista extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(22, 22, 22)
+                            .addComponent(jcboxPorProyectos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(jLabel11)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jcboxPorProyectos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addComponent(jLabel9)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jcboxPorEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jcboxPorEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jcboxPorEquipos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(jcboxPorEquipos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel13)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -528,7 +533,7 @@ public class TareasListasVista extends javax.swing.JInternalFrame {
         TareaData td = new TareaData();
         int estado = jcboxPorEstado.getSelectedIndex();
         table.setRowCount(0);
-        for (Tarea tar : td.tareasPorEstado(estado)) {
+        for (Tarea tar : td.tareasPorMiembroEquipoyEstado(((MiembrosEquipo)jcboxPorEquipos.getSelectedItem()).getIdMiembroEq(), estado)) {
             String estado1 = null;
             switch(tar.getEstado()){
                 case 0: estado1 = "Pendiente";break;
@@ -550,21 +555,23 @@ public class TareasListasVista extends javax.swing.JInternalFrame {
         table.setRowCount(0);
         TareaData td = new TareaData();
         MiembrosEquipo me = (MiembrosEquipo) jcboxPorEquipos.getSelectedItem();
-        for (Tarea tar : td.listarTareasPorIdMiembroEquipo(me.getIdMiembroEq())) {
-            String estado = null;
-            switch(tar.getEstado()){
-                case 0: estado = "Pendiente";break;
-                case 1: estado = "En Progreso";break;
-                case 2: estado = "Inactiva";break;
-                case 3: estado = "Completada";break;
-            }
-            table.addRow(new Object[]{tar.getIdTarea(), tar.getMiembroEq().getIdMiembroEq(), tar.getNombre(), tar.getFechaCreacion(), tar.getFechaCierre(),estado});
+        if(me != null){
+            for (Tarea tar : td.listarTareasPorIdMiembroEquipo(me.getIdMiembroEq())) {
+               String estado = null;
+               switch(tar.getEstado()){
+                   case 0: estado = "Pendiente";break;
+                   case 1: estado = "En Progreso";break;
+                   case 2: estado = "Inactiva";break;
+                   case 3: estado = "Completada";break;
+               }
+               table.addRow(new Object[]{tar.getIdTarea(), tar.getMiembroEq().getIdMiembroEq(), tar.getNombre(), tar.getFechaCreacion(), tar.getFechaCierre(),estado});
+           }
+           jtfNombre.setText("");
+   //        jdcFechaCreacion.setDate(null);
+   //        jdcFechaCreacion.getCalendarButton().setEnabled(false);
+           jdcFechaCierre.setDate(null);
+           jdcFechaCierre.getCalendarButton().setEnabled(false);           
         }
-        jtfNombre.setText("");
-//        jdcFechaCreacion.setDate(null);
-//        jdcFechaCreacion.getCalendarButton().setEnabled(false);
-        jdcFechaCierre.setDate(null);
-        jdcFechaCierre.getCalendarButton().setEnabled(false);
     }//GEN-LAST:event_jcboxPorEquiposActionPerformed
 
     private void jcboxPorProyectosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcboxPorProyectosActionPerformed
@@ -582,9 +589,11 @@ public class TareasListasVista extends javax.swing.JInternalFrame {
             }
             table.addRow(new Object[]{tar.getIdTarea(), tar.getMiembroEq().getIdMiembroEq(), tar.getNombre(), tar.getFechaCreacion(), tar.getFechaCierre(), estado});
         }
+        jcboxPorEquipos.removeAllItems(); //---REMOVEMOS LOS ITEMS PARA QUE NO SE VAYAN ACUMULANDO---
+        initComboEquipos(pr.getIdProyecto()); //---LLENAMOS EL COMBO MIEMBROS EQUIPO CON EL ID PROYECTO QUE SE SELECCIONA---
         jtfNombre.setText("");
-//        jdcFechaCreacion.setDate(null);
-//        jdcFechaCreacion.getCalendarButton().setEnabled(false);
+    //        jdcFechaCreacion.setDate(null);
+    //        jdcFechaCreacion.getCalendarButton().setEnabled(false);
         jdcFechaCierre.setDate(null);
         jdcFechaCierre.getCalendarButton().setEnabled(false);
     }//GEN-LAST:event_jcboxPorProyectosActionPerformed
@@ -754,16 +763,6 @@ public class TareasListasVista extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnGuardarModificacionDeComentarioActionPerformed
 
-    public boolean isANumber(String numero){ //Implemento este metodo para comprobar si un campo es un número o no...
-        boolean es;
-        try{
-            Integer.parseInt(numero);
-            es = true;
-        }catch(NumberFormatException nfe){
-            es = false;
-        }
-        return es;
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarComentario;
@@ -819,11 +818,20 @@ public class TareasListasVista extends javax.swing.JInternalFrame {
         }
     }
 
-    private void initComboEquipos() {
+    private void initComboEquipos(int idProyecto) {
         MiembrosEquipoData med = new MiembrosEquipoData();
-        for (MiembrosEquipo me : med.listarTodosMiembrosEquipos()) {
-            jcboxPorEquipos.addItem(me);
+        ArrayList<MiembrosEquipo> miembrosEq = med.listarMiembrosEquipoPorIdProyecto(idProyecto); 
+        if(miembrosEq.isEmpty()){
+            jcboxPorEquipos.setEnabled(false);
+            jcboxPorEstado.setEnabled(false);
+        }else{
+            for (MiembrosEquipo me :  miembrosEq){
+                jcboxPorEquipos.addItem(me);
+            }
+            jcboxPorEquipos.setEnabled(true);
+            jcboxPorEstado.setEnabled(true);
         }
+
     }
 
     private void initComboProyectos() {

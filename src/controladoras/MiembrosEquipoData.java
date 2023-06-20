@@ -153,4 +153,27 @@ public class MiembrosEquipoData {
         }
         return miembrosEquipos;
     }
+    
+    public ArrayList<MiembrosEquipo> listarMiembrosEquipoPorIdProyecto(int idProyecto){
+        String sql = "SELECT miembrosequipo.* FROM miembrosequipo JOIN equipo ON miembrosequipo.idEquipo = equipo.idEquipo JOIN proyecto ON equipo.idProyecto = proyecto.idProyecto WHERE proyecto.idProyecto = ?";
+        ArrayList<MiembrosEquipo>miembrosEq = new ArrayList();
+        PreparedStatement ps = null;
+        try{
+            ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, idProyecto);
+            ResultSet res = ps.executeQuery();
+            while(res.next()){
+                MiembrosEquipo me = new MiembrosEquipo();
+                me.setIdMiembroEq(res.getInt("idMiembroEq"));
+                me.setEquipo(new EquipoData().buscarEquipoPorId(res.getInt("idEquipo")));
+                me.setMiembro(new MiembroData().buscarMiembroPorId(res.getInt("idMiembro")));
+                me.setFechaIncorporacion(res.getDate("fechaIncorporacion").toLocalDate());
+                miembrosEq.add(me);
+            }
+            ps.close();
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null,"Error al listar miembrosEquipo: "+ex.getMessage());
+        }
+        return miembrosEq;
+    }
 }

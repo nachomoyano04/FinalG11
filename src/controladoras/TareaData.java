@@ -72,7 +72,7 @@ public class TareaData {
 //    tareas por estado y miembro del equipo.
     public ArrayList<Tarea> listaTareasPorIdProyectos(int idProyecto){
         ArrayList<Tarea>tareas = new ArrayList();
-        String sql = "SELECT tarea.* FROM tarea JOIN miembrosequipo ON miembrosequipo.idMiembroEq = tarea.idMiembroEq JOIN equipo ON equipo.idEquipo = miembrosequipo.idEquipo JOIN proyecto ON proyecto.idProyecto = equipo.idEquipo WHERE proyecto.idProyecto = ?";
+        String sql = "SELECT tarea.* FROM tarea JOIN miembrosequipo ON miembrosequipo.idMiembroEq = tarea.idMiembroEq JOIN equipo ON equipo.idEquipo = miembrosequipo.idEquipo JOIN proyecto ON proyecto.idProyecto = equipo.idProyecto WHERE proyecto.idProyecto = ?";
         PreparedStatement ps = null;
         try{
             ps = con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
@@ -172,6 +172,31 @@ public class TareaData {
             ps.close();
         }catch(SQLException ex){
             JOptionPane.showMessageDialog(null, "Error al listar tareas por idMiembro "+ex.getMessage());
+        }
+        return tareas;
+    }
+    public ArrayList<Tarea> tareasPorMiembroEquipoyEstado(int idMiembroEquipo, int estado){
+        ArrayList<Tarea>tareas = new ArrayList();
+        String sql = "SELECT tarea.* FROM tarea WHERE idMiembroEq = ? AND estado = ?";
+        PreparedStatement ps = null;
+        try{
+            ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, idMiembroEquipo);
+            ps.setInt(2, estado);
+            ResultSet res = ps.executeQuery();
+            while(res.next()){
+                Tarea tarea = new Tarea();
+                tarea.setIdTarea(res.getInt("idTarea"));
+                tarea.setMiembroEq(new MiembrosEquipoData().buscarMiembrosEquipoPorId(res.getInt("idMiembroEq")));
+                tarea.setNombre(res.getString("nombre"));
+                tarea.setFechaCreacion(res.getDate("fechaCreacion").toLocalDate());
+                tarea.setFechaCierre(res.getDate("fechaCierre").toLocalDate());
+                tarea.setEstado(res.getInt("estado"));
+                tareas.add(tarea);
+            }
+            ps.close();
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null,"Error al listar tareas por miembro equipo y estado");
         }
         return tareas;
     }
