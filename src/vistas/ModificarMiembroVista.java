@@ -288,7 +288,7 @@ public class ModificarMiembroVista extends javax.swing.JInternalFrame {
             jrbEstadoInactivo.setSelected(true);
         }
         btnActualizar.setEnabled(true);
-        jtfDniMiembro.setEditable(true);
+        jtfDniMiembro.setEditable(false);
         jtfNombreMiembro.setEditable(true);
         jtfApellidoMiembro.setEditable(true);
 
