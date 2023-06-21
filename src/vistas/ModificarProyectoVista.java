@@ -243,41 +243,35 @@ public class ModificarProyectoVista extends javax.swing.JInternalFrame {
         java.util.Date fecha = jdcFechaInicio.getDate();
         LocalDate inicio = fecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         Proyecto proyecto = new Proyecto();
-        ProyectoData pd = new ProyectoData();
-        proyecto.setIdProyecto(Integer.parseInt(table.getValueAt(tableListaProyectos.getSelectedRow(), 0) + ""));
-
+        LocalDate fechaActual = LocalDate.now();
+        ProyectoData pd = new ProyectoData();        
         if (jtfNombreProyecto.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "El campo Nombre debe estar completo");
             jtfNombreProyecto.requestFocus();
         } else if (jtaDescripcion.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "El campo Descripcion debe estar completo");
             jtaDescripcion.requestFocus();
-        } else if (fecha != null) {
-            LocalDate fechaActual = LocalDate.now();
-            if (inicio.isBefore(fechaActual)) {
-                JOptionPane.showMessageDialog(this, "La fecha de inicio no puede ser anterior a la fecha actual", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            proyecto.setFechaInicio(inicio);
+        } else if (inicio.isBefore(fechaActual.minusDays(1))) {
+            JOptionPane.showMessageDialog(this, "La fecha de inicio no puede ser anterior a la fecha actual", "Error", JOptionPane.ERROR_MESSAGE);
             jdcFechaInicio.setEnabled(false);
-        } else {
-            JOptionPane.showMessageDialog(this, "Debe seleccionar una fecha de inicio", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
+        }else {
+            if(jrbEstadoActivo.isSelected()) {
+                proyecto.setEstado(true);
+            } else {
+                proyecto.setEstado(false);
+            }
+            proyecto.setNombre(jtfNombreProyecto.getText());
+            proyecto.setDescripcion(jtaDescripcion.getText());
+            proyecto.setFechaInicio(inicio);
+            proyecto.setIdProyecto(Integer.parseInt(table.getValueAt(tableListaProyectos.getSelectedRow(), 0) + ""));
+            pd.modificarDatosProyecto(proyecto);
+            inicializarTabla();
+            jtfNombreProyecto.setText("");
+            jtaDescripcion.setText("");
+            jdcFechaInicio.setDate(null);
+            btngEstadoProyecto.clearSelection();
+            btnActualizar.setEnabled(false);
         }
-
-        if (jrbEstadoActivo.isSelected()) {
-            proyecto.setEstado(true);
-        } else {
-            proyecto.setEstado(false);
-        }
-
-        pd.modificarDatosProyecto(proyecto);
-        inicializarTabla();
-        jtfNombreProyecto.setText("");
-        jtaDescripcion.setText("");
-        jdcFechaInicio.setDate(null);
-        btngEstadoProyecto.clearSelection();
-        btnActualizar.setEnabled(false);
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
