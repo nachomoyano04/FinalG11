@@ -1,8 +1,3 @@
-/*
- * 
- * 
- */
-
 package controladoras;
 
 import entidades.MiembrosEquipo;
@@ -11,7 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import entidades.Tarea;
-import entidades.Proyecto;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -32,7 +26,6 @@ public class TareaData {
         PreparedStatement ps = null;
         try{
             ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-//            System.out.println(tarea.getMiembroEq().getIdMiembroEq());
             ps.setInt(1, tarea.getMiembroEq().getIdMiembroEq());
             ps.setString(2,tarea.getNombre());
             ps.setDate(3, Date.valueOf(tarea.getFechaCreacion()));

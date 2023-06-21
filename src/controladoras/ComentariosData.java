@@ -6,7 +6,6 @@
 package controladoras;
 
 import entidades.Comentarios;
-import entidades.Proyecto;
 import entidades.Tarea;
 import java.sql.Connection;
 import java.sql.Date;
@@ -14,7 +13,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -46,27 +44,6 @@ public class ComentariosData {
         }
     }
 
-   /* public ArrayList<Comentarios> listarComentarios(){
-        ArrayList<Comentarios> listaComent =new ArrayList();
-        
-        try{
-            String sql = "SELECT * FROM comentarios";
-            PreparedStatement ps = con.prepareStatement(sql);
-            ResultSet res = ps.executeQuery();
-            while(res.next()){
-                Comentarios coment=new Comentarios();
-                coment.setIdComentario(res.getInt("idComentario"));
-                coment.setComentario(res.getString("comentario"));
-                coment.setFechaAvance(res.getDate("fechaAvance").toLocalDate()); 
-               // coment.setTarea(buscarTareaXiD(res.getInt("idTarea"))); //falta buscarTareaXid()
-                listaComent.add(coment);
-            }
-            ps.close();
-        }catch(SQLException ex){
-                JOptionPane.showMessageDialog(null, "Error al mostrar Comentarios");
-                }        
-        return listaComent;
-    }*/
     
     public ArrayList<Comentarios> listarComentariosXTarea(Tarea tarea){
         TareaData td=new TareaData();

@@ -108,9 +108,6 @@ public class ProyectoData {
                 proyecto.setFechaInicio(rs.getDate("fechaInicio").toLocalDate());
                 proyecto.setEstado(rs.getBoolean("estado"));
             }
-//            } else {
-//                JOptionPane.showMessageDialog(null, "No existe el proyecto");
-//            }
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla proyecto "+ex.getMessage());

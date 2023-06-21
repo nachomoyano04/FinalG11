@@ -234,23 +234,15 @@ public class AñadirTareaVista extends javax.swing.JInternalFrame {
             }else if(nombre.length()>30){ //---SE CHEQUEA QUE EL NOMBRE DE LA TAREA NO PASE LOS 30 CARACTERES---
                 JOptionPane.showMessageDialog(this, "El nombre no puede superar los 30 caracteres...");
                 jtfNombre.requestFocus();
-//            }else if(jdcFechaCreacion.getDate() == null){
-//                JOptionPane.showMessageDialog(this,"Ingrese fecha de creación");
-//                jdcFechaCreacion.requestFocus();
             }else if(jdcFechaCierre.getDate() == null){ //---SE CHEQUEA QUE SE HAYA ELEGIDO UNA FECHA DE CIERRE DE LA TAREA---
                 JOptionPane.showMessageDialog(this,"Ingrese fecha de cierre");
                 jdcFechaCierre.requestFocus();
             }else{
-//                LocalDate fechaCreacion = jdcFechaCreacion.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
                 LocalDate fechaCierre = jdcFechaCierre.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-                /*if(!(fechaCreacion.equals(LocalDate.now()))){
-                    JOptionPane.showMessageDialog(this,"La fecha de creación debe ser de hoy");
-                    jdcFechaCreacion.requestFocus();
-                }else */if((fechaCierre.isBefore(LocalDate.now()))){ //---SE CHEQUEA QUE LA FECHA DE CIERRE NO SEA ANTERIOR A LA FECHA DE HOY---
+                if((fechaCierre.isBefore(LocalDate.now()))){ //---SE CHEQUEA QUE LA FECHA DE CIERRE NO SEA ANTERIOR A LA FECHA DE HOY---
                     JOptionPane.showMessageDialog(this,"La fecha de cierre no puede ser anterior a la fecha de hoy: "+LocalDate.now());
                     jdcFechaCierre.requestFocus();
                 }else{
-//                    Tarea tarea = new Tarea(miembroEquipo, nombre, fechaCreacion, fechaCierre, estado);
                     Tarea tarea = new Tarea(miembroEquipo, nombre, LocalDate.now(), fechaCierre, estado);
                     td.asignarTareas(tarea); //---SE ASIGNA LA TAREA AL MIEMBRO DEL EQUIPO SELECCIONADO---
                     limpiar(); //---SE LIMPIAN LOS CAMPOS Y SELECCIONES---
@@ -308,7 +300,6 @@ public class AñadirTareaVista extends javax.swing.JInternalFrame {
         //---SE LIMPIA LA TABLA Y CAMPOS NOMBRE Y FECHA DE CIERRE---
         table.setRowCount(0);
         jtfNombre.setText("");
-//        jdcFechaCreacion.setDate(null);
         jdcFechaCierre.setDate(null);
     }
 }

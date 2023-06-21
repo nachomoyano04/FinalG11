@@ -8,7 +8,6 @@ import java.sql.Date;
 import javax.swing.JTextField;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.Calendar;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
@@ -253,7 +252,6 @@ public class CrearEquipoVista extends javax.swing.JInternalFrame {
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
         // TODO add your handling code here:
             jtfNombre.setText("");
-//            jdcFechaCreacion.setDate(null);
             tableDeProyectos.clearSelection();
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
@@ -270,11 +268,7 @@ public class CrearEquipoVista extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jtfNombreKeyReleased
    public void habilitarBoton(){
         if (!jtfNombre.getText().trim().isEmpty()){
-            /*Calendar calendar = Calendar.getInstance();
-            java.util.Date currentDate = calendar.getTime();
-            jdcFechaInicio.setDate(currentDate);*/
             btnCrear.setEnabled(true);    
-            //jrbEstadoActivo.setSelected(true);
         }        
     } 
 

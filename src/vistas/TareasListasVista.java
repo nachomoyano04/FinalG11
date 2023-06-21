@@ -13,7 +13,6 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
-import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
@@ -30,7 +29,6 @@ public class TareasListasVista extends javax.swing.JInternalFrame {
     public TareasListasVista() {
         initComponents();
         initTable(); //---SE INICIALIZA LA TABLA DE TAREAS CON TODOS LOS PROYECTOS---
-//        initComboEquipos();
         initComboProyectos(); //---SE INICIALIZA EL COMBOBOX DE TODOS LOS PROYECTOS---
         //---CONFIGURAMOS LA TABLA DE LISTA DE TAREAS PARA QUE SE PUEDAN SELECCIONAR SOLO UNA FILA POR VEZ---
         tableListaDeTareas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -513,7 +511,6 @@ public class TareasListasVista extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this,"Seleccione una fila a modificar");
         }else{ //SI HAY FILA SELECCIONADA SE HABILITAN CAMPO NOMBRE, FECHA CIERRE, COMBO ESTADO, BTN GUARDAR. Y BTN MODIFICAR SE DESHABILITA
             jtfNombre.setEditable(true);
-//            jdcFechaCreacion.getCalendarButton().setEnabled(true);
             jdcFechaCierre.getCalendarButton().setEnabled(true);
             jcboxEstado.setEnabled(true);
             btnGuardarModificaciones.setVisible(true);
@@ -525,6 +522,7 @@ public class TareasListasVista extends javax.swing.JInternalFrame {
         TareaData td = new TareaData();
         int estado = jcboxPorEstado.getSelectedIndex(); //---SE GUARDA EL ESTADO EN UN ENTERO PARA DESPUES USAR UN SWITCH---
         table.setRowCount(0); //---LIMPIAMOS LO ANTERIOR DE LA TABLA SETEANDO A CERO EL CONTADOR DE FILAS---
+        limpiarTablaComentarios();
         //---SE RECORRE LA LISTA DE TAREAS POR IDMIEMBROEQ Y ESTADO SELECCIONADO---
         for (Tarea tar : td.tareasPorMiembroEquipoyEstado(((MiembrosEquipo)jcboxPorEquipos.getSelectedItem()).getIdMiembroEq(), estado)) {
             String estado1 = null;
@@ -539,7 +537,6 @@ public class TareasListasVista extends javax.swing.JInternalFrame {
         // ---SE LIMPIA TXTFIELD NOMBRE Y FECHAS---
         jtfNombre.setText("");
         jdcFechaCreacion.setDate(null);
-//        jdcFechaCreacion.getCalendarButton().setEnabled(false);
         jdcFechaCierre.setDate(null);
         jdcFechaCierre.getCalendarButton().setEnabled(false);
         //---DESHABILITAMOS LOS BOTONES DE MODIFICAR TAREA, MODIFICAR COMENTARIO Y AGREGAR COMENTARIO---
@@ -550,6 +547,7 @@ public class TareasListasVista extends javax.swing.JInternalFrame {
 
     private void jcboxPorEquiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcboxPorEquiposActionPerformed
         table.setRowCount(0);
+        limpiarTablaComentarios();
         TareaData td = new TareaData();
         MiembrosEquipo me = (MiembrosEquipo) jcboxPorEquipos.getSelectedItem();
         if(me != null){ //---CHEQUEAMOS QUE NO ESTE NULO EL INDEX DEL JCOMBOBOX POR EQUIPOS---
@@ -566,7 +564,6 @@ public class TareasListasVista extends javax.swing.JInternalFrame {
             //---LIMPIAMOS EL JTFIELD NOMBRE Y FECHAS---
            jtfNombre.setText("");
            jdcFechaCreacion.setDate(null);
-   //        jdcFechaCreacion.getCalendarButton().setEnabled(false);
            jdcFechaCierre.setDate(null);
            jdcFechaCierre.getCalendarButton().setEnabled(false);
             //---DESHABILITAMOS LOS BOTONES DE MODIFICAR TAREA, MODIFICAR COMENTARIO Y AGREGAR COMENTARIO---
@@ -595,13 +592,13 @@ public class TareasListasVista extends javax.swing.JInternalFrame {
         initComboEquipos(pr.getIdProyecto()); //---LLENAMOS EL COMBO MIEMBROS EQUIPO CON EL ID PROYECTO QUE SE SELECCIONA---
         jtfNombre.setText("");
         jdcFechaCreacion.setDate(null);
-    //        jdcFechaCreacion.getCalendarButton().setEnabled(false);
         jdcFechaCierre.setDate(null);
         jdcFechaCierre.getCalendarButton().setEnabled(false);
         //---DESHABILITAMOS LOS BOTONES DE MODIFICAR TAREA, MODIFICAR COMENTARIO Y AGREGAR COMENTARIO---
         btnAgregarComentario.setEnabled(false);
         btnModificar.setEnabled(false);
         btnModificarComentario.setEnabled(false);
+        limpiarTablaComentarios();
     }//GEN-LAST:event_jcboxPorProyectosActionPerformed
 
     private void tableListaDeTareasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableListaDeTareasMouseClicked
@@ -623,7 +620,6 @@ public class TareasListasVista extends javax.swing.JInternalFrame {
         }
         //---SE SETEA EL INDEX DEL COMBO ESTADO---
         jcboxEstado.setSelectedIndex(indice);
-//        jdcFechaCreacion.getCalendarButton().setEnabled(false);
         //---SE DESHABILITAN LOS JCALENDAR BUTTON DE LAS FECHAS---
         jdcFechaCierre.getCalendarButton().setEnabled(false);
         jdcFechaAvanceComentarios.getCalendarButton().setEnabled(false);
@@ -654,9 +650,6 @@ public class TareasListasVista extends javax.swing.JInternalFrame {
         }else if(jtfNombre.getText().length() > 30){ //---SE CHEQUEA QUE EL CAMPO NOMBRE NO SUPERE LOS 30 CARACTERES---
             JOptionPane.showMessageDialog(this,"El nombre no debe superar los 30 caracteres...");
             jtfNombre.requestFocus();
-//        }else if(jdcFechaCreacion.getDate() == null){
-//            JOptionPane.showMessageDialog(this,"El campo fecha creacion no debe estar nulo");
-//            jdcFechaCreacion.requestFocus();
         }else if(jdcFechaCierre.getDate() == null){ //---SE CHEQUEA QUE SE HAYA SELECCIONADO UNA FECHA DE CIERRE---
             JOptionPane.showMessageDialog(this,"El campo fecha cierre no debe estar nulo");
             jdcFechaCierre.requestFocus();
@@ -854,6 +847,11 @@ public class TareasListasVista extends javax.swing.JInternalFrame {
         }
     }
 
+    private void limpiarTablaComentarios(){
+        tableComentarios = (DefaultTableModel) tableComentariosSobreTareas.getModel();
+        tableComentarios.setRowCount(0);
+    }
+    
     private void llenarTablaComentarios() {
         //---SE LLENA LA TABLA DE COMENTARIOS---
         tableComentarios = (DefaultTableModel) tableComentariosSobreTareas.getModel();

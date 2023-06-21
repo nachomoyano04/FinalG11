@@ -343,14 +343,12 @@ public class EquiposListasVista extends javax.swing.JInternalFrame {
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
         //---SE LIMPIAN IMPUTS, SELECCION DE TABLA, Y DESHABILITAN BOTONES HASTA QUE NO SELECCIONEN UNA FILA DE LA TABLA---
         jtfEstado.setText("");
-//        jdcFechaCreacion.setDate(null);
         jtfNombre.setText("");
         tableDeEquipos.clearSelection();
         btnDarDeBajaEquipo.setEnabled(false);
         btnDarDeAltaEquipo.setEnabled(false);
         btnModificarEquipo.setEnabled(false);
         btnGuardarModificaciones.setVisible(false);
-//        jdcFechaCreacion.getCalendarButton().setEnabled(false);
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btnDarDeBajaEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDarDeBajaEquipoActionPerformed
@@ -429,7 +427,6 @@ public class EquiposListasVista extends javax.swing.JInternalFrame {
         btnDarDeBajaEquipo.setEnabled(false);
         jtfNombre.setEditable(true);
         jtfNombre.requestFocus();
-//        jdcFechaCreacion.getCalendarButton().setEnabled(true);
     }//GEN-LAST:event_btnModificarEquipoActionPerformed
 
     private void btnDarDeAltaEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDarDeAltaEquipoActionPerformed
@@ -462,9 +459,6 @@ public class EquiposListasVista extends javax.swing.JInternalFrame {
         } else if (nombre.length() > 50) {//---SE CHEQUEA QUE EL NOMBRE NO SUPERE LOS 50 CARACTERES---
             JOptionPane.showMessageDialog(this, "El nombre no puede ser mayor a 50 caracteres...");
             jtfNombre.requestFocus();
-//        }else if(jdcFechaCreacion.getDate() == null){
-//            JOptionPane.showMessageDialog(this, "Debe ingresar una fecha de creación...");
-//            jdcFechaCreacion.requestFocus();
         } else {
             //---SE MODIFICA EL EQUIPO Y SE SETEAN LOS CAMPOS DE LA FILA---
             LocalDate fechaCreacion = jdcFechaCreacion.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
