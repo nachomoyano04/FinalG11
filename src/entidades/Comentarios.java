@@ -5,7 +5,7 @@
 package entidades;
 
 import java.time.LocalDate;
-
+D
 /**
  *
  * @author TECNOVENTAS
@@ -15,7 +15,7 @@ public class Comentarios {
     private int idComentario;
     private Tarea tarea;
     private String comentario;
-    private LocalDate fechaAvance;
+    private String fechaAvance;
 
     public Comentarios() {
     }
